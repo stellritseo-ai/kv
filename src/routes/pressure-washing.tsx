@@ -45,18 +45,34 @@ import yelpBadge from "@/assets/yelp-badge.png";
 import bbbBadge from "@/assets/bbb-badge.png";
 import homeadvisorBadge from "@/assets/homeadvisor-badge.png";
 
+import { getBreadcrumbSchema, getFAQSchema, getServiceSchema } from "@/lib/seo-schema";
+
 export const Route = createFileRoute("/pressure-washing")({
   head: () => ({
     meta: [
-      { title: "Pressure Washing Services - Right Lane Handyman Services, LLC | Clearwater, FL" },
+      { title: "Pressure Washing in Tampa & Clearwater, FL | Right Lane" },
       {
         name: "description",
         content:
-          "Professional residential, commercial & industrial pressure washing and soft washing in Clearwater, Largo, St. Petersburg & all Pinellas County. Call (727) 642-0201.",
+          "Professional pressure washing and soft washing in Tampa, Clearwater, and across Hillsborough & Pinellas Counties. Driveways, pool decks, siding & patios. Call (727) 642-0201.",
       },
       { property: "og:title", content: "Pressure Washing Services - Right Lane Handyman" },
-      { property: "og:description", content: "Restore your property's beauty. High-performance driveways, decks, roofs soft wash, storefront entryways clearing." },
+      {
+        property: "og:description",
+        content:
+          "Restore your property's curb appeal. High-performance driveway, deck, patio, fence, and exterior building cleaning in Tampa Bay.",
+      },
       { property: "og:type", content: "website" },
+      {
+        property: "og:url",
+        content: "https://www.rightlanehandymanservicellc.com/pressure-washing",
+      },
+    ],
+    links: [
+      {
+        rel: "canonical",
+        href: "https://www.rightlanehandymanservicellc.com/pressure-washing",
+      },
     ],
   }),
   component: PressureWashingPage,
@@ -352,8 +368,36 @@ function PressureWashingPage() {
     }
   };
 
+  const breadcrumbSchema = getBreadcrumbSchema([
+    { name: "Home", url: "/" },
+    { name: "Services", url: "/services" },
+    { name: "Pressure Washing", url: "/pressure-washing" },
+  ]);
+
+  const serviceSchema = getServiceSchema({
+    name: "Pressure Washing & Surface Cleaning Services",
+    description:
+      "High-powered pressure washing and soft washing for residential and commercial properties across Tampa Bay, FL.",
+    serviceType: "Pressure Washing Services",
+    url: "/pressure-washing",
+  });
+
+  const faqSchema = getFAQSchema(FAQS);
+
   return (
     <div className="min-h-screen bg-[#f4f3ef] font-sans">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
       <SiteHeader />
 
       {/* ── HERO ── */}
@@ -375,13 +419,13 @@ function PressureWashingPage() {
             className="relative z-20 max-w-4xl mx-auto flex flex-col items-center bg-black/40 backdrop-blur-md rounded-2xl p-6 sm:p-10 border border-white/10"
           >
             <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/20 bg-white/10 text-white text-xs font-semibold uppercase tracking-wider mb-6 shadow-sm">
-              💦 Professional Grade Pressure Clean
+              💦 Professional Surface Restoration
             </span>
             <h1 className="text-[32px] sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight tracking-tight drop-shadow-md">
-              Pressure Washing Services
+              Pressure Washing Services in Tampa Bay, FL
             </h1>
             <p className="mt-3 text-xs sm:text-sm text-neutral-300 font-medium uppercase tracking-widest text-copper">
-              Restore Your Property's Beauty with Professional Pressure Washing
+              Restore Your Home or Commercial Curb Appeal Across Hillsborough &amp; Pinellas Counties
             </p>
             <p className="mt-5 text-sm sm:text-base text-neutral-300 font-light leading-relaxed max-w-3xl">
               Over time, dirt, grime, mold, and mildew can build up on your property's surfaces, leaving them looking dull and neglected. At Right Lane Handyman Services, LLC, we bring years of experience and professional-grade equipment to restore the beauty of your home or business. From driveways and decks to commercial building exteriors, we deliver outstanding results that leave your property looking brand new.

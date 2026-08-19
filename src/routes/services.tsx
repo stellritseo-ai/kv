@@ -42,15 +42,31 @@ import welBg from "@/assets/wel-bg.png";
 import heroBg from "@/assets/wel-img.png";
 import imgLeasing from "@/assets/svc-leasing-licensing.png";
 import imgPropertyCare from "@/assets/svc-property-care.png";
+import { getBreadcrumbSchema, getServiceSchema } from "@/lib/seo-schema";
 
 export const Route = createFileRoute("/services")({
   head: () => ({
     meta: [
-      { title: "Our Services — Right Lane Handyman Services, LLC, Clearwater" },
-      { name: "description", content: "Explore our comprehensive range of residential and commercial design-build solutions, home remodeling, outdoor living spaces, fireplaces, landscaping, and construction services in Clearwater, FL." },
-      { property: "og:title", content: "Our Services — Right Lane Handyman Services, LLC" },
-      { property: "og:description", content: "Over 25+ Years of trusted craftsmanship, license, and owner-led oversight in Clearwater, Texas." },
-      { property: "og:type", content: "website" }
+      { title: "Handyman Services in Tampa, FL & Tampa Bay | Right Lane Handyman" },
+      {
+        name: "description",
+        content:
+          "Explore professional handyman, home repair, property maintenance, pressure washing, demolition & hauling services across Tampa Bay, FL. Call (727) 642-0201.",
+      },
+      { property: "og:title", content: "Handyman Services in Tampa, FL & Tampa Bay | Right Lane Handyman" },
+      {
+        property: "og:description",
+        content:
+          "Over 25+ Years of trusted craftsmanship, licensed & insured protection across Tampa, Hillsborough County, and Pinellas County, Florida.",
+      },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://www.rightlanehandymanservicellc.com/services" },
+    ],
+    links: [
+      {
+        rel: "canonical",
+        href: "https://www.rightlanehandymanservicellc.com/services",
+      },
     ],
   }),
   component: ServicesPage,
@@ -291,6 +307,17 @@ function ServicesPage() {
 
   return (
     <div className="min-h-screen bg-[#f4f3ef] font-sans">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            getBreadcrumbSchema([
+              { name: "Home", url: "/" },
+              { name: "Services", url: "/services" },
+            ])
+          ),
+        }}
+      />
       <SiteHeader />
 
       {/* ── CINEMATIC HERO SECTION ── */}
@@ -325,12 +352,12 @@ function ServicesPage() {
               className="text-[32px] sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight capitalize tracking-tight drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)]"
               style={{ fontFamily: "Georgia, serif" }}
             >
-              Comprehensive Design & Construction Solutions for Your Property
+              Professional Handyman &amp; Home Repair Services in Tampa Bay, FL
             </h1>
 
             {/* Subtitle */}
             <p className="mt-6 text-sm md:text-base text-neutral-300 font-light leading-relaxed max-w-3xl mx-auto">
-              At Right Lane Handyman Services, LLC, we offer a full spectrum of residential and commercial services designed to transform your property into a space of beauty, function, and lasting value. With over 25+ Years of experience, the Right Lane team and our skilled team bring unmatched craftsmanship, integrity, and attention to detail to every project—from the smallest repair to the most ambitious new construction.
+              At Right Lane Handyman Services, LLC, we offer a comprehensive suite of residential and commercial services across Tampa, Hillsborough County, and Pinellas County. With over 25+ Years of hands-on trade experience, Ronnie Lane and our skilled crew deliver quality craftsmanship, upfront pricing, and guaranteed results.
             </p>
           </motion.div>
 

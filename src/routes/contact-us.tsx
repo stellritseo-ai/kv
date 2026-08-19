@@ -31,14 +31,31 @@ import bbbBadge from "@/assets/bbb-badge.png";
 import yelpBadge from "@/assets/yelp-badge.png";
 import homeAdvisorBadge from "@/assets/homeadvisor-badge.png";
 
+import { getBreadcrumbSchema } from "@/lib/seo-schema";
+
 export const Route = createFileRoute("/contact-us")({
   head: () => ({
     meta: [
-      { title: "Contact Us - Right Lane Handyman Services, LLC | Clearwater, FL" },
-      { name: "description", content: "Contact Ronnie and the Right Lane team today for a free, no-obligation estimate. Servicing Clearwater, Largo, St. Petersburg & all Pinellas County. 24/7 emergency storm cleanup." },
+      { title: "Contact Right Lane Handyman Services | Tampa & Clearwater, FL" },
+      {
+        name: "description",
+        content:
+          "Contact Ronnie Lane at Right Lane Handyman Services LLC for free estimates on handyman repairs, property maintenance & hauling in Tampa Bay. Call (727) 642-0201.",
+      },
       { property: "og:title", content: "Contact Right Lane Handyman Services, LLC" },
-      { property: "og:description", content: "Get in touch for professional remodeling, pressure washing, junk removal, and handyman solutions in Pinellas County. Call (727) 642-0201." },
-      { property: "og:type", content: "website" }
+      {
+        property: "og:description",
+        content:
+          "Get in touch for professional home repairs, pressure washing, junk removal, and handyman solutions across Tampa, Hillsborough, and Pinellas Counties. Call (727) 642-0201.",
+      },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://www.rightlanehandymanservicellc.com/contact-us" },
+    ],
+    links: [
+      {
+        rel: "canonical",
+        href: "https://www.rightlanehandymanservicellc.com/contact-us",
+      },
     ],
   }),
   component: ContactUsPage,
@@ -185,14 +202,22 @@ function ContactUsPage() {
   const toggleFAQ = (idx: number) => {
     setExpandedFAQ(expandedFAQ === idx ? null : idx);
   };
+  const breadcrumbSchema = getBreadcrumbSchema([
+    { name: "Home", url: "/" },
+    { name: "Contact Us", url: "/contact-us" },
+  ]);
 
   return (
     <div className="min-h-screen bg-[#f4f3ef] font-sans">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
       <SiteHeader />
 
-      {/* ── HERO BANNER ── */}
+      {/* ── CINEMATIC HERO SECTION ── */}
       <div className="w-full bg-[#f4f3ef] pt-[5px] pb-[5px] px-[15px]">
-        <section className="relative mx-auto max-w-[1400px] w-full rounded-[10px] overflow-hidden border border-[#eae8e1] shadow-[0_12px_40px_rgb(0,0,0,0.06)] min-h-[360px] md:min-h-[440px] flex items-center justify-center text-center px-6 py-16">
+        <section className="relative mx-auto max-w-[1400px] w-full rounded-[10px] overflow-hidden border border-[#eae8e1] shadow-[0_12px_40px_rgb(0,0,0,0.06)] min-h-[380px] md:min-h-[480px] flex items-center justify-center text-center px-6 py-16">
           <motion.div
             initial={{ scale: 1.05, opacity: 0.95 }}
             animate={{ scale: 1, opacity: 1 }}
@@ -212,10 +237,10 @@ function ContactUsPage() {
               Contact Us
             </span>
             <h1 className="text-[28px] sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight capitalize tracking-tight drop-shadow-md">
-              Get in Touch with Right Lane
+              Contact Right Lane Handyman Services in Tampa Bay
             </h1>
             <p className="mt-4 text-sm sm:text-base text-neutral-300 font-light leading-relaxed max-w-2xl">
-              Ready to tackle your next project? Whether you need a quick repair, a major demolition, heavy junk removal, or a complete property cleanout, we're here to help. Contact Ronnie and the Right Lane team today.
+              Ready to tackle your next project? Whether you need a quick repair, a major demolition, heavy junk removal, or a complete property cleanout, we're here to help across Hillsborough &amp; Pinellas Counties.
             </p>
           </motion.div>
         </section>

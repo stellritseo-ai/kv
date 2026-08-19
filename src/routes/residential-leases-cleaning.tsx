@@ -17,18 +17,34 @@ import yelpBadge from "@/assets/yelp-badge.png";
 import bbbBadge from "@/assets/bbb-badge.png";
 import homeadvisorBadge from "@/assets/homeadvisor-badge.png";
 
+import { getBreadcrumbSchema, getFAQSchema, getServiceSchema } from "@/lib/seo-schema";
+
 export const Route = createFileRoute("/residential-leases-cleaning")({
   head: () => ({
     meta: [
-      { title: "Residential Leases Cleaning Service - Right Lane Handyman Services, LLC | Clearwater, FL" },
+      { title: "Residential Lease & Move-Out Cleaning in Tampa, FL | Right Lane" },
       {
         name: "description",
         content:
-          "Professional residential lease cleaning in Clearwater, Tampa Bay Area, Hillsborough & Pinellas County. Move-in and move-out deep cleaning for apartments, condos, and houses. Call (727) 642-0201.",
+          "Professional residential lease, move-in & move-out deep cleaning for apartments, condos, and houses in Tampa, Clearwater, and Hillsborough & Pinellas Counties. Call (727) 642-0201.",
       },
       { property: "og:title", content: "Residential Leases Cleaning - Right Lane Handyman" },
-      { property: "og:description", content: "Move-in and move-out deep cleaning for apartments, condominiums, townhouses, and single-family homes. Get your deposit back." },
+      {
+        property: "og:description",
+        content:
+          "Move-in and move-out deep cleaning for apartments, condominiums, townhouses, and single-family homes across Tampa Bay. Recover your deposit.",
+      },
       { property: "og:type", content: "website" },
+      {
+        property: "og:url",
+        content: "https://www.rightlanehandymanservicellc.com/residential-leases-cleaning",
+      },
+    ],
+    links: [
+      {
+        rel: "canonical",
+        href: "https://www.rightlanehandymanservicellc.com/residential-leases-cleaning",
+      },
     ],
   }),
   component: ResidentialLeasesCleaningPage,
@@ -117,8 +133,36 @@ function ResidentialLeasesCleaningPage() {
     }
   };
 
+  const breadcrumbSchema = getBreadcrumbSchema([
+    { name: "Home", url: "/" },
+    { name: "Services", url: "/services" },
+    { name: "Residential Leases Cleaning", url: "/residential-leases-cleaning" },
+  ]);
+
+  const serviceSchema = getServiceSchema({
+    name: "Residential Leases & Move-Out Cleaning Services",
+    description:
+      "Move-in and move-out deep cleaning for apartments, condos, and houses across Tampa Bay, FL.",
+    serviceType: "Residential Cleaning Services",
+    url: "/residential-leases-cleaning",
+  });
+
+  const faqSchema = getFAQSchema(FAQS);
+
   return (
     <div className="min-h-screen bg-[#f4f3ef] font-sans">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
       <SiteHeader />
 
       {/* HERO */}
@@ -127,9 +171,9 @@ function ResidentialLeasesCleaningPage() {
           <motion.div initial={{ scale: 1.05 }} animate={{ scale: 1 }} transition={{ duration: 1.8, ease: [0.16, 1, 0.3, 1] }} className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url(${imgHero})` }} />
           <div className="absolute inset-0 bg-gradient-to-b from-[#1c140d]/94 via-[#1c140d]/82 to-[#1c140d]/94 z-10" />
           <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="relative z-20 max-w-4xl mx-auto flex flex-col items-center bg-black/40 backdrop-blur-md rounded-2xl p-6 sm:p-10 border border-white/10">
-            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/20 bg-white/10 text-white text-xs font-semibold uppercase tracking-wider mb-6">🏡 Move-In & Move-Out Cleaning</span>
-            <h1 className="text-[32px] sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight tracking-tight drop-shadow-md">Residential Leases Cleaning</h1>
-            <p className="mt-3 text-xs sm:text-sm text-neutral-300 font-medium uppercase tracking-widest">Apartments, Condos & Houses – Tampa Bay Area</p>
+            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/20 bg-white/10 text-white text-xs font-semibold uppercase tracking-wider mb-6">🏡 Move-In &amp; Move-Out Cleaning</span>
+            <h1 className="text-[32px] sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight tracking-tight drop-shadow-md">Residential Lease &amp; Move-Out Cleaning in Tampa Bay</h1>
+            <p className="mt-3 text-xs sm:text-sm text-neutral-300 font-medium uppercase tracking-widest">Apartments, Condos &amp; Houses Across Hillsborough &amp; Pinellas Counties</p>
             <p className="mt-5 text-sm sm:text-base text-neutral-300 font-light leading-relaxed max-w-3xl">Moving in or out? Right Lane Handyman Services, LLC provides professional residential lease cleaning for apartments, condominiums, townhouses, and single-family homes across the Tampa Bay Area. From studio apartments to large family homes, we clean to lease-standard quality so you can move confidently and recover your deposit.</p>
             <div className="mt-8 flex flex-wrap justify-center gap-6 items-center opacity-90">
               <img src={bbbBadge} alt="BBB" className="h-10 sm:h-12 w-auto object-contain filter drop-shadow-md" />

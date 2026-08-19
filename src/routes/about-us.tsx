@@ -25,14 +25,31 @@ import welImg from "@/assets/wel-img.png";
 import heroImage from "@/assets/wel-img.png";
 import statsJobsite from "@/assets/stats-cleanup.png";
 
+import { getBreadcrumbSchema } from "@/lib/seo-schema";
+
 export const Route = createFileRoute("/about-us")({
   head: () => ({
     meta: [
-      { title: "About Us - Right Lane Handyman Services, LLC | Clearwater, FL" },
-      { name: "description", content: "Learn about Right Lane Handyman Services, LLC - Clearwater's trusted handyman, remodeling & hauling experts with over 25 years of experience. Fully licensed, insured, and bonded." },
+      { title: "About Right Lane Handyman Services | 25+ Years in Tampa Bay, FL" },
+      {
+        name: "description",
+        content:
+          "Meet Right Lane Handyman Services LLC. 25+ years of trusted home repairs, property maintenance, and hauling across Tampa, Clearwater, and Hillsborough & Pinellas Counties. Call (727) 642-0201.",
+      },
       { property: "og:title", content: "About Right Lane Handyman Services, LLC" },
-      { property: "og:description", content: "Pinellas County's premier handyman, remodeling, and hauling team led by Ronnie Lane. Over 25 years of professional service." },
-      { property: "og:type", content: "website" }
+      {
+        property: "og:description",
+        content:
+          "Tampa Bay's premier handyman, property maintenance, and hauling team led by Ronnie Lane. Over 25 years of professional trade service.",
+      },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://www.rightlanehandymanservicellc.com/about-us" },
+    ],
+    links: [
+      {
+        rel: "canonical",
+        href: "https://www.rightlanehandymanservicellc.com/about-us",
+      },
     ],
   }),
   component: AboutUsPage,
@@ -140,8 +157,17 @@ function AboutUsPage() {
     },
   ];
 
+  const breadcrumbSchema = getBreadcrumbSchema([
+    { name: "Home", url: "/" },
+    { name: "About Us", url: "/about-us" },
+  ]);
+
   return (
     <div className="min-h-screen bg-[#f4f3ef] font-sans">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
       <SiteHeader />
 
       {/* ── HERO BANNER ── */}
@@ -166,10 +192,10 @@ function AboutUsPage() {
               About Right Lane Handyman Services, LLC
             </span>
             <h1 className="text-[28px] sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight capitalize tracking-tight drop-shadow-md">
-              Clearwater's Trusted Handyman<br /> & Hauling Experts
+              Tampa Bay's Trusted Handyman<br /> &amp; Home Repair Experts
             </h1>
             <p className="mt-4 text-sm sm:text-base md:text-lg text-neutral-200 font-light max-w-2xl">
-              Bringing over a quarter-century of hands-on experience, premium craftsmanship, and professional care to Pinellas County.
+              Bringing over a quarter-century of hands-on experience, premium craftsmanship, and professional care across Hillsborough and Pinellas Counties.
             </p>
           </motion.div>
         </section>

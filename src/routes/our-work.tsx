@@ -33,14 +33,31 @@ import imgHandyman from "@/assets/svc-maintenance.png";
 import imgCleaning from "@/assets/svc-cleaning.png";
 import imgFencing from "@/assets/svc-fencing.jpg";
 
+import { getBreadcrumbSchema } from "@/lib/seo-schema";
+
 export const Route = createFileRoute("/our-work")({
   head: () => ({
     meta: [
-      { title: "Our Work & Portfolio - Right Lane Handyman Services, LLC | Clearwater, FL" },
-      { name: "description", content: "Explore the Right Lane Handyman Services, LLC portfolio. View completed projects in home remodeling, pressure washing, demolition, junk removal, and landscaping in Pinellas County." },
-      { property: "og:title", content: "Our Work & Portfolio - Right Lane Handyman Services, LLC" },
-      { property: "og:description", content: "Browse our featured design-build projects and property maintenance transformations in Clearwater and surrounding areas." },
-      { property: "og:type", content: "website" }
+      { title: "Project Portfolio & Completed Work | Right Lane Handyman Tampa Bay" },
+      {
+        name: "description",
+        content:
+          "Browse completed handyman repairs, pressure washing, demolition, landscaping & property maintenance projects across Tampa, Clearwater, and Hillsborough & Pinellas Counties.",
+      },
+      { property: "og:title", content: "Our Work & Portfolio - Right Lane Handyman Services" },
+      {
+        property: "og:description",
+        content:
+          "Browse our featured home repair, hauling, and property maintenance transformations across Tampa Bay.",
+      },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://www.rightlanehandymanservicellc.com/our-work" },
+    ],
+    links: [
+      {
+        rel: "canonical",
+        href: "https://www.rightlanehandymanservicellc.com/our-work",
+      },
     ],
   }),
   component: OurWorkPage,
@@ -283,8 +300,17 @@ function OurWorkPage() {
     ? galleryItems
     : galleryItems.filter(item => item.category === activeFilter);
 
+  const breadcrumbSchema = getBreadcrumbSchema([
+    { name: "Home", url: "/" },
+    { name: "Our Work", url: "/our-work" },
+  ]);
+
   return (
     <div className="min-h-screen bg-[#f4f3ef] font-sans">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
       <SiteHeader />
 
       {/* ── HERO BANNER ── */}
@@ -309,10 +335,10 @@ function OurWorkPage() {
               Our Work
             </span>
             <h1 className="text-[28px] sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight capitalize tracking-tight drop-shadow-md">
-              See What We Can Do For You
+              Our Completed Work &amp; Projects in Tampa Bay, FL
             </h1>
             <p className="mt-4 text-sm sm:text-base text-neutral-300 font-light leading-relaxed max-w-2xl">
-              At Right Lane Handyman Services, LLC, we take pride in delivering exceptional results for every client. Browse through our portfolio to see the quality and craftsmanship we bring to every job site across Clearwater and Pinellas County.
+              At Right Lane Handyman Services, LLC, we take pride in delivering exceptional results for every client. Browse through our portfolio to see the quality and craftsmanship we bring to every job site across Tampa, Clearwater, and Pinellas &amp; Hillsborough Counties.
             </p>
           </motion.div>
         </section>

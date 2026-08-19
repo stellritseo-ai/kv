@@ -39,6 +39,13 @@ import { Route as BankOccupancyLicencesRouteImport } from './routes/bank-occupan
 import { Route as AboutUsRouteImport } from './routes/about-us'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ServiceAreasIndexRouteImport } from './routes/service-areas/index'
+import { Route as ServiceAreasTampaFlRouteImport } from './routes/service-areas/tampa-fl'
+import { Route as ServiceAreasStPetersburgFlRouteImport } from './routes/service-areas/st-petersburg-fl'
+import { Route as ServiceAreasPinellasCountyFlRouteImport } from './routes/service-areas/pinellas-county-fl'
+import { Route as ServiceAreasHillsboroughCountyFlRouteImport } from './routes/service-areas/hillsborough-county-fl'
+import { Route as ServiceAreasClearwaterFlRouteImport } from './routes/service-areas/clearwater-fl'
+import { Route as ServiceAreasBrandonFlRouteImport } from './routes/service-areas/brandon-fl'
 
 const WorkRoute = WorkRouteImport.update({
   id: '/work',
@@ -196,6 +203,45 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ServiceAreasIndexRoute = ServiceAreasIndexRouteImport.update({
+  id: '/service-areas/',
+  path: '/service-areas/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ServiceAreasTampaFlRoute = ServiceAreasTampaFlRouteImport.update({
+  id: '/service-areas/tampa-fl',
+  path: '/service-areas/tampa-fl',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ServiceAreasStPetersburgFlRoute =
+  ServiceAreasStPetersburgFlRouteImport.update({
+    id: '/service-areas/st-petersburg-fl',
+    path: '/service-areas/st-petersburg-fl',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ServiceAreasPinellasCountyFlRoute =
+  ServiceAreasPinellasCountyFlRouteImport.update({
+    id: '/service-areas/pinellas-county-fl',
+    path: '/service-areas/pinellas-county-fl',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ServiceAreasHillsboroughCountyFlRoute =
+  ServiceAreasHillsboroughCountyFlRouteImport.update({
+    id: '/service-areas/hillsborough-county-fl',
+    path: '/service-areas/hillsborough-county-fl',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ServiceAreasClearwaterFlRoute =
+  ServiceAreasClearwaterFlRouteImport.update({
+    id: '/service-areas/clearwater-fl',
+    path: '/service-areas/clearwater-fl',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ServiceAreasBrandonFlRoute = ServiceAreasBrandonFlRouteImport.update({
+  id: '/service-areas/brandon-fl',
+  path: '/service-areas/brandon-fl',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -228,6 +274,13 @@ export interface FileRoutesByFullPath {
   '/waste-debris-removal': typeof WasteDebrisRemovalRoute
   '/window-cleaning-removal': typeof WindowCleaningRemovalRoute
   '/work': typeof WorkRoute
+  '/service-areas/brandon-fl': typeof ServiceAreasBrandonFlRoute
+  '/service-areas/clearwater-fl': typeof ServiceAreasClearwaterFlRoute
+  '/service-areas/hillsborough-county-fl': typeof ServiceAreasHillsboroughCountyFlRoute
+  '/service-areas/pinellas-county-fl': typeof ServiceAreasPinellasCountyFlRoute
+  '/service-areas/st-petersburg-fl': typeof ServiceAreasStPetersburgFlRoute
+  '/service-areas/tampa-fl': typeof ServiceAreasTampaFlRoute
+  '/service-areas/': typeof ServiceAreasIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -260,6 +313,13 @@ export interface FileRoutesByTo {
   '/waste-debris-removal': typeof WasteDebrisRemovalRoute
   '/window-cleaning-removal': typeof WindowCleaningRemovalRoute
   '/work': typeof WorkRoute
+  '/service-areas/brandon-fl': typeof ServiceAreasBrandonFlRoute
+  '/service-areas/clearwater-fl': typeof ServiceAreasClearwaterFlRoute
+  '/service-areas/hillsborough-county-fl': typeof ServiceAreasHillsboroughCountyFlRoute
+  '/service-areas/pinellas-county-fl': typeof ServiceAreasPinellasCountyFlRoute
+  '/service-areas/st-petersburg-fl': typeof ServiceAreasStPetersburgFlRoute
+  '/service-areas/tampa-fl': typeof ServiceAreasTampaFlRoute
+  '/service-areas': typeof ServiceAreasIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -293,6 +353,13 @@ export interface FileRoutesById {
   '/waste-debris-removal': typeof WasteDebrisRemovalRoute
   '/window-cleaning-removal': typeof WindowCleaningRemovalRoute
   '/work': typeof WorkRoute
+  '/service-areas/brandon-fl': typeof ServiceAreasBrandonFlRoute
+  '/service-areas/clearwater-fl': typeof ServiceAreasClearwaterFlRoute
+  '/service-areas/hillsborough-county-fl': typeof ServiceAreasHillsboroughCountyFlRoute
+  '/service-areas/pinellas-county-fl': typeof ServiceAreasPinellasCountyFlRoute
+  '/service-areas/st-petersburg-fl': typeof ServiceAreasStPetersburgFlRoute
+  '/service-areas/tampa-fl': typeof ServiceAreasTampaFlRoute
+  '/service-areas/': typeof ServiceAreasIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -327,6 +394,13 @@ export interface FileRouteTypes {
     | '/waste-debris-removal'
     | '/window-cleaning-removal'
     | '/work'
+    | '/service-areas/brandon-fl'
+    | '/service-areas/clearwater-fl'
+    | '/service-areas/hillsborough-county-fl'
+    | '/service-areas/pinellas-county-fl'
+    | '/service-areas/st-petersburg-fl'
+    | '/service-areas/tampa-fl'
+    | '/service-areas/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -359,6 +433,13 @@ export interface FileRouteTypes {
     | '/waste-debris-removal'
     | '/window-cleaning-removal'
     | '/work'
+    | '/service-areas/brandon-fl'
+    | '/service-areas/clearwater-fl'
+    | '/service-areas/hillsborough-county-fl'
+    | '/service-areas/pinellas-county-fl'
+    | '/service-areas/st-petersburg-fl'
+    | '/service-areas/tampa-fl'
+    | '/service-areas'
   id:
     | '__root__'
     | '/'
@@ -391,6 +472,13 @@ export interface FileRouteTypes {
     | '/waste-debris-removal'
     | '/window-cleaning-removal'
     | '/work'
+    | '/service-areas/brandon-fl'
+    | '/service-areas/clearwater-fl'
+    | '/service-areas/hillsborough-county-fl'
+    | '/service-areas/pinellas-county-fl'
+    | '/service-areas/st-petersburg-fl'
+    | '/service-areas/tampa-fl'
+    | '/service-areas/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -424,6 +512,13 @@ export interface RootRouteChildren {
   WasteDebrisRemovalRoute: typeof WasteDebrisRemovalRoute
   WindowCleaningRemovalRoute: typeof WindowCleaningRemovalRoute
   WorkRoute: typeof WorkRoute
+  ServiceAreasBrandonFlRoute: typeof ServiceAreasBrandonFlRoute
+  ServiceAreasClearwaterFlRoute: typeof ServiceAreasClearwaterFlRoute
+  ServiceAreasHillsboroughCountyFlRoute: typeof ServiceAreasHillsboroughCountyFlRoute
+  ServiceAreasPinellasCountyFlRoute: typeof ServiceAreasPinellasCountyFlRoute
+  ServiceAreasStPetersburgFlRoute: typeof ServiceAreasStPetersburgFlRoute
+  ServiceAreasTampaFlRoute: typeof ServiceAreasTampaFlRoute
+  ServiceAreasIndexRoute: typeof ServiceAreasIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -638,6 +733,55 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/service-areas/': {
+      id: '/service-areas/'
+      path: '/service-areas'
+      fullPath: '/service-areas/'
+      preLoaderRoute: typeof ServiceAreasIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/service-areas/tampa-fl': {
+      id: '/service-areas/tampa-fl'
+      path: '/service-areas/tampa-fl'
+      fullPath: '/service-areas/tampa-fl'
+      preLoaderRoute: typeof ServiceAreasTampaFlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/service-areas/st-petersburg-fl': {
+      id: '/service-areas/st-petersburg-fl'
+      path: '/service-areas/st-petersburg-fl'
+      fullPath: '/service-areas/st-petersburg-fl'
+      preLoaderRoute: typeof ServiceAreasStPetersburgFlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/service-areas/pinellas-county-fl': {
+      id: '/service-areas/pinellas-county-fl'
+      path: '/service-areas/pinellas-county-fl'
+      fullPath: '/service-areas/pinellas-county-fl'
+      preLoaderRoute: typeof ServiceAreasPinellasCountyFlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/service-areas/hillsborough-county-fl': {
+      id: '/service-areas/hillsborough-county-fl'
+      path: '/service-areas/hillsborough-county-fl'
+      fullPath: '/service-areas/hillsborough-county-fl'
+      preLoaderRoute: typeof ServiceAreasHillsboroughCountyFlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/service-areas/clearwater-fl': {
+      id: '/service-areas/clearwater-fl'
+      path: '/service-areas/clearwater-fl'
+      fullPath: '/service-areas/clearwater-fl'
+      preLoaderRoute: typeof ServiceAreasClearwaterFlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/service-areas/brandon-fl': {
+      id: '/service-areas/brandon-fl'
+      path: '/service-areas/brandon-fl'
+      fullPath: '/service-areas/brandon-fl'
+      preLoaderRoute: typeof ServiceAreasBrandonFlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -672,6 +816,13 @@ const rootRouteChildren: RootRouteChildren = {
   WasteDebrisRemovalRoute: WasteDebrisRemovalRoute,
   WindowCleaningRemovalRoute: WindowCleaningRemovalRoute,
   WorkRoute: WorkRoute,
+  ServiceAreasBrandonFlRoute: ServiceAreasBrandonFlRoute,
+  ServiceAreasClearwaterFlRoute: ServiceAreasClearwaterFlRoute,
+  ServiceAreasHillsboroughCountyFlRoute: ServiceAreasHillsboroughCountyFlRoute,
+  ServiceAreasPinellasCountyFlRoute: ServiceAreasPinellasCountyFlRoute,
+  ServiceAreasStPetersburgFlRoute: ServiceAreasStPetersburgFlRoute,
+  ServiceAreasTampaFlRoute: ServiceAreasTampaFlRoute,
+  ServiceAreasIndexRoute: ServiceAreasIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

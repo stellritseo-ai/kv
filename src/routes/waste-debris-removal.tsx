@@ -45,18 +45,34 @@ import yelpBadge from "@/assets/yelp-badge.png";
 import bbbBadge from "@/assets/bbb-badge.png";
 import homeadvisorBadge from "@/assets/homeadvisor-badge.png";
 
+import { getBreadcrumbSchema, getFAQSchema, getServiceSchema } from "@/lib/seo-schema";
+
 export const Route = createFileRoute("/waste-debris-removal")({
   head: () => ({
     meta: [
-      { title: "Waste & Debris Removal - Right Lane Handyman Services, LLC | Clearwater, FL" },
+      { title: "Waste & Debris Removal in Tampa & Clearwater, FL | Right Lane" },
       {
         name: "description",
         content:
-          "Professional cleanup of construction waste, building materials, and heavy debris in Clearwater, Largo, St. Petersburg & all Pinellas County. Call (727) 642-0201.",
+          "Professional cleanup of construction waste, building materials, and storm debris across Tampa, Clearwater, and Hillsborough & Pinellas Counties. Call (727) 642-0201.",
       },
       { property: "og:title", content: "Waste & Debris Removal - Right Lane Handyman" },
-      { property: "og:description", content: "We haul concrete, drywall, metal, lumber, and storm debris. 25+ years experience, fully licensed & insured." },
+      {
+        property: "og:description",
+        content:
+          "We haul concrete, drywall, scrap metal, lumber, and storm debris across Tampa Bay. 25+ years experience, fully licensed & insured.",
+      },
       { property: "og:type", content: "website" },
+      {
+        property: "og:url",
+        content: "https://www.rightlanehandymanservicellc.com/waste-debris-removal",
+      },
+    ],
+    links: [
+      {
+        rel: "canonical",
+        href: "https://www.rightlanehandymanservicellc.com/waste-debris-removal",
+      },
     ],
   }),
   component: WasteDebrisRemovalPage,
@@ -369,8 +385,36 @@ function WasteDebrisRemovalPage() {
     }
   };
 
+  const breadcrumbSchema = getBreadcrumbSchema([
+    { name: "Home", url: "/" },
+    { name: "Services", url: "/services" },
+    { name: "Waste & Debris Removal", url: "/waste-debris-removal" },
+  ]);
+
+  const serviceSchema = getServiceSchema({
+    name: "Waste & Debris Removal Services",
+    description:
+      "Professional construction waste, building material, and storm debris removal in Tampa Bay, FL.",
+    serviceType: "Waste & Debris Removal Services",
+    url: "/waste-debris-removal",
+  });
+
+  const faqSchema = getFAQSchema(FAQS);
+
   return (
     <div className="min-h-screen bg-[#f4f3ef] font-sans">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
       <SiteHeader />
 
       {/* ── HERO ── */}
@@ -392,13 +436,13 @@ function WasteDebrisRemovalPage() {
             className="relative z-20 max-w-4xl mx-auto flex flex-col items-center bg-black/40 backdrop-blur-md rounded-2xl p-6 sm:p-10 border border-white/10"
           >
             <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/20 bg-white/10 text-white text-xs font-semibold uppercase tracking-wider mb-6 shadow-sm">
-              🏗️ Professional Site Clearing & Hauling
+              🏗️ Professional Site Clearing &amp; Hauling
             </span>
             <h1 className="text-[32px] sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight tracking-tight drop-shadow-md">
-              Waste & Debris Removal
+              Waste &amp; Debris Removal Services in Tampa Bay, FL
             </h1>
             <p className="mt-3 text-xs sm:text-sm text-neutral-300 font-medium uppercase tracking-widest text-copper">
-              We Haul What Others Won't – Professional Removal for Any Job Site
+              Fast Jobsite Cleanups Across Hillsborough &amp; Pinellas Counties
             </p>
             <p className="mt-5 text-sm sm:text-base text-neutral-300 font-light leading-relaxed max-w-3xl">
               Construction projects, renovations, and property cleanouts generate waste that requires professional handling. At Right Lane Handyman Services, LLC, we specialize in the removal of waste, building materials, and debris that other companies refuse to touch. With over 25 years of experience, Ronnie and his team have the trucks, equipment, and expertise to handle everything from construction waste to heavy demolition debris – safely, efficiently, and responsibly.

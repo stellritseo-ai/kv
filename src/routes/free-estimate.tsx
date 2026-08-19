@@ -35,18 +35,34 @@ import yelpBadge from "@/assets/yelp-badge.png";
 import bbbBadge from "@/assets/bbb-badge.png";
 import homeadvisorBadge from "@/assets/homeadvisor-badge.png";
 
+import { getBreadcrumbSchema } from "@/lib/seo-schema";
+
 export const Route = createFileRoute("/free-estimate")({
   head: () => ({
     meta: [
-      { title: "Free Estimate - Right Lane Handyman Services, LLC | Clearwater, FL" },
+      { title: "Free Handyman Estimate & Quote | Right Lane Tampa Bay, FL" },
       {
         name: "description",
         content:
-          "Request a free, no-obligation estimate from Right Lane Handyman Services, LLC. Serving Clearwater, Largo, St. Petersburg & all of Pinellas County. Call (727) 642-0201.",
+          "Request a free, no-obligation estimate from Right Lane Handyman Services LLC. Upfront pricing on handyman repairs, pressure washing, junk removal & cleaning across Tampa Bay. Call (727) 642-0201.",
       },
       { property: "og:title", content: "Get Your Free Estimate - Right Lane Handyman Services, LLC" },
-      { property: "og:description", content: "Fill out our quick estimate form and Ronnie Lane will reach out within 24 hours with a clear, upfront quote." },
+      {
+        property: "og:description",
+        content:
+          "Fill out our quick estimate form and Ronnie Lane will reach out with a clear, upfront quote for your home or business.",
+      },
       { property: "og:type", content: "website" },
+      {
+        property: "og:url",
+        content: "https://www.rightlanehandymanservicellc.com/free-estimate",
+      },
+    ],
+    links: [
+      {
+        rel: "canonical",
+        href: "https://www.rightlanehandymanservicellc.com/free-estimate",
+      },
     ],
   }),
   component: FreeEstimatePage,
@@ -262,8 +278,17 @@ function FreeEstimatePage() {
     }
   };
 
+  const breadcrumbSchema = getBreadcrumbSchema([
+    { name: "Home", url: "/" },
+    { name: "Free Estimate", url: "/free-estimate" },
+  ]);
+
   return (
     <div className="min-h-screen bg-[#f4f3ef] font-sans">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
       <SiteHeader />
 
       {/* ── HERO ── */}
@@ -287,10 +312,10 @@ function FreeEstimatePage() {
               Free Estimate
             </span>
             <h1 className="text-[32px] sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight tracking-tight drop-shadow-md">
-              Get Your No-Obligation Quote Today
+              Get Your Free Handyman Estimate in Tampa Bay, FL
             </h1>
             <p className="mt-5 text-sm sm:text-base text-neutral-300 font-light leading-relaxed max-w-2xl">
-              Ready to cross that project off your list? Whether it's a garage full of junk, a property that needs pressure washing, post-construction cleanup, or a complete home renovation – we're here to help. Contact Ronnie Lane today for a free, no-obligation estimate. No hassle. Just honest, reliable service from a name you can trust.
+              Ready to cross that project off your list? Whether it's a home repair, property maintenance, pressure washing, post-construction cleanup, or hauling – we're here to help. Contact Ronnie Lane today for a free, upfront estimate across Hillsborough &amp; Pinellas Counties.
             </p>
 
             {/* Trust Badges */}

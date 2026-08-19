@@ -18,18 +18,34 @@ import yelpBadge from "@/assets/yelp-badge.png";
 import bbbBadge from "@/assets/bbb-badge.png";
 import homeadvisorBadge from "@/assets/homeadvisor-badge.png";
 
+import { getBreadcrumbSchema, getFAQSchema, getServiceSchema } from "@/lib/seo-schema";
+
 export const Route = createFileRoute("/fence-removal")({
   head: () => ({
     meta: [
-      { title: "Fence Removal - Right Lane Handyman Services, LLC | Clearwater, FL" },
+      { title: "Fence Removal & Haul Away in Tampa & Clearwater, FL | Right Lane" },
       {
         name: "description",
         content:
-          "Professional fence removal and haul-away in Clearwater, Hillsborough County, Pinellas County & Tampa Bay Area. Wood, vinyl, chain-link, and metal fencing. Licensed & insured. Call (727) 642-0201.",
+          "Professional fence removal and full debris haul-away across Tampa, Clearwater, and Hillsborough & Pinellas Counties. Wood, vinyl, chain-link & metal. Call (727) 642-0201.",
       },
       { property: "og:title", content: "Fence Removal Services - Right Lane Handyman" },
-      { property: "og:description", content: "Safe, efficient removal of wood, vinyl, or chain-link fencing with full debris haul-away. 25+ years of experience, licensed and insured." },
+      {
+        property: "og:description",
+        content:
+          "Safe, efficient removal of wood, vinyl, or chain-link fencing with complete debris haul-away across Tampa Bay. 25+ years experience.",
+      },
       { property: "og:type", content: "website" },
+      {
+        property: "og:url",
+        content: "https://www.rightlanehandymanservicellc.com/fence-removal",
+      },
+    ],
+    links: [
+      {
+        rel: "canonical",
+        href: "https://www.rightlanehandymanservicellc.com/fence-removal",
+      },
     ],
   }),
   component: FenceRemovalPage,
@@ -118,8 +134,36 @@ function FenceRemovalPage() {
     }
   };
 
+  const breadcrumbSchema = getBreadcrumbSchema([
+    { name: "Home", url: "/" },
+    { name: "Services", url: "/services" },
+    { name: "Fence Removal & Haul Away", url: "/fence-removal" },
+  ]);
+
+  const serviceSchema = getServiceSchema({
+    name: "Fence Removal & Hauling Services",
+    description:
+      "Professional wood, vinyl, chain-link, and metal fence removal with full post extraction and haul-away in Tampa Bay, FL.",
+    serviceType: "Fence Removal Services",
+    url: "/fence-removal",
+  });
+
+  const faqSchema = getFAQSchema(FAQS);
+
   return (
     <div className="min-h-screen bg-[#f4f3ef] font-sans">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
       <SiteHeader />
 
       {/* HERO */}
@@ -129,8 +173,8 @@ function FenceRemovalPage() {
           <div className="absolute inset-0 bg-gradient-to-b from-[#1c140d]/94 via-[#1c140d]/82 to-[#1c140d]/94 z-10" />
           <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: [0.25, 1, 0.5, 1] }} className="relative z-20 max-w-4xl mx-auto flex flex-col items-center bg-black/40 backdrop-blur-md rounded-2xl p-6 sm:p-10 border border-white/10">
             <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/20 bg-white/10 text-white text-xs font-semibold uppercase tracking-wider mb-6 shadow-sm">🪚 Professional Fence Removal</span>
-            <h1 className="text-[32px] sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight tracking-tight drop-shadow-md">Fence Removal Services</h1>
-            <p className="mt-3 text-xs sm:text-sm text-neutral-300 font-medium uppercase tracking-widest">Clearwater, Tampa Bay Area, Hillsborough & Pinellas County</p>
+            <h1 className="text-[32px] sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight tracking-tight drop-shadow-md">Fence Removal &amp; Hauling Services in Tampa Bay, FL</h1>
+            <p className="mt-3 text-xs sm:text-sm text-neutral-300 font-medium uppercase tracking-widest">Clearwater, Tampa, Brandon, Hillsborough &amp; Pinellas County</p>
             <p className="mt-5 text-sm sm:text-base text-neutral-300 font-light leading-relaxed max-w-3xl">Got an old fence that needs to go? Right Lane Handyman Services, LLC provides safe, efficient, and affordable fence removal for residential and commercial properties across Tampa Bay. We remove every type of fence — wood, vinyl, chain-link, wrought iron — and haul everything away. Posts extracted, yard cleaned. No mess left behind.</p>
             <div className="mt-8 flex flex-wrap justify-center gap-6 items-center opacity-90">
               <img src={bbbBadge} alt="BBB Accredited" className="h-10 sm:h-12 w-auto object-contain filter drop-shadow-md" />

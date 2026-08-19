@@ -17,18 +17,34 @@ import yelpBadge from "@/assets/yelp-badge.png";
 import bbbBadge from "@/assets/bbb-badge.png";
 import homeadvisorBadge from "@/assets/homeadvisor-badge.png";
 
+import { getBreadcrumbSchema, getFAQSchema, getServiceSchema } from "@/lib/seo-schema";
+
 export const Route = createFileRoute("/bank-occupancy-licences")({
   head: () => ({
     meta: [
-      { title: "Bank Occupancy Licences Cleaning - Right Lane Handyman Services, LLC | Clearwater, FL" },
+      { title: "Bank Occupancy Licences Cleaning in Tampa & Clearwater, FL | Right Lane" },
       {
         name: "description",
         content:
-          "Professional cleaning and preparation for bank occupancy licences in Clearwater, Tampa Bay Area, Hillsborough & Pinellas County. Inspection-ready cleaning for banks and financial institutions. Call (727) 642-0201.",
+          "Professional pre-occupancy cleaning and compliance preparation for bank branches across Tampa, Clearwater, and Hillsborough & Pinellas Counties. Call (727) 642-0201.",
       },
       { property: "og:title", content: "Bank Occupancy Licences Cleaning - Right Lane Handyman" },
-      { property: "og:description", content: "Thorough pre-occupancy cleaning and preparation for banking institutions. Ensure your space is clean, compliant, and inspection-ready." },
+      {
+        property: "og:description",
+        content:
+          "Thorough pre-occupancy cleaning and inspection readiness for banking institutions across Tampa Bay. Ensure full compliance with 25+ years experience.",
+      },
       { property: "og:type", content: "website" },
+      {
+        property: "og:url",
+        content: "https://www.rightlanehandymanservicellc.com/bank-occupancy-licences",
+      },
+    ],
+    links: [
+      {
+        rel: "canonical",
+        href: "https://www.rightlanehandymanservicellc.com/bank-occupancy-licences",
+      },
     ],
   }),
   component: BankOccupancyLicencesPage,
@@ -116,8 +132,36 @@ function BankOccupancyLicencesPage() {
     }
   };
 
+  const breadcrumbSchema = getBreadcrumbSchema([
+    { name: "Home", url: "/" },
+    { name: "Services", url: "/services" },
+    { name: "Bank Occupancy Licences Cleaning", url: "/bank-occupancy-licences" },
+  ]);
+
+  const serviceSchema = getServiceSchema({
+    name: "Bank Occupancy Licences Cleaning Services",
+    description:
+      "Professional pre-occupancy cleaning and compliance preparation for bank branches and financial spaces in Tampa Bay, FL.",
+    serviceType: "Commercial Cleaning Services",
+    url: "/bank-occupancy-licences",
+  });
+
+  const faqSchema = getFAQSchema(FAQS);
+
   return (
     <div className="min-h-screen bg-[#f4f3ef] font-sans">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
       <SiteHeader />
 
       {/* HERO */}
@@ -127,8 +171,8 @@ function BankOccupancyLicencesPage() {
           <div className="absolute inset-0 bg-gradient-to-b from-[#1c140d]/94 via-[#1c140d]/82 to-[#1c140d]/94 z-10" />
           <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="relative z-20 max-w-4xl mx-auto flex flex-col items-center bg-black/40 backdrop-blur-md rounded-2xl p-6 sm:p-10 border border-white/10">
             <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/20 bg-white/10 text-white text-xs font-semibold uppercase tracking-wider mb-6">🏦 Commercial Banking Cleaning</span>
-            <h1 className="text-[32px] sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight tracking-tight drop-shadow-md">Bank Occupancy Licences</h1>
-            <p className="mt-3 text-xs sm:text-sm text-neutral-300 font-medium uppercase tracking-widest">Clearwater, Tampa Bay Area, Hillsborough & Pinellas County</p>
+            <h1 className="text-[32px] sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight tracking-tight drop-shadow-md">Bank Occupancy Licences Cleaning in Tampa Bay, FL</h1>
+            <p className="mt-3 text-xs sm:text-sm text-neutral-300 font-medium uppercase tracking-widest">Clearwater, Tampa, St. Petersburg, Hillsborough &amp; Pinellas County</p>
             <p className="mt-5 text-sm sm:text-base text-neutral-300 font-light leading-relaxed max-w-3xl">Banking institutions require spotless, professionally prepared facilities before occupancy licence approval. Right Lane Handyman Services, LLC provides comprehensive pre-occupancy cleaning tailored specifically for bank branches and financial spaces — ensuring your facility is clean, compliant, and inspection-ready.</p>
             <div className="mt-8 flex flex-wrap justify-center gap-6 items-center opacity-90">
               <img src={bbbBadge} alt="BBB" className="h-10 sm:h-12 w-auto object-contain filter drop-shadow-md" />

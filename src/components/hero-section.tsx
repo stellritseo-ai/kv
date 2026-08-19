@@ -55,11 +55,11 @@ export function HeroSection() {
           <h1
             className="text-white leading-[1.2] tracking-tight drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)] font-serif text-[24px] sm:text-[30px] md:text-[37px] font-bold -mt-2 mb-2"
           >
-            25+ Years of{" "}
+            Professional Handyman Services in{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#ffa326] to-[#ffc570]">
-              Trusted Handyman
+              Tampa, FL
             </span>{" "}
-            &amp; Hauling Services
+            &amp; Tampa Bay
           </h1>
 
           {/* Subheadline description */}
@@ -87,7 +87,7 @@ export function HeroSection() {
               <span>Call Ronnie: (727) 642-0201</span>
             </a>
             <Link
-              to="#"
+              to="/services"
               className="inline-flex items-center gap-1.5 rounded-full border border-white/20 bg-white/5 backdrop-blur-md px-5 sm:px-7 py-3 sm:py-3.5 text-white text-[10px] sm:text-xs font-bold uppercase tracking-wider hover:bg-white hover:text-neutral-900 hover:scale-[1.03] active:scale-[0.98] transition-all duration-300"
             >
               <span>Explore Services</span>

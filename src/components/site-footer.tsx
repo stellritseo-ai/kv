@@ -65,34 +65,44 @@ export function SiteFooter() {
             </h4>
             <ul className="mt-4 space-y-3.5 text-sm text-neutral-400 font-light">
               <li>
-                <a href="#" className="hover:text-[#ffa326] hover:translate-x-1 transition-all duration-300 block">
+                <Link to="/property-maintenance" className="hover:text-[#ffa326] hover:translate-x-1 transition-all duration-300 block">
+                  Property Maintenance
+                </Link>
+              </li>
+              <li>
+                <Link to="/post-construction-cleaning" className="hover:text-[#ffa326] hover:translate-x-1 transition-all duration-300 block">
                   Post Construction Cleaning
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="hover:text-[#ffa326] hover:translate-x-1 transition-all duration-300 block">
+                <Link to="/pressure-washing" className="hover:text-[#ffa326] hover:translate-x-1 transition-all duration-300 block">
                   Pressure Washing
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="hover:text-[#ffa326] hover:translate-x-1 transition-all duration-300 block">
-                  Demolition
-                </a>
+                <Link to="/demolition" className="hover:text-[#ffa326] hover:translate-x-1 transition-all duration-300 block">
+                  Demolition Services
+                </Link>
               </li>
               <li>
-                <a href="#" className="hover:text-[#ffa326] hover:translate-x-1 transition-all duration-300 block">
-                  Junk Removal & Hauling
-                </a>
+                <Link to="/junk-removal" className="hover:text-[#ffa326] hover:translate-x-1 transition-all duration-300 block">
+                  Junk Removal &amp; Hauling
+                </Link>
               </li>
               <li>
-                <a href="#" className="hover:text-[#ffa326] hover:translate-x-1 transition-all duration-300 block">
-                  Landscaping
-                </a>
+                <Link to="/waste-debris-removal" className="hover:text-[#ffa326] hover:translate-x-1 transition-all duration-300 block">
+                  Waste &amp; Debris Removal
+                </Link>
               </li>
               <li>
-                <a href="#" className="hover:text-[#ffa326] hover:translate-x-1 transition-all duration-300 block">
-                  Property maintenance
-                </a>
+                <Link to="/landscaping" className="hover:text-[#ffa326] hover:translate-x-1 transition-all duration-300 block">
+                  Landscaping &amp; Grounds
+                </Link>
+              </li>
+              <li>
+                <Link to="/fence-removal" className="hover:text-[#ffa326] hover:translate-x-1 transition-all duration-300 block">
+                  Fence Removal
+                </Link>
               </li>
             </ul>
           </div>
@@ -104,34 +114,44 @@ export function SiteFooter() {
             </h4>
             <ul className="mt-4 space-y-3.5 text-sm text-neutral-400 font-light">
               <li>
-                <a href="/" className="hover:text-[#ffa326] hover:translate-x-1 transition-all duration-300 block">
+                <Link to="/" className="hover:text-[#ffa326] hover:translate-x-1 transition-all duration-300 block">
                   Home
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="hover:text-[#ffa326] hover:translate-x-1 transition-all duration-300 block">
+                <Link to="/services" className="hover:text-[#ffa326] hover:translate-x-1 transition-all duration-300 block">
+                  All Services
+                </Link>
+              </li>
+              <li>
+                <Link to="/service-areas" className="hover:text-[#ffa326] hover:translate-x-1 transition-all duration-300 block">
+                  Service Areas
+                </Link>
+              </li>
+              <li>
+                <Link to="/about-us" className="hover:text-[#ffa326] hover:translate-x-1 transition-all duration-300 block">
                   About Us
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="hover:text-[#ffa326] hover:translate-x-1 transition-all duration-300 block">
+                <Link to="/our-work" className="hover:text-[#ffa326] hover:translate-x-1 transition-all duration-300 block">
                   Our Work
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="hover:text-[#ffa326] hover:translate-x-1 transition-all duration-300 block">
+                <Link to="/reviews" className="hover:text-[#ffa326] hover:translate-x-1 transition-all duration-300 block">
                   Reviews
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="hover:text-[#ffa326] hover:translate-x-1 transition-all duration-300 block">
+                <Link to="/free-estimate" className="hover:text-[#ffa326] hover:translate-x-1 transition-all duration-300 block">
                   Free Estimate
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="hover:text-[#ffa326] hover:translate-x-1 transition-all duration-300 block">
+                <Link to="/contact-us" className="hover:text-[#ffa326] hover:translate-x-1 transition-all duration-300 block">
                   Contact Us
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -156,7 +176,7 @@ export function SiteFooter() {
 
               <div className="flex items-center gap-3 text-neutral-300">
                 <MapPin className="h-4.5 w-4.5 text-[#ffa326] fill-[#ffa326]/10" />
-                <span>Clearwater, FL 33756</span>
+                <span>Clearwater, FL 33756 (Serving Tampa Bay)</span>
               </div>
             </div>
 
@@ -201,18 +221,33 @@ export function SiteFooter() {
         </div>
 
         {/* Underlined SEO Links Block */}
-        <div className="mt-14 border-t border-white/5 pt-8 flex flex-wrap justify-center gap-x-8 md:gap-x-12 gap-y-3 text-xs text-neutral-500 font-light text-center relative z-10 w-full">
-          <Link to="/junk-removal-clearwater-fl" className="underline hover:text-[#ffa326] transition-colors duration-200">
-            Junk Removal Clearwater FL
+        <div className="mt-14 border-t border-white/5 pt-8 flex flex-wrap justify-center gap-x-6 md:gap-x-10 gap-y-3 text-xs text-neutral-400 font-light text-center relative z-10 w-full">
+          <Link to="/service-areas/tampa-fl" className="hover:text-[#ffa326] transition-colors duration-200">
+            Handyman Tampa FL
           </Link>
-          <Link to="/demolition-services-pinellas-county" className="underline hover:text-[#ffa326] transition-colors duration-200">
-            Demolition Services Pinellas County
+          <span className="text-neutral-700">·</span>
+          <Link to="/service-areas/hillsborough-county-fl" className="hover:text-[#ffa326] transition-colors duration-200">
+            Handyman Hillsborough County
           </Link>
-          <Link to="/hauling-services-palm-harbor" className="underline hover:text-[#ffa326] transition-colors duration-200">
-            Hauling Services Palm Harbor
+          <span className="text-neutral-700">·</span>
+          <Link to="/service-areas/pinellas-county-fl" className="hover:text-[#ffa326] transition-colors duration-200">
+            Handyman Pinellas County
           </Link>
-          <Link to="/debris-removal-tarpon-springs" className="underline hover:text-[#ffa326] transition-colors duration-200">
-            Debris Removal Tarpon Springs
+          <span className="text-neutral-700">·</span>
+          <Link to="/service-areas/clearwater-fl" className="hover:text-[#ffa326] transition-colors duration-200">
+            Handyman Clearwater FL
+          </Link>
+          <span className="text-neutral-700">·</span>
+          <Link to="/service-areas/st-petersburg-fl" className="hover:text-[#ffa326] transition-colors duration-200">
+            Handyman St. Petersburg FL
+          </Link>
+          <span className="text-neutral-700">·</span>
+          <Link to="/service-areas/brandon-fl" className="hover:text-[#ffa326] transition-colors duration-200">
+            Handyman Brandon FL
+          </Link>
+          <span className="text-neutral-700">·</span>
+          <Link to="/service-areas" className="hover:text-[#ffa326] transition-colors duration-200 font-medium text-[#ffa326]">
+            All Tampa Bay Service Areas →
           </Link>
         </div>
 

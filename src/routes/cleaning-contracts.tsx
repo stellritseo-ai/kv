@@ -17,18 +17,34 @@ import yelpBadge from "@/assets/yelp-badge.png";
 import bbbBadge from "@/assets/bbb-badge.png";
 import homeadvisorBadge from "@/assets/homeadvisor-badge.png";
 
+import { getBreadcrumbSchema, getFAQSchema, getServiceSchema } from "@/lib/seo-schema";
+
 export const Route = createFileRoute("/cleaning-contracts")({
   head: () => ({
     meta: [
-      { title: "Cleaning Contracts - Right Lane Handyman Services, LLC | Clearwater, FL" },
+      { title: "Commercial & Residential Cleaning Contracts in Tampa, FL | Right Lane" },
       {
         name: "description",
         content:
-          "Short-term and long-term cleaning contracts for commercial and residential properties in Clearwater, Tampa Bay Area, Hillsborough & Pinellas County. Reliable scheduled cleaning services. Call (727) 642-0201.",
+          "Flexible short-term and long-term cleaning contracts for commercial and residential properties across Tampa, Clearwater, and Hillsborough & Pinellas Counties. Call (727) 642-0201.",
       },
       { property: "og:title", content: "Cleaning Contracts - Right Lane Handyman Services" },
-      { property: "og:description", content: "Flexible short-term and long-term cleaning maintenance contracts for businesses, property managers, and homeowners. Reliable, scheduled service with upfront pricing." },
+      {
+        property: "og:description",
+        content:
+          "Flexible short-term and long-term cleaning maintenance contracts for businesses, property managers, and homeowners across Tampa Bay. Upfront pricing.",
+      },
       { property: "og:type", content: "website" },
+      {
+        property: "og:url",
+        content: "https://www.rightlanehandymanservicellc.com/cleaning-contracts",
+      },
+    ],
+    links: [
+      {
+        rel: "canonical",
+        href: "https://www.rightlanehandymanservicellc.com/cleaning-contracts",
+      },
     ],
   }),
   component: CleaningContractsPage,
@@ -117,8 +133,36 @@ function CleaningContractsPage() {
     }
   };
 
+  const breadcrumbSchema = getBreadcrumbSchema([
+    { name: "Home", url: "/" },
+    { name: "Services", url: "/services" },
+    { name: "Cleaning Contracts", url: "/cleaning-contracts" },
+  ]);
+
+  const serviceSchema = getServiceSchema({
+    name: "Cleaning Contracts & Recurring Maintenance Services",
+    description:
+      "Short-term and long-term commercial and residential cleaning contracts across Tampa Bay, FL.",
+    serviceType: "Commercial & Residential Cleaning",
+    url: "/cleaning-contracts",
+  });
+
+  const faqSchema = getFAQSchema(FAQS);
+
   return (
     <div className="min-h-screen bg-[#f4f3ef] font-sans">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
       <SiteHeader />
 
       {/* HERO */}
@@ -128,8 +172,8 @@ function CleaningContractsPage() {
           <div className="absolute inset-0 bg-gradient-to-b from-[#1c140d]/94 via-[#1c140d]/82 to-[#1c140d]/94 z-10" />
           <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="relative z-20 max-w-4xl mx-auto flex flex-col items-center bg-black/40 backdrop-blur-md rounded-2xl p-6 sm:p-10 border border-white/10">
             <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/20 bg-white/10 text-white text-xs font-semibold uppercase tracking-wider mb-6">📋 Recurring Maintenance Cleaning</span>
-            <h1 className="text-[32px] sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight tracking-tight drop-shadow-md">Cleaning Contracts</h1>
-            <p className="mt-3 text-xs sm:text-sm text-neutral-300 font-medium uppercase tracking-widest">Short-Term & Long-Term – Commercial & Residential</p>
+            <h1 className="text-[32px] sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight tracking-tight drop-shadow-md">Commercial &amp; Residential Cleaning Contracts in Tampa Bay</h1>
+            <p className="mt-3 text-xs sm:text-sm text-neutral-300 font-medium uppercase tracking-widest">Short-Term &amp; Long-Term – Hillsborough &amp; Pinellas Counties</p>
             <p className="mt-5 text-sm sm:text-base text-neutral-300 font-light leading-relaxed max-w-3xl">A consistently clean property starts with a reliable cleaning partner. Right Lane Handyman Services, LLC offers flexible short-term and long-term cleaning contracts for businesses, property managers, and homeowners across the Tampa Bay Area — delivering dependable, scheduled cleaning that maintains your property at the highest standard.</p>
             <div className="mt-8 flex flex-wrap justify-center gap-6 items-center opacity-90">
               <img src={bbbBadge} alt="BBB" className="h-10 sm:h-12 w-auto object-contain filter drop-shadow-md" />

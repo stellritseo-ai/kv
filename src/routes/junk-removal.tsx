@@ -45,18 +45,34 @@ import yelpBadge from "@/assets/yelp-badge.png";
 import bbbBadge from "@/assets/bbb-badge.png";
 import homeadvisorBadge from "@/assets/homeadvisor-badge.png";
 
+import { getBreadcrumbSchema, getFAQSchema, getServiceSchema } from "@/lib/seo-schema";
+
 export const Route = createFileRoute("/junk-removal")({
   head: () => ({
     meta: [
-      { title: "Junk Removal & Hauling Services - Right Lane Handyman Services, LLC | Clearwater, FL" },
+      { title: "Junk Removal & Hauling in Tampa & Clearwater, FL | Right Lane" },
       {
         name: "description",
         content:
-          "Professional residential, commercial, and industrial junk removal & hauling in Clearwater, Largo, St. Petersburg & all Pinellas County. We haul what others won't. Call (727) 642-0201.",
+          "Professional residential, commercial, and industrial junk removal & hauling in Tampa, Clearwater, and across Hillsborough & Pinellas Counties. Call (727) 642-0201.",
       },
       { property: "og:title", content: "Junk Removal & Hauling Services - Right Lane Handyman" },
-      { property: "og:description", content: "Heavy debris, concrete, construction waste, and estate cleanouts. Fast, reliable, and professional hauling." },
+      {
+        property: "og:description",
+        content:
+          "Heavy debris, appliance removal, furniture disposal, estate cleanouts, and construction waste hauling across Tampa Bay. Fast, reliable & licensed.",
+      },
       { property: "og:type", content: "website" },
+      {
+        property: "og:url",
+        content: "https://www.rightlanehandymanservicellc.com/junk-removal",
+      },
+    ],
+    links: [
+      {
+        rel: "canonical",
+        href: "https://www.rightlanehandymanservicellc.com/junk-removal",
+      },
     ],
   }),
   component: JunkRemovalPage,
@@ -367,8 +383,36 @@ function JunkRemovalPage() {
     }
   };
 
+  const breadcrumbSchema = getBreadcrumbSchema([
+    { name: "Home", url: "/" },
+    { name: "Services", url: "/services" },
+    { name: "Junk Removal & Hauling", url: "/junk-removal" },
+  ]);
+
+  const serviceSchema = getServiceSchema({
+    name: "Junk Removal & Hauling Services",
+    description:
+      "Full-service residential and commercial junk removal, furniture disposal, and debris hauling across Tampa Bay, FL.",
+    serviceType: "Junk Removal & Hauling Services",
+    url: "/junk-removal",
+  });
+
+  const faqSchema = getFAQSchema(FAQS);
+
   return (
     <div className="min-h-screen bg-[#f4f3ef] font-sans">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
       <SiteHeader />
 
       {/* ── HERO ── */}
@@ -390,13 +434,13 @@ function JunkRemovalPage() {
             className="relative z-20 max-w-4xl mx-auto flex flex-col items-center bg-black/40 backdrop-blur-md rounded-2xl p-6 sm:p-10 border border-white/10"
           >
             <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/20 bg-white/10 text-white text-xs font-semibold uppercase tracking-wider mb-6 shadow-sm">
-              🚛 Heavy Hauling & Cleanouts
+              🚛 Heavy Hauling &amp; Cleanouts
             </span>
             <h1 className="text-[32px] sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight tracking-tight drop-shadow-md">
-              Junk Removal & Hauling
+              Junk Removal &amp; Hauling Services in Tampa Bay, FL
             </h1>
             <p className="mt-3 text-xs sm:text-sm text-neutral-300 font-medium uppercase tracking-widest text-copper">
-              We Haul What Others Won't – Fast, Reliable, and Professional
+              Fast, Reliable Property Cleanouts Across Hillsborough &amp; Pinellas Counties
             </p>
             <p className="mt-5 text-sm sm:text-base text-neutral-300 font-light leading-relaxed max-w-3xl">
               Clutter piling up? Old appliances taking up space? Heavy debris that no one else will touch? At Right Lane Handyman Services, LLC, we specialize in junk removal and hauling that others won't handle. With over 25 years of experience, Ronnie and his team have the trucks, equipment, and expertise to remove anything from a single piece of furniture to entire building sites full of heavy debris.

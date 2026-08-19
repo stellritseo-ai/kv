@@ -44,18 +44,34 @@ import yelpBadge from "@/assets/yelp-badge.png";
 import bbbBadge from "@/assets/bbb-badge.png";
 import homeadvisorBadge from "@/assets/homeadvisor-badge.png";
 
+import { getBreadcrumbSchema, getFAQSchema, getServiceSchema } from "@/lib/seo-schema";
+
 export const Route = createFileRoute("/post-construction-cleaning")({
   head: () => ({
     meta: [
-      { title: "Post Construction Cleaning - Right Lane Handyman Services, LLC | Clearwater, FL" },
+      { title: "Post Construction Cleaning in Tampa & Clearwater, FL | Right Lane" },
       {
         name: "description",
         content:
-          "Professional post-construction and renovation cleanup in Clearwater, Largo, St. Petersburg & all of Pinellas County. Turn dusty job sites into move-in ready spaces. Call (727) 642-0201.",
+          "Professional post-construction and renovation cleanup in Tampa, Clearwater, and Hillsborough & Pinellas Counties. Turn dusty job sites into move-in ready spaces. Call (727) 642-0201.",
       },
-      { property: "og:title", content: "Post Construction Cleaning Services - Right Lane Handyman" },
-      { property: "og:description", content: "Drywall, dust, and heavy debris clearing. Professional-grade equipment, 25+ years of experience, licensed and insured." },
+      { property: "og:title", content: "Post Construction Cleaning - Right Lane Handyman" },
+      {
+        property: "og:description",
+        content:
+          "Drywall, dust, and heavy debris clearing. Professional-grade equipment, 25+ years of experience, licensed and insured in Tampa Bay.",
+      },
       { property: "og:type", content: "website" },
+      {
+        property: "og:url",
+        content: "https://www.rightlanehandymanservicellc.com/post-construction-cleaning",
+      },
+    ],
+    links: [
+      {
+        rel: "canonical",
+        href: "https://www.rightlanehandymanservicellc.com/post-construction-cleaning",
+      },
     ],
   }),
   component: PostConstructionCleaningPage,
@@ -298,8 +314,36 @@ function PostConstructionCleaningPage() {
     }
   };
 
+  const breadcrumbSchema = getBreadcrumbSchema([
+    { name: "Home", url: "/" },
+    { name: "Services", url: "/services" },
+    { name: "Post Construction Cleaning", url: "/post-construction-cleaning" },
+  ]);
+
+  const serviceSchema = getServiceSchema({
+    name: "Post Construction Cleaning Services",
+    description:
+      "Professional post-construction and renovation cleanup in Tampa, Clearwater, and Tampa Bay, FL.",
+    serviceType: "Post Construction Cleaning",
+    url: "/post-construction-cleaning",
+  });
+
+  const faqSchema = getFAQSchema(FAQS);
+
   return (
     <div className="min-h-screen bg-[#f4f3ef] font-sans">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
       <SiteHeader />
 
       {/* ── HERO ── */}
@@ -323,10 +367,10 @@ function PostConstructionCleaningPage() {
               ✨ Premium Cleaning Service
             </span>
             <h1 className="text-[32px] sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight tracking-tight drop-shadow-md">
-              Post Construction Cleaning Services
+              Post Construction Cleaning Services in Tampa Bay
             </h1>
             <p className="mt-3 text-xs sm:text-sm text-neutral-300 font-medium uppercase tracking-widest text-copper">
-              Professional Cleanup for Your Construction or Renovation Project
+              Professional Move-In Ready Detailing Across Hillsborough &amp; Pinellas Counties
             </p>
             <p className="mt-5 text-sm sm:text-base text-neutral-300 font-light leading-relaxed max-w-3xl">
               After the contractors pack up and leave, there's still one crucial step remaining – the final cleanup. At Right Lane Handyman Services, LLC, we specialize in thorough post-construction cleaning that transforms dusty, debris-filled job sites into clean, move-in ready spaces. From residential renovations to large-scale commercial projects, we handle it all with precision and care.

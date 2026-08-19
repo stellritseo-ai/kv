@@ -27,14 +27,31 @@ import bbbBadge from "@/assets/bbb-badge.png";
 import yelpBadge from "@/assets/yelp-badge.png";
 import homeAdvisorBadge from "@/assets/homeadvisor-badge.png";
 
+import { getBreadcrumbSchema } from "@/lib/seo-schema";
+
 export const Route = createFileRoute("/reviews")({
   head: () => ({
     meta: [
-      { title: "Client Reviews & Testimonials - Right Lane Handyman Services, LLC | Clearwater, FL" },
-      { name: "description", content: "Read real client reviews and testimonials for Right Lane Handyman Services, LLC. 4.9 out of 5 stars based on 50+ reviews. Serving Clearwater & all Pinellas County." },
+      { title: "Client Reviews & Ratings | Right Lane Handyman Services Tampa Bay" },
+      {
+        name: "description",
+        content:
+          "Read verified customer reviews for Right Lane Handyman Services LLC. 4.9/5 stars for home repairs, pressure washing, junk removal & cleaning across Tampa Bay.",
+      },
       { property: "og:title", content: "Client Reviews - Right Lane Handyman Services, LLC" },
-      { property: "og:description", content: "What our clients say about their experience with Ronnie Lane and the Right Lane team. Licensed, insured, and bonded handyman services." },
-      { property: "og:type", content: "website" }
+      {
+        property: "og:description",
+        content:
+          "What our clients say about Ronnie Lane and the Right Lane team across Hillsborough and Pinellas Counties.",
+      },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://www.rightlanehandymanservicellc.com/reviews" },
+    ],
+    links: [
+      {
+        rel: "canonical",
+        href: "https://www.rightlanehandymanservicellc.com/reviews",
+      },
     ],
   }),
   component: ReviewsPage,
@@ -345,8 +362,17 @@ function ReviewsPage() {
     ? reviews
     : reviews.filter(r => r.category === activeCategory);
 
+  const breadcrumbSchema = getBreadcrumbSchema([
+    { name: "Home", url: "/" },
+    { name: "Reviews", url: "/reviews" },
+  ]);
+
   return (
     <div className="min-h-screen bg-[#f4f3ef] font-sans">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
       <SiteHeader />
 
       {/* ── HERO SECTION ── */}
@@ -371,10 +397,10 @@ function ReviewsPage() {
               Client Reviews
             </span>
             <h1 className="text-[28px] sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight capitalize tracking-tight drop-shadow-md">
-              What Our Customers Say About <br />Right Lane Handyman Services, LLC
+              Customer Reviews &amp; Testimonials – Tampa Bay, FL
             </h1>
             <p className="mt-6 text-sm sm:text-base text-neutral-300 font-light leading-relaxed max-w-2xl">
-              Trust is earned one job at a time. For over 25 years, we've been serving the Clearwater and Pinellas County community with honesty, reliability, and exceptional workmanship. Read what our clients have to say about Ronnie and the Right Lane team.
+              Trust is earned one job at a time. For over 25 years, we've been serving the Tampa, Clearwater, and Pinellas &amp; Hillsborough County communities with honesty, reliability, and exceptional workmanship. Read what our clients have to say about Ronnie and the Right Lane team.
             </p>
           </motion.div>
         </section>

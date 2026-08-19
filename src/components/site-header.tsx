@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "@tanstack/react-router";
-import { Phone, ChevronDown, X, Menu, ExternalLink, Sparkles, Droplets, Hammer, Truck, Wrench, Trash2, Leaf, Key, FileText, Fence, MonitorDot, Landmark, Factory, Home, RepeatIcon } from "lucide-react";
+import { Phone, ChevronDown, X, Menu, ExternalLink, Sparkles, Droplets, Hammer, Truck, Wrench, Trash2, Leaf, Key, FileText, Fence, MonitorDot, Landmark, Factory, Home, RepeatIcon, MapPin } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import logo from "@/assets/logo.png";
 import { TopBar } from "./top-bar";
@@ -10,17 +10,18 @@ const navItems = [
   { key: "nav.home", to: "/", label: "Home" },
   { key: "nav.about", to: "/about-us", label: "About" },
   { key: "nav.services", to: "#", label: "Services" },
+  { key: "nav.areas", to: "#", label: "Service Areas" },
   { key: "nav.work", to: "/our-work", label: "Our Work" },
   { key: "nav.reviews", to: "/reviews", label: "Reviews" },
   { key: "nav.contact", to: "/contact-us", label: "Contact" },
 ] as const;
 
 const servicesSubMenu = [
+  { label: "Property Maintenance",         to: "/property-maintenance",         hash: undefined, icon: Wrench,      desc: "General handyman & home repairs" },
   { label: "Post Construction Cleaning",   to: "/post-construction-cleaning",   hash: undefined, icon: Sparkles,    desc: "Detailed move-in ready cleaning" },
   { label: "Pressure Washing",             to: "/pressure-washing",             hash: undefined, icon: Droplets,    desc: "Restore driveways, decks & siding" },
   { label: "Demolition",                   to: "/demolition",                   hash: undefined, icon: Hammer,      desc: "Safe structural dismantling" },
   { label: "Junk Removal & Hauling",       to: "/junk-removal",                 hash: undefined, icon: Truck,       desc: "Full-service waste hauling" },
-  { label: "Property Maintenance",         to: "/property-maintenance",         hash: undefined, icon: Wrench,      desc: "General handyman & home repairs" },
   { label: "Waste & Debris Removal",       to: "/waste-debris-removal",         hash: undefined, icon: Trash2,      desc: "Drywall, metal & concrete clearing" },
   { label: "Landscaping",                  to: "/landscaping",                  hash: undefined, icon: Leaf,        desc: "Garden upkeep, sod & mulching" },
   { label: "Fence Removal",                to: "/fence-removal",                hash: undefined, icon: Fence,       desc: "Safe, complete fence haul-away" },
@@ -31,6 +32,16 @@ const servicesSubMenu = [
   { label: "Cleaning Contracts",           to: "/cleaning-contracts",           hash: undefined, icon: RepeatIcon,  desc: "Short & long-term property care" },
 ] as const;
 
+const serviceAreasSubMenu = [
+  { label: "Tampa, FL",                    to: "/service-areas/tampa-fl",               hash: undefined, icon: MapPin, desc: "Primary target market & city" },
+  { label: "Hillsborough County",          to: "/service-areas/hillsborough-county-fl", hash: undefined, icon: MapPin, desc: "Countywide residential & commercial" },
+  { label: "Pinellas County",              to: "/service-areas/pinellas-county-fl",     hash: undefined, icon: MapPin, desc: "Clearwater base & full county" },
+  { label: "Clearwater, FL",               to: "/service-areas/clearwater-fl",          hash: undefined, icon: MapPin, desc: "Headquarters & coastal communities" },
+  { label: "St. Petersburg, FL",           to: "/service-areas/st-petersburg-fl",       hash: undefined, icon: MapPin, desc: "Full city & south Pinellas" },
+  { label: "Brandon, FL",                  to: "/service-areas/brandon-fl",             hash: undefined, icon: MapPin, desc: "East Hillsborough communities" },
+  { label: "All Tampa Bay Service Areas",  to: "/service-areas",                        hash: undefined, icon: MapPin, desc: "Complete regional service footprint" },
+] as const;
+
 export function SiteHeader() {
   const { t } = useTranslation();
   const location = useLocation();
@@ -38,6 +49,7 @@ export function SiteHeader() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
+  const [areasOpen, setAreasOpen] = useState(false);
 
   const getActiveItem = () => {
     if (currentPath === "/") return "nav.home";
@@ -59,6 +71,7 @@ export function SiteHeader() {
       currentPath.startsWith("/cleaning-contracts")
     )
       return "nav.services";
+    if (currentPath.startsWith("/service-areas")) return "nav.areas";
     if (currentPath.startsWith("/our-work")) return "nav.work";
     if (currentPath.startsWith("/reviews")) return "nav.reviews";
     if (currentPath.startsWith("/contact-us")) return "nav.contact";
@@ -192,6 +205,47 @@ export function SiteHeader() {
                     </div>
                   );
                 }
+                if (item.key === "nav.areas") {
+                  return (
+                    <div key={item.key} className="relative group py-2">
+                      <Link
+                        to="/service-areas"
+                        className={
+                          isActive
+                            ? "border border-[#cc7e14] px-4 py-1.5 rounded-full bg-white/60 backdrop-blur-md text-[15px] font-medium text-[#cc7e14] transition-all duration-200 shadow-[0_1px_2px_rgba(0,0,0,0.05)] flex items-center gap-1.5"
+                            : "border border-transparent px-4 py-1.5 rounded-full flex items-center gap-1.5 text-[15px] font-medium text-neutral-800 hover:text-[#b26b0d] hover:bg-black/5 transition-all duration-200"
+                        }
+                      >
+                        {t(item.key)}
+                        <ChevronDown className="h-3.5 w-3.5 text-neutral-500 group-hover:rotate-180 transition-transform duration-250" />
+                      </Link>
+                      <div className="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-[460px] bg-white/95 backdrop-blur-xl border border-neutral-200/80 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.12)] p-5 opacity-0 scale-95 invisible group-hover:opacity-100 group-hover:scale-100 group-hover:visible transition-all duration-300 origin-top z-50">
+                        <div className="grid grid-cols-1 gap-2.5">
+                          {serviceAreasSubMenu.map((sub) => (
+                            <Link
+                              key={sub.label}
+                              to={sub.to}
+                              hash={sub.hash}
+                              className="group/item flex items-start gap-3.5 p-2.5 rounded-xl hover:bg-copper/5 transition-all duration-200 text-left"
+                            >
+                              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-copper/5 text-copper group-hover/item:bg-copper group-hover/item:text-white transition-all duration-300 shrink-0 shadow-xs">
+                                <sub.icon className="h-4 w-4" />
+                              </div>
+                              <div className="flex flex-col min-w-0">
+                                <span className="text-[13px] font-bold text-neutral-900 group-hover/item:text-copper transition-colors duration-200 leading-snug">
+                                  {sub.label}
+                                </span>
+                                <span className="text-[11px] text-neutral-500 font-medium leading-normal">
+                                  {sub.desc}
+                                </span>
+                              </div>
+                            </Link>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  );
+                }
                 return (
                   <Link
                     key={item.key}
@@ -308,6 +362,68 @@ export function SiteHeader() {
                             >
                               <div className="ml-4 mt-1 mb-2 pl-4 border-l-2 border-[#ffa326]/20 grid grid-cols-2 gap-x-2 gap-y-0.5">
                                 {servicesSubMenu.map((sub, subIdx) => (
+                                  <motion.div
+                                    key={sub.label}
+                                    initial={{ opacity: 0, y: 6 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ delay: subIdx * 0.03 }}
+                                  >
+                                    <Link
+                                      to={sub.to}
+                                      hash={sub.hash}
+                                      onClick={closeMenu}
+                                      className="flex items-center gap-2 px-2.5 py-1.5 text-[12px] font-semibold text-neutral-600 hover:text-copper hover:bg-copper/5 rounded-lg transition-all duration-150 text-left"
+                                    >
+                                      <sub.icon className="h-3.5 w-3.5 text-copper shrink-0" />
+                                      <span>{sub.label}</span>
+                                    </Link>
+                                  </motion.div>
+                                ))}
+                              </div>
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                      </motion.div>
+                    );
+                  }
+
+                  if (item.key === "nav.areas") {
+                    return (
+                      <motion.div
+                        key={item.key}
+                        initial={{ opacity: 0, x: 24 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: idx * 0.06 + 0.1, duration: 0.35, ease: "easeOut" }}
+                      >
+                        {/* Service Areas accordion trigger */}
+                        <button
+                          onClick={() => setAreasOpen(!areasOpen)}
+                          className="w-full flex items-center justify-between px-4 py-3.5 rounded-xl text-left font-semibold text-[15px] text-neutral-800 hover:bg-[#ffa326]/8 hover:text-[#cc7e14] transition-all duration-200 cursor-pointer group"
+                        >
+                          <span className="flex items-center gap-3">
+                            <span className="w-1.5 h-1.5 rounded-full bg-[#ffa326] shrink-0" />
+                            Service Areas
+                          </span>
+                          <motion.div
+                            animate={{ rotate: areasOpen ? 180 : 0 }}
+                            transition={{ duration: 0.25 }}
+                          >
+                            <ChevronDown className="h-4 w-4 text-neutral-400 group-hover:text-[#ffa326]" />
+                          </motion.div>
+                        </button>
+
+                        {/* Service Areas submenu */}
+                        <AnimatePresence>
+                          {areasOpen && (
+                            <motion.div
+                              initial={{ height: 0, opacity: 0 }}
+                              animate={{ height: "auto", opacity: 1 }}
+                              exit={{ height: 0, opacity: 0 }}
+                              transition={{ duration: 0.3, ease: "easeInOut" }}
+                              className="overflow-hidden"
+                            >
+                              <div className="ml-4 mt-1 mb-2 pl-4 border-l-2 border-[#ffa326]/20 flex flex-col space-y-1">
+                                {serviceAreasSubMenu.map((sub, subIdx) => (
                                   <motion.div
                                     key={sub.label}
                                     initial={{ opacity: 0, y: 6 }}

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { addLead, addWebEmail } from "@/lib/leads-store";
 import { SiteHeader } from "@/components/site-header";
@@ -25,38 +25,58 @@ import logo from "@/assets/logo.png";
 import welBg from "@/assets/wel-bg.png";
 import contactHero from "@/assets/stats-cleanup.png";
 
+import { getBreadcrumbSchema } from "@/lib/seo-schema";
+
 export const Route = createFileRoute("/lets-talk")({
   head: () => ({
     meta: [
-      { title: "Let's Talk — Right Lane Handyman Services, LLC, Clearwater" },
-      { name: "description", content: "Let's Talk. Contact Right Lane Handyman Services, LLC for free estimates, on-site design consultations, or 24/7 emergency service in Clearwater, FL." },
+      { title: "Schedule a Consultation | Right Lane Handyman Services Tampa Bay" },
+      {
+        name: "description",
+        content:
+          "Schedule a free consultation for home repairs, remodeling, pressure washing, or hauling with Right Lane Handyman Services LLC across Tampa Bay, FL.",
+      },
       { property: "og:title", content: "Let's Talk — Right Lane Handyman Services, LLC" },
-      { property: "og:description", content: "Connect with the Right Lane team for premium remodeling and landscape solutions in Clearwater, FL." },
-      { property: "og:type", content: "website" }
+      {
+        property: "og:description",
+        content:
+          "Connect with Ronnie Lane and the Right Lane team for handyman and property maintenance solutions across Hillsborough & Pinellas Counties.",
+      },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://www.rightlanehandymanservicellc.com/lets-talk" },
+    ],
+    links: [
+      {
+        rel: "canonical",
+        href: "https://www.rightlanehandymanservicellc.com/lets-talk",
+      },
     ],
   }),
   component: LetUsTalkPage,
 });
 
-export function LetUsTalkPage() {
+function LetUsTalkPage() {
   const { t } = useTranslation();
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [formData, setFormData] = useState(() => {
-    let initialType = "";
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    address: "",
+    projectType: "",
+    description: "",
+    contactTime: ""
+  });
+
+  useEffect(() => {
     if (typeof window !== "undefined") {
       const params = new URLSearchParams(window.location.search);
-      initialType = params.get("type") || "";
+      const initialType = params.get("type");
+      if (initialType) {
+        setFormData((prev) => ({ ...prev, projectType: initialType }));
+      }
     }
-    return {
-      name: "",
-      email: "",
-      phone: "",
-      address: "",
-      projectType: initialType,
-      description: "",
-      contactTime: ""
-    };
-  });
+  }, []);
 
   const cities = [
     "Tampa Bay Area",
@@ -152,8 +172,17 @@ export function LetUsTalkPage() {
     setIsSubmitted(true);
   };
 
+  const breadcrumbSchema = getBreadcrumbSchema([
+    { name: "Home", url: "/" },
+    { name: "Let's Talk", url: "/lets-talk" },
+  ]);
+
   return (
     <div className="min-h-screen bg-[#f4f3ef] font-sans">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
       <SiteHeader />
 
       {/* ── CINEMATIC HERO SECTION ── */}
@@ -188,12 +217,12 @@ export function LetUsTalkPage() {
               className="text-[32px] sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight capitalize tracking-tight drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)]"
               style={{ fontFamily: "Georgia, serif" }}
             >
-              Your Vision Deserves a Conversation
+              Schedule a Consultation with Right Lane
             </h1>
 
             {/* Subtitle */}
             <p className="mt-6 text-sm md:text-base text-neutral-300 font-light leading-relaxed max-w-3xl mx-auto">
-              Every great project begins with a simple conversation. At Right Lane Handyman Services, LLC, we believe that the foundation of any successful partnership is clear communication, mutual understanding, and shared vision. the Right Lane team personally leads every initial discussion because we know that your project deserves the attention and expertise that only 25+ Years of experience can provide.
+              Whether you need home repairs, property maintenance, pressure washing, or hauling across Tampa Bay, we're here to listen, advise, and deliver exceptional quality craftsmanship.
             </p>
           </motion.div>
 

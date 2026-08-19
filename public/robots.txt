@@ -1,4 +1,7 @@
 User-agent: *
 Allow: /
+Disallow: /dashboard
+Disallow: /login
 
-Sitemap: https://jrmconstruction.vercel.app/sitemap.xml
+Sitemap: https://www.rightlanehandymanservicellc.com/sitemap.xml
+

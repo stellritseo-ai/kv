@@ -44,18 +44,34 @@ import yelpBadge from "@/assets/yelp-badge.png";
 import bbbBadge from "@/assets/bbb-badge.png";
 import homeadvisorBadge from "@/assets/homeadvisor-badge.png";
 
+import { getBreadcrumbSchema, getFAQSchema, getServiceSchema } from "@/lib/seo-schema";
+
 export const Route = createFileRoute("/demolition")({
   head: () => ({
     meta: [
-      { title: "Demolition Services - Right Lane Handyman Services, LLC | Clearwater, FL" },
+      { title: "Demolition Services in Tampa & Clearwater, FL | Right Lane" },
       {
         name: "description",
         content:
-          "Professional residential, commercial, and industrial demolition in Clearwater, Largo, St. Petersburg & Pinellas County. Safe concrete removal, selective demolition, and full debris hauling. Call (727) 642-0201.",
+          "Professional residential & commercial light demolition in Tampa, Clearwater, and Hillsborough & Pinellas Counties. Shed tear-downs, interior demo & concrete removal. Call (727) 642-0201.",
       },
       { property: "og:title", content: "Demolition Services - Right Lane Handyman" },
-      { property: "og:description", content: "Safe, efficient, and professional demolition across Pinellas County. Selective demolition, concrete removal, and debris hauling." },
+      {
+        property: "og:description",
+        content:
+          "Safe, efficient, and licensed demolition across Tampa Bay. Selective interior demolition, concrete breaking, shed removal, and full debris hauling.",
+      },
       { property: "og:type", content: "website" },
+      {
+        property: "og:url",
+        content: "https://www.rightlanehandymanservicellc.com/demolition",
+      },
+    ],
+    links: [
+      {
+        rel: "canonical",
+        href: "https://www.rightlanehandymanservicellc.com/demolition",
+      },
     ],
   }),
   component: DemolitionPage,
@@ -323,8 +339,36 @@ function DemolitionPage() {
     }
   };
 
+  const breadcrumbSchema = getBreadcrumbSchema([
+    { name: "Home", url: "/" },
+    { name: "Services", url: "/services" },
+    { name: "Demolition Services", url: "/demolition" },
+  ]);
+
+  const serviceSchema = getServiceSchema({
+    name: "Demolition & Dismantling Services",
+    description:
+      "Safe, licensed residential & commercial demolition, interior gutting, shed removal, and concrete breaking in Tampa Bay, FL.",
+    serviceType: "Demolition Services",
+    url: "/demolition",
+  });
+
+  const faqSchema = getFAQSchema(FAQS);
+
   return (
     <div className="min-h-screen bg-[#f4f3ef] font-sans">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
       <SiteHeader />
 
       {/* ── HERO ── */}
@@ -349,13 +393,13 @@ function DemolitionPage() {
               🔨 Heavy-Duty Structural Dismantling
             </span>
             <h1 className="text-[32px] sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight tracking-tight drop-shadow-md">
-              Demolition Services
+              Demolition Services in Tampa Bay, FL
             </h1>
             <p className="mt-3 text-xs sm:text-sm text-neutral-300 font-medium uppercase tracking-widest text-copper">
-              Safe, Efficient, and Professional Demolition Across Pinellas County
+              Safe, Efficient, and Professional Dismantling Across Hillsborough &amp; Pinellas Counties
             </p>
             <p className="mt-5 text-sm sm:text-base text-neutral-300 font-light leading-relaxed max-w-3xl">
-              Whether you're renovating your home, clearing a commercial property, or preparing an industrial site for new construction, Right Lane Handyman Services, LLC has the expertise and equipment to handle your demolition project safely and efficiently. With over 25 years of experience, Ronnie and his team deliver precision demolition services backed by full licensing, insurance, and bonding.
+              Whether you're remodeling your home, clearing a commercial space, or removing an old shed or concrete pad, Right Lane Handyman Services, LLC has the equipment and expertise to handle your demolition project safely and efficiently. With over 25 years of experience, Ronnie and his crew deliver precision demolition services backed by full licensing, insurance, and bonding.
             </p>
 
             {/* Trust Badges */}

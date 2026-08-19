@@ -73,7 +73,7 @@ export function ServicesSection() {
               </p>
               <div className="mt-7">
                 <Link
-                  to="#"
+                  to="/services"
                   className="inline-flex items-center gap-2.5 bg-gradient-to-r from-[#ffa326] to-[#cc7e14] hover:from-[#ffa326] hover:to-[#995906] text-white rounded-full px-7 py-3 text-[14px] font-bold shadow-[0_4px_14px_rgba(204,126,20,0.3)] hover:scale-[1.03] active:scale-[0.97] transition-all duration-300"
                 >
                   {t("services.btn.more")}

@@ -46,18 +46,34 @@ import yelpBadge from "@/assets/yelp-badge.png";
 import bbbBadge from "@/assets/bbb-badge.png";
 import homeadvisorBadge from "@/assets/homeadvisor-badge.png";
 
+import { getBreadcrumbSchema, getFAQSchema, getServiceSchema } from "@/lib/seo-schema";
+
 export const Route = createFileRoute("/landscaping")({
   head: () => ({
     meta: [
-      { title: "Landscaping Services - Right Lane Handyman Services, LLC | Clearwater, FL" },
+      { title: "Landscaping & Grounds Care in Tampa & Clearwater, FL | Right Lane" },
       {
         name: "description",
         content:
-          "Professional lawn care, mulching, tree trimming, landscape lighting, and hardscaping in Clearwater, Largo, St. Petersburg & all Pinellas County. Call (727) 642-0201.",
+          "Professional lawn care, mulching, tree trimming, sod installation, and seasonal cleanups across Tampa, Clearwater, and Hillsborough & Pinellas Counties. Call (727) 642-0201.",
       },
       { property: "og:title", content: "Landscaping Services - Right Lane Handyman" },
-      { property: "og:description", content: "Transform your outdoor space. Sod installation, lawn care, tree pruning, pavers, Lutron lighting, and storm cleanups." },
+      {
+        property: "og:description",
+        content:
+          "Transform your outdoor space. Sod installation, lawn care, tree pruning, mulching, and storm cleanups across Tampa Bay.",
+      },
       { property: "og:type", content: "website" },
+      {
+        property: "og:url",
+        content: "https://www.rightlanehandymanservicellc.com/landscaping",
+      },
+    ],
+    links: [
+      {
+        rel: "canonical",
+        href: "https://www.rightlanehandymanservicellc.com/landscaping",
+      },
     ],
   }),
   component: LandscapingPage,
@@ -442,8 +458,36 @@ function LandscapingPage() {
     }
   };
 
+  const breadcrumbSchema = getBreadcrumbSchema([
+    { name: "Home", url: "/" },
+    { name: "Services", url: "/services" },
+    { name: "Landscaping & Grounds Care", url: "/landscaping" },
+  ]);
+
+  const serviceSchema = getServiceSchema({
+    name: "Landscaping & Grounds Care Services",
+    description:
+      "Professional lawn care, mulching, tree trimming, sod installation, and seasonal cleanups in Tampa Bay, FL.",
+    serviceType: "Landscaping Services",
+    url: "/landscaping",
+  });
+
+  const faqSchema = getFAQSchema(FAQS);
+
   return (
     <div className="min-h-screen bg-[#f4f3ef] font-sans">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
       <SiteHeader />
 
       {/* ── HERO ── */}
@@ -465,13 +509,13 @@ function LandscapingPage() {
             className="relative z-20 max-w-4xl mx-auto flex flex-col items-center bg-black/40 backdrop-blur-md rounded-2xl p-6 sm:p-10 border border-white/10"
           >
             <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/20 bg-white/10 text-white text-xs font-semibold uppercase tracking-wider mb-6 shadow-sm">
-              🌿 Beautiful & Well-Maintained Grounds
+              🌿 Beautiful &amp; Well-Maintained Grounds
             </span>
             <h1 className="text-[32px] sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight tracking-tight drop-shadow-md">
-              Landscaping Services
+              Landscaping &amp; Grounds Care Services in Tampa Bay, FL
             </h1>
             <p className="mt-3 text-xs sm:text-sm text-neutral-300 font-medium uppercase tracking-widest text-copper">
-              Transform Your Outdoor Space – Beautiful, Functional, and Well-Maintained
+              Transform Your Outdoor Space Across Hillsborough &amp; Pinellas Counties
             </p>
             <p className="mt-5 text-sm sm:text-base text-neutral-300 font-light leading-relaxed max-w-3xl">
               Your outdoor space is an extension of your home or business – a place to relax, entertain, and make a lasting impression. At Right Lane Handyman Services, LLC, we provide professional landscaping services that enhance your property's beauty, functionality, and value. From mulching and garden bed installation to outdoor lighting and complete landscape transformations, Ronnie and his team bring over 25 years of expertise to every project across Pinellas County.

@@ -9,27 +9,69 @@ import {
   Scripts,
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
+import { Phone, ArrowRight, Home, Wrench, MapPin } from "lucide-react";
 
 import appCss from "../styles.css?url";
 import favIcon from "@/assets/fav.png";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import { getLocalBusinessSchema, getWebSiteSchema } from "../lib/seo-schema";
 
 function NotFoundComponent() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-4">
-      <div className="max-w-md text-center">
-        <h1 className="text-7xl font-bold text-foreground">404</h1>
-        <h2 className="mt-4 text-xl font-semibold text-foreground">Page not found</h2>
-        <p className="mt-2 text-sm text-muted-foreground">
-          The page you're looking for doesn't exist or has been moved.
+    <div className="flex min-h-screen items-center justify-center bg-[#f4f3ef] px-4 py-16">
+      <div className="max-w-lg w-full bg-white rounded-2xl shadow-xl border border-[#e1ded4] p-8 md:p-10 text-center">
+        <span className="inline-block px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-[#cc7e14] bg-[#ffa326]/10 border border-[#ffa326]/20 rounded-full mb-4">
+          Error 404
+        </span>
+        <h1 className="text-4xl md:text-5xl font-extrabold text-neutral-900 tracking-tight">
+          Page Not Found
+        </h1>
+        <p className="mt-3 text-sm md:text-base text-neutral-600 leading-relaxed">
+          Sorry, the page you're looking for doesn't exist or has moved. Let's get you back in the right lane!
         </p>
-        <div className="mt-6">
+
+        {/* Helpful Navigation Links */}
+        <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-3 text-left">
           <Link
             to="/"
-            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+            className="flex items-center gap-2.5 p-3 rounded-xl border border-neutral-200 hover:border-[#ffa326] hover:bg-[#ffa326]/5 transition-all text-sm font-medium text-neutral-800"
           >
-            Go home
+            <Home className="w-4 h-4 text-[#ffa326] shrink-0" />
+            <span>Homepage</span>
           </Link>
+          <Link
+            to="/services"
+            className="flex items-center gap-2.5 p-3 rounded-xl border border-neutral-200 hover:border-[#ffa326] hover:bg-[#ffa326]/5 transition-all text-sm font-medium text-neutral-800"
+          >
+            <Wrench className="w-4 h-4 text-[#ffa326] shrink-0" />
+            <span>All Services</span>
+          </Link>
+          <Link
+            to="/service-areas"
+            className="flex items-center gap-2.5 p-3 rounded-xl border border-neutral-200 hover:border-[#ffa326] hover:bg-[#ffa326]/5 transition-all text-sm font-medium text-neutral-800"
+          >
+            <MapPin className="w-4 h-4 text-[#ffa326] shrink-0" />
+            <span>Tampa Bay Areas</span>
+          </Link>
+          <Link
+            to="/contact-us"
+            className="flex items-center gap-2.5 p-3 rounded-xl border border-neutral-200 hover:border-[#ffa326] hover:bg-[#ffa326]/5 transition-all text-sm font-medium text-neutral-800"
+          >
+            <ArrowRight className="w-4 h-4 text-[#ffa326] shrink-0" />
+            <span>Contact Us</span>
+          </Link>
+        </div>
+
+        {/* Direct Call CTA */}
+        <div className="mt-8 pt-6 border-t border-neutral-100 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <span className="text-xs text-neutral-500 font-medium">Need immediate assistance?</span>
+          <a
+            href="tel:7276420201"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#ffa326] hover:bg-[#cc7e14] text-white font-bold text-xs uppercase tracking-wider transition-all shadow-md"
+          >
+            <Phone className="w-3.5 h-3.5 fill-current" />
+            <span>Call (727) 642-0201</span>
+          </a>
         </div>
       </div>
     </div>
@@ -58,7 +100,7 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
               router.invalidate();
               reset();
             }}
-            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90 cursor-pointer"
           >
             Try again
           </button>
@@ -79,22 +121,46 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Right Lane Handyman Services, LLC | Clearwater's Trusted Handyman & Remodeling Experts" },
-      { name: "description", content: "Clearwater's premier licensed, insured, and bonded handyman and remodeling company. 25+ years of experience in home repairs, fencing, covered patios, hardscapes & artificial turf. Free consultations. Call (727) 642-0201." },
-      { name: "author", content: "Right Lane Handyman Services, LLC" },
-      { property: "og:title", content: "Right Lane Handyman Services, LLC | Clearwater's Trusted Handyman & Remodeling Experts" },
-      { property: "og:description", content: "Clearwater's premier licensed, insured, and bonded handyman and remodeling company. 25+ years of experience in home repairs, fencing, covered patios, hardscapes & artificial turf. Free consultations. Call (727) 642-0201." },
+      {
+        name: "google-site-verification",
+        content: "i8ZhaCS21R9Qi6xirV560hMXtBSHj3nQG7uquvZ8DdA",
+      },
+      { title: "Handyman in Tampa, FL | Right Lane Handyman Services" },
+      {
+        name: "description",
+        content:
+          "Professional handyman, home repair & property maintenance in Tampa, FL & Tampa Bay Area. 25+ years experience. Licensed, insured & bonded. Call (727) 642-0201.",
+      },
+      { name: "author", content: "Right Lane Handyman Services LLC" },
+      { name: "geo.region", content: "US-FL" },
+      { name: "geo.placename", content: "Tampa, Clearwater, St. Petersburg" },
+      { name: "geo.position", content: "27.9659;-82.8001" },
+      { name: "ICBM", content: "27.9659, -82.8001" },
+      { property: "og:title", content: "Right Lane Handyman Services LLC | Handyman Services Tampa, FL" },
+      {
+        property: "og:description",
+        content:
+          "Clearwater & Tampa's premier licensed, insured & bonded handyman and property maintenance company. 25+ years experience. Call (727) 642-0201.",
+      },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: "https://jrmconstruction.vercel.app" },
+      { property: "og:url", content: "https://www.rightlanehandymanservicellc.com/" },
+      { property: "og:site_name", content: "Right Lane Handyman Services LLC" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "Right Lane Handyman Services, LLC | Clearwater, FL" },
-      { name: "twitter:description", content: "25+ years of trusted handyman services & home repairs in Clearwater. Licensed, insured & bonded. Call (727) 642-0201." },
+      { name: "twitter:title", content: "Right Lane Handyman Services LLC | Tampa, FL" },
+      {
+        name: "twitter:description",
+        content: "25+ years of trusted handyman services & home repairs in Tampa Bay. Licensed, insured & bonded. Call (727) 642-0201.",
+      },
     ],
     links: [
       {
         rel: "icon",
         type: "image/png",
         href: favIcon,
+      },
+      {
+        rel: "canonical",
+        href: "https://www.rightlanehandymanservicellc.com/",
       },
       {
         rel: "preconnect",
@@ -122,10 +188,21 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 });
 
 function RootShell({ children }: { children: ReactNode }) {
+  const localBusinessSchema = getLocalBusinessSchema();
+  const webSiteSchema = getWebSiteSchema();
+
   return (
     <html lang="en">
       <head>
         <HeadContent />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(webSiteSchema) }}
+        />
       </head>
       <body>
         {children}

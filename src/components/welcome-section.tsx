@@ -56,7 +56,7 @@ export function WelcomeSection() {
                 {t("welcome.btn.call")}
               </a>
               <Link
-                to="#"
+                to="/free-estimate"
                 className="rounded-full bg-gradient-to-r from-[#ffa326] to-[#cc7e14] hover:from-[#ffa326] hover:to-[#995906] px-6 sm:px-7 py-3 text-white text-sm font-normal hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 shadow-md"
               >
                 {t("welcome.btn.consultation")}

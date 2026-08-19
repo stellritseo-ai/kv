@@ -44,18 +44,34 @@ import yelpBadge from "@/assets/yelp-badge.png";
 import bbbBadge from "@/assets/bbb-badge.png";
 import homeadvisorBadge from "@/assets/homeadvisor-badge.png";
 
+import { getBreadcrumbSchema, getFAQSchema, getServiceSchema } from "@/lib/seo-schema";
+
 export const Route = createFileRoute("/property-maintenance")({
   head: () => ({
     meta: [
-      { title: "Property Maintenance Services - Right Lane Handyman Services, LLC | Clearwater, FL" },
+      { title: "Home Repair & Property Maintenance in Tampa & Clearwater, FL | Right Lane" },
       {
         name: "description",
         content:
-          "Professional residential, commercial, and industrial property maintenance and handyman repairs in Clearwater, Largo, St. Petersburg & all Pinellas County. Call (727) 642-0201.",
+          "Expert residential and commercial home repair & property maintenance across Tampa, Clearwater, and Hillsborough & Pinellas Counties. Call (727) 642-0201.",
       },
-      { property: "og:title", content: "Property Maintenance Services - Right Lane Handyman" },
-      { property: "og:description", content: "Drywall, painting, seasonal storm preparation, landscaping, and recurring maintenance plans. Licensed & Insured." },
+      { property: "og:title", content: "Home Repair & Property Maintenance - Right Lane Handyman" },
+      {
+        property: "og:description",
+        content:
+          "Drywall patching, painting, carpentry, fixture repairs, and seasonal storm preparation. Licensed, insured & bonded with 25+ years experience.",
+      },
       { property: "og:type", content: "website" },
+      {
+        property: "og:url",
+        content: "https://www.rightlanehandymanservicellc.com/property-maintenance",
+      },
+    ],
+    links: [
+      {
+        rel: "canonical",
+        href: "https://www.rightlanehandymanservicellc.com/property-maintenance",
+      },
     ],
   }),
   component: PropertyMaintenancePage,
@@ -436,8 +452,36 @@ function PropertyMaintenancePage() {
     }
   };
 
+  const breadcrumbSchema = getBreadcrumbSchema([
+    { name: "Home", url: "/" },
+    { name: "Services", url: "/services" },
+    { name: "Property Maintenance & Home Repair", url: "/property-maintenance" },
+  ]);
+
+  const serviceSchema = getServiceSchema({
+    name: "Home Repair & Property Maintenance Services",
+    description:
+      "Comprehensive residential and commercial handyman repairs, drywall patching, painting, and maintenance in Tampa Bay, FL.",
+    serviceType: "Home Repair & Property Maintenance",
+    url: "/property-maintenance",
+  });
+
+  const faqSchema = getFAQSchema(FAQS);
+
   return (
     <div className="min-h-screen bg-[#f4f3ef] font-sans">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
       <SiteHeader />
 
       {/* ── HERO ── */}
@@ -459,16 +503,16 @@ function PropertyMaintenancePage() {
             className="relative z-20 max-w-4xl mx-auto flex flex-col items-center bg-black/40 backdrop-blur-md rounded-2xl p-6 sm:p-10 border border-white/10"
           >
             <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/20 bg-white/10 text-white text-xs font-semibold uppercase tracking-wider mb-6 shadow-sm">
-              🛠️ Professional Handyman & Care
+              🛠️ Professional Handyman &amp; Home Repair
             </span>
             <h1 className="text-[32px] sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight tracking-tight drop-shadow-md">
-              Property Maintenance Services
+              Home Repair &amp; Property Maintenance Services in Tampa Bay
             </h1>
             <p className="mt-3 text-xs sm:text-sm text-neutral-300 font-medium uppercase tracking-widest text-copper">
-              Keep Your Property in Pristine Condition – Year-Round
+              Keep Your Home in Pristine Condition Across Hillsborough &amp; Pinellas Counties
             </p>
             <p className="mt-5 text-sm sm:text-base text-neutral-300 font-light leading-relaxed max-w-3xl">
-              Your property is one of your most valuable assets, and regular maintenance is the key to protecting that investment. At Right Lane Handyman Services, LLC, we provide comprehensive property maintenance services for homeowners, property managers, and commercial property owners across Pinellas County. With over 25 years of experience, Ronnie and his team deliver reliable, professional maintenance that keeps your property looking its best and functioning properly – all year long.
+              Your home is your most valuable asset, and regular maintenance is the key to protecting that investment. At Right Lane Handyman Services, LLC, we provide comprehensive home repair and property maintenance services for homeowners, rental owners, and businesses throughout Tampa, Clearwater, St. Petersburg, Brandon, and the greater Tampa Bay Area.
             </p>
 
             {/* Trust Badges */}
