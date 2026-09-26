@@ -1162,7 +1162,6 @@ function LandscapingPage() {
               <Link
                 key={link.label}
                 to={link.to}
-                hash={link.hash}
                 className={`px-4 py-2 rounded-xl text-xs font-semibold border transition-all cursor-pointer ${
                   link.active
                     ? "bg-copper border-copper text-white shadow-xs"

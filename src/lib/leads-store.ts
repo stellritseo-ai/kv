@@ -46,594 +46,865 @@ export interface WebEmail {
 export const INITIAL_LEADS: Lead[] = [
   {
     id: "lead-1",
-    name: "Robert Martinez",
-    email: "rob.martinez@gmail.com",
-    phone: "(727) 555-0192",
-    address: "415 Bayshore Blvd, Tampa, FL 33606",
-    projectType: "Property Maintenance",
-    description: "Looking for general handyman repairs, drywall patching, and fixture replacements across our residential property.",
+    name: "Michael Reynolds",
+    email: "m.reynolds@gmail.com",
+    phone: "(732) 555-0192",
+    address: "240 Corlies Ave, Neptune, NJ 07753",
+    projectType: "Kitchen Remodeling",
+    description: "Looking for complete kitchen redesign, new custom cabinetry, quartz countertops, and island installation.",
     contactTime: "morning",
     status: "new",
-    estimatedValue: 3500,
+    estimatedValue: 28500,
     createdAt: "2026-06-15T09:30:00Z"
   },
   {
     id: "lead-2",
-    name: "Lisa Thompson",
-    email: "lisa.thompson86@yahoo.com",
-    phone: "(727) 555-8831",
-    address: "812 Walnut Ave, Pinellas Park, FL 33781",
-    projectType: "Post Construction Cleaning",
-    description: "Need deep move-in post construction cleanup for a 3-bedroom renovated home. Dust removal, window wipe-downs, and sanitized surfaces.",
+    name: "Sarah Jenkins",
+    email: "sarah.jenkins@yahoo.com",
+    phone: "(732) 555-8831",
+    address: "512 Cookman Ave, Asbury Park, NJ 07712",
+    projectType: "Bathroom Remodeling",
+    description: "Master bathroom gut and remodel with walk-in tile shower, dual vanity, and radiant floor heating.",
     contactTime: "afternoon",
     status: "contacted",
-    estimatedValue: 1800,
+    estimatedValue: 16500,
     createdAt: "2026-06-14T14:15:00Z"
   },
   {
     id: "lead-3",
     name: "David Miller",
-    email: "dmiller_fl@outlook.com",
-    phone: "(727) 555-4421",
-    address: "102 Beach Dr NE, St. Petersburg, FL 33701",
-    projectType: "Pressure Washing",
-    description: "Complete driveway, pool deck, and exterior siding power washing for our 2-story home.",
+    email: "dmiller_nj@outlook.com",
+    phone: "(732) 555-4421",
+    address: "88 Main Ave, Ocean Grove, NJ 07756",
+    projectType: "Deck & Outdoor Living",
+    description: "Multi-level composite deck installation with built-in bench seating and outdoor lighting.",
     contactTime: "evening",
     status: "proposal_sent",
-    estimatedValue: 950,
+    estimatedValue: 19800,
     createdAt: "2026-06-12T11:00:00Z"
   },
   {
     id: "lead-4",
-    name: "Emily Rodriguez",
-    email: "emily.rod@gmail.com",
-    phone: "(727) 555-7729",
-    address: "2209 Tarpon Woods Blvd, Tarpon Springs, FL 34688",
-    projectType: "Demolition",
-    description: "Safe demolition and removal of an old wooden deck and concrete walkway in our backyard.",
+    name: "Anthony Russo",
+    email: "anthony.russo@gmail.com",
+    phone: "(732) 555-7729",
+    address: "310 Ocean Ave, Bradley Beach, NJ 07720",
+    projectType: "General Contracting",
+    description: "Interior layout modifications, load-bearing beam removal, open floor plan conversion, and hardwood flooring.",
     contactTime: "afternoon",
     status: "consultation_scheduled",
-    estimatedValue: 4500,
+    estimatedValue: 34000,
     createdAt: "2026-06-11T16:40:00Z"
   },
   {
     id: "lead-5",
     name: "Amanda Taylor",
     email: "amanda.taylor@comcast.net",
-    phone: "(727) 555-1284",
-    address: "7402 Cleveland St, Clearwater, FL 33756",
-    projectType: "Junk Removal & Hauling",
-    description: "Need estate cleanout and heavy junk hauling from garage and shed. Old furniture, appliances, and renovation debris.",
+    phone: "(732) 555-1284",
+    address: "704 10th Ave, Belmar, NJ 07719",
+    projectType: "Home Additions",
+    description: "Second story master suite addition over existing garage with ensuite bath and walk-in closet.",
     contactTime: "morning",
     status: "won",
-    notes: "Service completed on schedule. Customer very happy with fast cleanup.",
-    estimatedValue: 1250,
+    notes: "Permits approved and project initiated on schedule.",
+    estimatedValue: 68000,
     createdAt: "2026-06-08T10:10:00Z"
   },
   {
     id: "lead-6",
     name: "James Wilson",
     email: "jwilson_eng@gmail.com",
-    phone: "(813) 555-9012",
-    address: "1405 Oakfield Dr, Brandon, FL 33511",
-    projectType: "Fence Removal",
-    description: "Removal and haul-away of 250 linear feet of damaged wood privacy fence before new installation.",
+    phone: "(732) 555-9012",
+    address: "1203 3rd Ave, Spring Lake, NJ 07762",
+    projectType: "Property Maintenance",
+    description: "Seasonal preventative maintenance, trim carpentry repair, power washing, and gutter protection.",
     contactTime: "evening",
     status: "new",
-    estimatedValue: 1600,
+    estimatedValue: 4200,
     createdAt: "2026-06-05T15:20:00Z"
   },
   {
     id: "lead-7",
-    name: "Michael Brown",
-    email: "mbrown.tampa@yahoo.com",
-    phone: "(813) 555-3312",
-    address: "202 S Dale Mabry Hwy, Tampa, FL 33609",
-    projectType: "Landscaping",
-    description: "Commercial grounds maintenance, fresh mulch installation, shrub trimming, and sod repair for office property.",
+    name: "Robert Palmer",
+    email: "rpalmer.biz@yahoo.com",
+    phone: "(732) 555-3312",
+    address: "1800 Route 35, Wall Township, NJ 07719",
+    projectType: "Commercial Improvements",
+    description: "Retail showroom remodeling, commercial drywall partition install, and drop-ceiling upgrade.",
     contactTime: "morning",
     status: "new",
-    estimatedValue: 3200,
+    estimatedValue: 24500,
     createdAt: "2026-06-16T08:45:00Z"
-  },
-  {
-    id: "lead-8",
-    name: "Jessica Davis",
-    email: "jdavis.law@gmail.com",
-    phone: "(727) 555-8810",
-    address: "1802 Main St, Dunedin, FL 34698",
-    projectType: "Residential Leases Cleaning",
-    description: "Move-out deep clean for a tenant turnover apartment. Lease inspection ready guarantee.",
-    contactTime: "afternoon",
-    status: "proposal_sent",
-    estimatedValue: 850,
-    createdAt: "2026-06-13T13:30:00Z"
   }
 ];
 
-// Initial reviews pre-seeded from reviewsPage list and landing page
+// Initial reviews pre-seeded for KV Property Inc in Neptune, NJ & surrounding area
 export const INITIAL_REVIEWS: Review[] = [
   {
     id: "review-1",
-    title: "A Complete Home Transformation",
-    text: "Ronnie and his team just finished a complete remodel and backyard overhaul for us. From the new kitchen to the covered patio and outdoor kitchen, the entire process was professional and seamless. His 25+ Years of experience showed at every turn—he anticipated issues we never would have thought of. The crew was respectful, the site was kept clean, and the quality is outstanding. Right Lane is a true design-build contractor.",
+    title: "A Complete Kitchen Transformation",
+    text: "KV Property Inc remodeled our entire kitchen in Neptune, NJ and the craftsmanship is truly remarkable. From custom cabinets to granite counters, the process was seamless, communicative, and on schedule. Their 20+ years of experience shows in every detail.",
     author: "The Carter Family",
-    location: "Clearwater",
+    location: "Neptune, NJ",
     rating: 5,
     featured: true,
     createdAt: "2026-05-10T10:00:00Z",
     initials: "CF",
     avatarColor: "#1D4ED8",
-    role: "Homeowner, Clearwater"
+    role: "Homeowner, Neptune, NJ"
   },
   {
     id: "review-2",
-    title: "An Outdoor Oasis Created",
-    text: "Our backyard was just empty grass. Now, it's our favorite 'room' in the house! Right Lane built a stunning flagstone patio, a custom pergola, and a softscape garden that looks like it's always been there. Ronnie's design eye is incredible. We especially appreciated that they were licensed and insured; it gave us so much peace of mind. We recommend them to everyone.",
+    title: "Turned Our Bathroom Into An Oasis",
+    text: "Our outdated bathroom is now our favorite room in our Asbury Park home! KV Property Inc handled everything from plumbing and waterproofing to custom glass and tilework. Licensed, insured, and very professional.",
     author: "Melissa & Ben R.",
-    location: "Largo",
+    location: "Asbury Park, NJ",
     rating: 5,
     featured: true,
     createdAt: "2026-05-18T14:30:00Z",
     initials: "MR",
     avatarColor: "#7C3AED",
-    role: "Homeowner, Largo"
+    role: "Homeowner, Asbury Park, NJ"
   },
   {
     id: "review-3",
-    title: "Trustworthy & Honest Repair",
-    text: "After a storm damaged our fence and part of our roof eaves, we needed emergency help. Ronnie answered his phone and had a crew out within hours for temporary protection. They scheduled the full repair promptly, provided a clear, fair quote, and did impeccable work. In a world of contractors who don't call back, Right Lane's 24/7 reliability and old-school integrity are priceless.",
+    title: "Honest Contracting & Fast Emergency Response",
+    text: "When storm damage affected our roof overhang and deck, KV Property Inc responded immediately. Their 24/7 emergency service and clear, honest estimate gave us huge peace of mind. Exceptional craftsmanship.",
     author: "David H.",
-    location: "St. Petersburg",
+    location: "Ocean Grove, NJ",
     rating: 5,
     featured: true,
-    replyText: "Thank you David! Storm damage is always stressful, so we make it a priority to respond quickly and secure your property. Glad we could help get things back to normal.",
+    replyText: "Thank you David! Storm damage is always stressful, and our 24/7 team takes pride in securing local homes fast and doing permanent repairs built to last.",
     createdAt: "2026-05-24T08:15:00Z",
     initials: "DH",
     avatarColor: "#065F46",
-    role: "Homeowner, St. Petersburg"
+    role: "Homeowner, Ocean Grove, NJ"
   },
   {
     id: "review-4",
-    title: "Kitchen Remodel Perfection",
-    text: "We interviewed several contractors for our kitchen remodel. Ronnie from Right Lane stood out immediately. He was knowledgeable, listened to our ideas, and his quote was detailed and transparent—no hidden fees. The craftsmanship on the custom cabinets and tilework is beautiful. They finished on time and on budget. A stress-free, fantastic experience.",
+    title: "Stunning Composite Deck & Outdoor Living",
+    text: "We wanted a multi-level deck for family gatherings in Bradley Beach. KV Property Inc designed and built a gorgeous, solid outdoor space. Quality materials and great crew.",
     author: "Sofia & Mark T.",
-    location: "Clearwater",
+    location: "Bradley Beach, NJ",
     rating: 5,
     featured: true,
     createdAt: "2026-06-01T11:00:00Z",
     initials: "SM",
     avatarColor: "#B45309",
-    role: "Homeowner, Clearwater"
+    role: "Homeowner, Bradley Beach, NJ"
   },
   {
     id: "review-5",
-    title: "Custom Fencing & Pergola",
-    text: "The backyard fencing and covered patio upgrade they did for our home was outstanding. Professional, clean, and finished ahead of schedule.",
+    title: "High-End General Contracting",
+    text: "KV Property Inc oversaw our entire two-floor home renovation in Spring Lake. Dependable scheduling, meticulous craftsmanship, and transparent budget management from start to finish.",
     author: "Marcus T.",
-    location: "Clearwater",
+    location: "Spring Lake, NJ",
     rating: 5,
     featured: true,
     createdAt: "2026-06-02T10:00:00Z",
     initials: "MT",
     avatarColor: "#1D4ED8",
-    role: "Homeowner, Clearwater"
+    role: "Homeowner, Spring Lake, NJ"
   },
   {
     id: "review-6",
-    title: "Emergency Storm Cleanup",
-    text: "Called them for emergency cleanup and debris removal after the storm — they arrived within 45 minutes and worked tirelessly. Truly 24/7 service.",
+    title: "Dependable Property Maintenance",
+    text: "We contract KV Property Inc for ongoing commercial property repairs and maintenance in Wall Township. Their attention to detail keeps our facilities in top-tier shape.",
     author: "Priya S.",
-    location: "Largo",
+    location: "Wall Township, NJ",
     rating: 5,
     featured: true,
     createdAt: "2026-06-03T11:15:00Z",
     initials: "PS",
     avatarColor: "#7C3AED",
-    role: "Property Manager, Largo"
+    role: "Property Manager, Wall Township, NJ"
   },
   {
     id: "review-7",
-    title: "Gorgeous Artificial Turf",
-    text: "They installed a gorgeous artificial turf and paved walkway in our courtyard. Flawless execution. I'll never use another handyman company again.",
+    title: "Flawless Flooring & Interior Painting",
+    text: "They installed hardwood flooring throughout our home and completed full interior painting. Crisp lines, level floors, and zero mess left behind. Truly built with purpose.",
     author: "Jared W.",
-    location: "St. Petersburg",
+    location: "Belmar, NJ",
     rating: 5,
     featured: true,
     createdAt: "2026-06-04T12:00:00Z",
     initials: "JW",
     avatarColor: "#065F46",
-    role: "Homeowner, St. Petersburg"
+    role: "Homeowner, Belmar, NJ"
   },
   {
     id: "review-8",
-    title: "Office Renovation Work",
-    text: "Best remodeling contractor in Clearwater. They wired, painted, and finished our entire office renovation — on time, on budget, and zero issues.",
+    title: "Seamless Home Addition",
+    text: "Adding a family room and guest suite was a major undertaking, but KV Property Inc made it easy. They managed permits, framing, roofing, and finished it to match our home perfectly.",
     author: "Diana L.",
-    location: "Dunedin",
+    location: "Freehold, NJ",
     rating: 5,
     featured: true,
     createdAt: "2026-06-05T14:30:00Z",
     initials: "DL",
     avatarColor: "#B45309",
-    role: "Business Owner, Dunedin"
-  },
-  {
-    id: "review-9",
-    title: "Property Mulch & Landscaping",
-    text: "Mulching, landscaping, and property maintenance was seamless. They set up Lutron outdoor lighting and fixed all our deck issues.",
-    author: "Kenji M.",
-    location: "Clearwater Beach",
-    rating: 5,
-    featured: true,
-    createdAt: "2026-06-06T09:00:00Z",
-    initials: "KM",
-    avatarColor: "#BE185D",
-    role: "Homeowner, Clearwater Beach"
-  },
-  {
-    id: "review-10",
-    title: "Bungalow Drywall & Paint",
-    text: "Hired them for a complete drywall repair and painting of a 1970s bungalow. They passed every inspection. Excellent team.",
-    author: "Rosa F.",
-    location: "Pinellas Park",
-    rating: 5,
-    featured: true,
-    createdAt: "2026-06-07T15:20:00Z",
-    initials: "RF",
-    avatarColor: "#0F766E",
-    role: "Real Estate Investor, Pinellas Park"
-  },
-  {
-    id: "review-11",
-    title: "Limestone Pavement & Demo",
-    text: "Pressure washing and concrete demolition was smooth and the team was incredibly knowledgeable. They left the site spotless.",
-    author: "Tony B.",
-    location: "Tarpon Springs",
-    rating: 5,
-    featured: true,
-    createdAt: "2026-06-08T16:00:00Z",
-    initials: "TB",
-    avatarColor: "#9333EA",
-    role: "Restaurant Owner, Tarpon Springs"
-  },
-  {
-    id: "review-12",
-    title: "Safety Harbor Remodel",
-    text: "Outstanding service from start to finish. The crew was courteous, efficient, and clearly knew what they were doing. Highly recommend.",
-    author: "Sandra K.",
-    location: "Safety Harbor",
-    rating: 5,
-    featured: true,
-    createdAt: "2026-06-09T10:45:00Z",
-    initials: "SK",
-    avatarColor: "#DC2626",
-    role: "Property Manager, Safety Harbor"
-  },
-  {
-    id: "review-13",
-    title: "Fast Junk Hauling",
-    text: "Ronnie hauled away two truckloads of old deck lumber and yard waste in less than an hour. Great prices and prompt service in Largo.",
-    author: "Gary D.",
-    location: "Largo",
-    rating: 5,
-    featured: true,
-    createdAt: "2026-06-10T11:00:00Z",
-    initials: "GD",
-    avatarColor: "#1D4ED8",
-    role: "Homeowner, Largo"
-  },
-  {
-    id: "review-14",
-    title: "Driveway Looks Brand New",
-    text: "Professional pressure washing for our entire driveway and pool deck. It looks brand new again. Highly recommend Right Lane!",
-    author: "Linda K.",
-    location: "Clearwater Beach",
-    rating: 5,
-    featured: true,
-    createdAt: "2026-06-11T13:20:00Z",
-    initials: "LK",
-    avatarColor: "#7C3AED",
-    role: "Homeowner, Clearwater Beach"
-  },
-  {
-    id: "review-15",
-    title: "Perfect Drywall Repair",
-    text: "Right Lane repaired our drywall after a plumbing leak. They did the patching, texturing, and painting flawlessly. You can't even see where the hole was.",
-    author: "Mark A.",
-    location: "St. Petersburg",
-    rating: 5,
-    featured: true,
-    createdAt: "2026-06-12T14:15:00Z",
-    initials: "MA",
-    avatarColor: "#065F46",
-    role: "Homeowner, St. Petersburg"
-  },
-  {
-    id: "review-16",
-    title: "Excellent Garage Cleanout",
-    text: "Fast debris removal after clearing out our garage. They took care of everything from old furniture to broken appliances. Excellent service.",
-    author: "Sarah W.",
-    location: "Dunedin",
-    rating: 5,
-    featured: true,
-    createdAt: "2026-06-13T10:00:00Z",
-    initials: "SW",
-    avatarColor: "#B45309",
-    role: "Homeowner, Dunedin"
-  },
-  {
-    id: "review-17",
-    title: "Stunning Curb Appeal",
-    text: "Had our front yard mulched and garden beds bordered. Right Lane did a beautiful job. Our curb appeal has never looked better!",
-    author: "Thomas H.",
-    location: "Safety Harbor",
-    rating: 5,
-    featured: true,
-    createdAt: "2026-06-14T09:30:00Z",
-    initials: "TH",
-    avatarColor: "#BE185D",
-    role: "Homeowner, Safety Harbor"
-  },
-  {
-    id: "review-18",
-    title: "Sturdy Fence Repairs",
-    text: "Repaired our wooden fence gates and replaced three rotting posts. Very sturdy work and fair pricing. Will definitely hire Ronnie again.",
-    author: "Nancy P.",
-    location: "Pinellas Park",
-    rating: 5,
-    featured: true,
-    createdAt: "2026-06-15T16:00:00Z",
-    initials: "NP",
-    avatarColor: "#0F766E",
-    role: "Homeowner, Pinellas Park"
-  },
-  {
-    id: "review-19",
-    title: "Quick & Handy Help",
-    text: "Super responsive handyman service. They fixed our sticky doors, hung some heavy shelving, and replaced three light fixtures in one afternoon.",
-    author: "Jason B.",
-    location: "Clearwater",
-    rating: 5,
-    featured: true,
-    createdAt: "2026-06-16T12:00:00Z",
-    initials: "JB",
-    avatarColor: "#9333EA",
-    role: "Homeowner, Clearwater"
-  },
-  {
-    id: "review-20",
-    title: "Commercial Storm Cleanup",
-    text: "Cleaned up our commercial property after storm damage. Cleared fallen branches, loose gravel, and trash. Excellent communication throughout.",
-    author: "Robert T.",
-    location: "Tampa",
-    rating: 5,
-    featured: true,
-    createdAt: "2026-06-17T11:45:00Z",
-    initials: "RT",
-    avatarColor: "#DC2626",
-    role: "Business Owner, Tampa"
-  },
-  {
-    id: "review-21",
-    title: "Deck Sealing & Wash",
-    text: "Excellent deck pressure washing and sealing. Ronnie was professional, on time, and left our backyard spotless. 5 stars!",
-    author: "Rachel S.",
-    location: "Tarpon Springs",
-    rating: 5,
-    featured: true,
-    createdAt: "2026-06-18T10:15:00Z",
-    initials: "RS",
-    avatarColor: "#1D4ED8",
-    role: "Homeowner, Tarpon Springs"
-  },
-  {
-    id: "review-22",
-    title: "Heavy Junk Removal",
-    text: "They hauled away our old hot tub and concrete blocks. Very heavy work but the Right Lane crew handled it with ease. Outstanding service!",
-    author: "Michael F.",
-    location: "Largo",
-    rating: 5,
-    featured: true,
-    createdAt: "2026-06-19T14:30:00Z",
-    initials: "MF",
-    avatarColor: "#7C3AED",
-    role: "Homeowner, Largo"
+    role: "Homeowner, Freehold, NJ"
   }
 ];
 
-// Helper to initialize and retrieve data
-import {
-  getLeadsFn,
-  addCustomLeadFn,
-  deleteLeadFn,
-  updateLeadStatusFn,
-  updateLeadDetailsFn,
-  uploadLeadPhotoFn,
-  removeLeadPhotoFn,
-  getReviewsFn,
-  addReviewFn,
-  toggleReviewFeaturedFn,
-  replyToReviewFn,
-  getChatSessionsFn,
-  getChatSessionFn,
-  createChatSessionFn,
-  sendChatMessageFn,
-  markChatAsReadFn,
-  getGalleryPhotosFn,
-  uploadGalleryPhotoFn,
-  removeGalleryPhotoFn,
-  getWebEmailsFn,
-  addWebEmailFn,
-  deleteWebEmailFn,
-  loginAdminFn,
-  verifyAdminTokenFn,
-  updateUserCredentialsFn,
-  getPortalUsersFn,
-  createPortalUserFn,
-  deletePortalUserFn
-} from "./api/db.functions";
+// ── IN-MEMORY / LOCAL STORAGE DATA LAYER (NO DATABASE / NO EXTERNAL SERVICES) ──
 
-export const getLeads = async (): Promise<Lead[]> => {
-  return getLeadsFn();
-};
-
-export const addLead = async (leadData: Omit<Lead, "id" | "status" | "estimatedValue" | "createdAt">): Promise<Lead> => {
-  let estimatedValue = 10000;
-  switch (leadData.projectType) {
-    case "remodeling":
-      estimatedValue = 65000;
-      break;
-    case "new-construction":
-      estimatedValue = 250000;
-      break;
-    case "outdoor-kitchen":
-      estimatedValue = 35000;
-      break;
-    case "fireplace":
-      estimatedValue = 12000;
-      break;
-    case "patio":
-      estimatedValue = 18000;
-      break;
-    case "hardscapes":
-      estimatedValue = 15000;
-      break;
-    case "softscapes":
-      estimatedValue = 8500;
-      break;
-    case "fencing":
-      estimatedValue = 7500;
-      break;
-    case "turf":
-      estimatedValue = 12000;
-      break;
-    case "commercial":
-      estimatedValue = 95000;
-      break;
-  }
-  return addCustomLeadFn({
-    data: {
-      ...leadData,
-      status: "new",
-      estimatedValue
-    }
-  });
-};
-
-export const addCustomLead = async (lead: Omit<Lead, "id" | "createdAt">): Promise<Lead> => {
-  return addCustomLeadFn({ data: lead });
-};
-
-export const updateLeadStatus = async (id: string, status: Lead["status"]): Promise<Lead[] | null> => {
-  await updateLeadStatusFn({ data: { id, status } });
-  return getLeadsFn();
-};
-
-export const updateLeadDetails = async (id: string, updates: Partial<Pick<Lead, "estimatedValue" | "notes" | "status">>): Promise<Lead[] | null> => {
-  await updateLeadDetailsFn({ data: { id, details: updates } });
-  return getLeadsFn();
-};
-
-export const deleteLead = async (id: string): Promise<Lead[]> => {
-  await deleteLeadFn({ data: { id } });
-  return getLeadsFn();
-};
-
-export const getReviews = async (): Promise<Review[]> => {
-  return getReviewsFn();
-};
-
-export const addReview = async (reviewData: Omit<Review, "id" | "featured" | "createdAt"> & { newReviewPhoto?: string }): Promise<Review> => {
-  return addReviewFn({ data: reviewData });
-};
-
-export const toggleReviewFeatured = async (id: string): Promise<Review[]> => {
-  await toggleReviewFeaturedFn({ data: { id } });
-  return getReviewsFn();
-};
-
-export const replyToReview = async (id: string, replyText: string): Promise<Review[]> => {
-  await replyToReviewFn({ data: { id, replyText } });
-  return getReviewsFn();
-};
-
-export const getChatSessions = async (): Promise<ChatSession[]> => {
-  return getChatSessionsFn();
-};
-
-export const getChatSessionById = async (sessionId: string): Promise<ChatSession | null> => {
-  return getChatSessionFn({ data: { sessionId } });
-};
-
-export const createChatSession = async (
-  clientName: string, 
-  clientCity: string = "Clearwater",
-  clientEmail?: string,
-  clientPhone?: string
-): Promise<ChatSession> => {
-  return createChatSessionFn({ data: { clientName, clientCity, clientEmail, clientPhone } });
-};
-
-export const sendChatMessage = async (sessionId: string, sender: "client" | "admin", text: string): Promise<ChatSession | null> => {
-  return sendChatMessageFn({ data: { sessionId, sender, text } });
-};
-
-export const markChatAsRead = async (sessionId: string): Promise<ChatSession[]> => {
-  await markChatAsReadFn({ data: { sessionId } });
-  return getChatSessionsFn();
-};
-
-export const uploadLeadPhoto = async (leadId: string, base64Photo: string): Promise<Lead[]> => {
-  await uploadLeadPhotoFn({ data: { leadId, base64Photo } });
-  return getLeadsFn();
-};
-
-export const removeLeadPhoto = async (leadId: string, photoIndex: number): Promise<Lead[]> => {
-  await removeLeadPhotoFn({ data: { leadId, photoIndex } });
-  return getLeadsFn();
-};
-
-// ── GALLERY PHOTOS FUNCTIONS ──
 export interface GalleryPhoto {
   id: string;
   url: string;
   uploadedAt: string;
 }
 
+export interface ChatMessage {
+  id: string;
+  sender: "client" | "admin";
+  text: string;
+  timestamp: string;
+}
+
+export interface ChatSession {
+  id: string;
+  clientName: string;
+  userName?: string;
+  clientCity: string;
+  clientEmail?: string;
+  clientPhone?: string;
+  lastMessage: string;
+  lastMessageTime: string;
+  unread: boolean;
+  messages: ChatMessage[];
+}
+
+export interface PortalUser {
+  id: string;
+  username: string;
+  role: string;
+}
+
+interface StoredUser extends PortalUser {
+  password?: string;
+}
+
+export const INITIAL_CHATS: ChatSession[] = [
+  {
+    id: "session-1",
+    clientName: "Michael Reynolds",
+    clientCity: "Neptune, NJ",
+    lastMessage: "Thank you, looking forward to the estimate on Thursday!",
+    lastMessageTime: new Date(Date.now() - 3600000 * 2).toISOString(),
+    unread: false,
+    messages: [
+      {
+        id: "msg-1",
+        sender: "client",
+        text: "Hi! I am looking to remodel our kitchen in Neptune, NJ. Do you provide in-person estimates?",
+        timestamp: new Date(Date.now() - 3600000 * 2.5).toISOString()
+      },
+      {
+        id: "msg-2",
+        sender: "admin",
+        text: "Hi Michael! Yes, KV Property Inc provides estimates across Neptune and our 25-mile service area. We would be happy to discuss your vision.",
+        timestamp: new Date(Date.now() - 3600000 * 2.2).toISOString()
+      },
+      {
+        id: "msg-3",
+        sender: "client",
+        text: "Thank you, looking forward to the estimate on Thursday!",
+        timestamp: new Date(Date.now() - 3600000 * 2).toISOString()
+      }
+    ]
+  },
+  {
+    id: "session-2",
+    clientName: "Sarah Jenkins",
+    clientCity: "Asbury Park, NJ",
+    lastMessage: "Sounds great, will check out your projects page!",
+    lastMessageTime: new Date(Date.now() - 3600000 * 5).toISOString(),
+    unread: false,
+    messages: [
+      {
+        id: "msg-4",
+        sender: "client",
+        text: "Hello! Do you handle custom tile and walk-in bathroom remodeling in Asbury Park?",
+        timestamp: new Date(Date.now() - 3600000 * 5.2).toISOString()
+      },
+      {
+        id: "msg-5",
+        sender: "admin",
+        text: "Yes, absolutely! We specialize in complete bathroom renovations with high-quality tile, vanities, and fixtures.",
+        timestamp: new Date(Date.now() - 3600000 * 5.1).toISOString()
+      },
+      {
+        id: "msg-6",
+        sender: "client",
+        text: "Sounds great, will check out your projects page!",
+        timestamp: new Date(Date.now() - 3600000 * 5).toISOString()
+      }
+    ]
+  }
+];
+
+const INITIAL_WEB_EMAILS: WebEmail[] = [
+  {
+    id: "web-email-1",
+    name: "Michael Reynolds",
+    email: "m.reynolds@gmail.com",
+    phone: "(732) 555-0192",
+    service: "Kitchen Remodeling",
+    message: "Looking for complete kitchen redesign, new custom cabinetry, quartz countertops, and island installation in Neptune, NJ.",
+    source: "Landing Page Estimate Form",
+    createdAt: "2026-06-15T09:30:00Z"
+  }
+];
+
+const DEFAULT_USERS: StoredUser[] = [
+  {
+    id: "user-admin-1",
+    username: "admin",
+    password: "kvproperty2026",
+    role: "admin"
+  }
+];
+
+// In-memory runtime state
+let memoryLeads: Lead[] = [...INITIAL_LEADS];
+let memoryReviews: Review[] = [...INITIAL_REVIEWS];
+let memoryChats: ChatSession[] = [...INITIAL_CHATS];
+let memoryGallery: GalleryPhoto[] = [];
+let memoryEmails: WebEmail[] = [...INITIAL_WEB_EMAILS];
+let memoryUsers: StoredUser[] = [...DEFAULT_USERS];
+
+function getStored<T>(key: string, defaultVal: T): T {
+  if (typeof window === "undefined") return defaultVal;
+  try {
+    const raw = window.localStorage.getItem(key);
+    if (!raw) return defaultVal;
+    return JSON.parse(raw);
+  } catch {
+    return defaultVal;
+  }
+}
+
+function setStored<T>(key: string, val: T): void {
+  if (typeof window === "undefined") return;
+  try {
+    window.localStorage.setItem(key, JSON.stringify(val));
+  } catch (err) {
+    console.warn(`[LocalStore] Could not write ${key}:`, err);
+  }
+}
+
+function loadLeads(): Lead[] {
+  if (typeof window !== "undefined") {
+    const data = getStored<Lead[]>("kv_leads", []);
+    if (data && data.length > 0) return data;
+    setStored("kv_leads", memoryLeads);
+  }
+  return memoryLeads;
+}
+
+function saveLeads(leads: Lead[]): void {
+  memoryLeads = leads;
+  setStored("kv_leads", leads);
+}
+
+function loadReviews(): Review[] {
+  if (typeof window !== "undefined") {
+    const data = getStored<Review[]>("kv_reviews", []);
+    if (data && data.length > 0) return data;
+    setStored("kv_reviews", memoryReviews);
+  }
+  return memoryReviews;
+}
+
+function saveReviews(reviews: Review[]): void {
+  memoryReviews = reviews;
+  setStored("kv_reviews", reviews);
+}
+
+function loadChats(): ChatSession[] {
+  if (typeof window !== "undefined") {
+    const data = getStored<ChatSession[]>("kv_chats", []);
+    if (data && data.length > 0) return data;
+    setStored("kv_chats", memoryChats);
+  }
+  return memoryChats;
+}
+
+function saveChats(chats: ChatSession[]): void {
+  memoryChats = chats;
+  setStored("kv_chats", chats);
+}
+
+function loadGallery(): GalleryPhoto[] {
+  if (typeof window !== "undefined") {
+    return getStored<GalleryPhoto[]>("kv_gallery", memoryGallery);
+  }
+  return memoryGallery;
+}
+
+function saveGallery(photos: GalleryPhoto[]): void {
+  memoryGallery = photos;
+  setStored("kv_gallery", photos);
+}
+
+function loadEmails(): WebEmail[] {
+  if (typeof window !== "undefined") {
+    const data = getStored<WebEmail[]>("kv_emails", []);
+    if (data && data.length > 0) return data;
+    setStored("kv_emails", memoryEmails);
+  }
+  return memoryEmails;
+}
+
+function saveEmails(emails: WebEmail[]): void {
+  memoryEmails = emails;
+  setStored("kv_emails", emails);
+}
+
+function loadUsers(): StoredUser[] {
+  if (typeof window !== "undefined") {
+    const data = getStored<StoredUser[]>("kv_users", []);
+    if (data && data.length > 0) return data;
+    setStored("kv_users", memoryUsers);
+  }
+  return memoryUsers;
+}
+
+function saveUsers(users: StoredUser[]): void {
+  memoryUsers = users;
+  setStored("kv_users", users);
+}
+
+// ── LEADS API ──
+
+export const getLeads = async (): Promise<Lead[]> => {
+  return loadLeads();
+};
+
+export const addLead = async (
+  leadData: Omit<Lead, "id" | "status" | "estimatedValue" | "createdAt"> & { estimatedValue?: number }
+): Promise<Lead> => {
+  let estimatedValue = leadData.estimatedValue || 10000;
+  if (!leadData.estimatedValue) {
+    switch (leadData.projectType) {
+      case "remodeling":
+        estimatedValue = 65000;
+        break;
+      case "new-construction":
+        estimatedValue = 250000;
+        break;
+      case "outdoor-kitchen":
+        estimatedValue = 35000;
+        break;
+      case "fireplace":
+        estimatedValue = 12000;
+        break;
+      case "patio":
+        estimatedValue = 18000;
+        break;
+      case "hardscapes":
+        estimatedValue = 15000;
+        break;
+      case "softscapes":
+        estimatedValue = 8500;
+        break;
+      case "fencing":
+        estimatedValue = 7500;
+        break;
+      case "turf":
+        estimatedValue = 12000;
+        break;
+      case "commercial":
+        estimatedValue = 95000;
+        break;
+    }
+  }
+
+  return addCustomLead({
+    ...leadData,
+    status: "new",
+    estimatedValue
+  });
+};
+
+export const addCustomLead = async (lead: Omit<Lead, "id" | "createdAt">): Promise<Lead> => {
+  const newLead: Lead = {
+    ...lead,
+    id: `lead-${Date.now()}-${Math.random().toString(36).substring(2, 7)}`,
+    createdAt: new Date().toISOString(),
+    photos: lead.photos || []
+  };
+  const list = [newLead, ...loadLeads()];
+  saveLeads(list);
+  return newLead;
+};
+
+export const updateLeadStatus = async (id: string, status: Lead["status"]): Promise<Lead[] | null> => {
+  const list = loadLeads().map((l) => (l.id === id ? { ...l, status } : l));
+  saveLeads(list);
+  return list;
+};
+
+export const updateLeadDetails = async (
+  id: string,
+  updates: Partial<Pick<Lead, "estimatedValue" | "notes" | "status">>
+): Promise<Lead[] | null> => {
+  const list = loadLeads().map((l) => (l.id === id ? { ...l, ...updates } : l));
+  saveLeads(list);
+  return list;
+};
+
+export const deleteLead = async (id: string): Promise<Lead[]> => {
+  const list = loadLeads().filter((l) => l.id !== id);
+  saveLeads(list);
+  return list;
+};
+
+export const uploadLeadPhoto = async (leadId: string, base64Photo: string): Promise<Lead[]> => {
+  const list = loadLeads().map((l) => {
+    if (l.id === leadId) {
+      return {
+        ...l,
+        photos: [...(l.photos || []), base64Photo]
+      };
+    }
+    return l;
+  });
+  saveLeads(list);
+  return list;
+};
+
+export const removeLeadPhoto = async (leadId: string, photoIndex: number): Promise<Lead[]> => {
+  const list = loadLeads().map((l) => {
+    if (l.id === leadId && l.photos) {
+      const photos = [...l.photos];
+      photos.splice(photoIndex, 1);
+      return { ...l, photos };
+    }
+    return l;
+  });
+  saveLeads(list);
+  return list;
+};
+
+// ── REVIEWS API ──
+
+export const getReviews = async (): Promise<Review[]> => {
+  return loadReviews();
+};
+
+export const addReview = async (
+  reviewData: Omit<Review, "id" | "featured" | "createdAt"> & { newReviewPhoto?: string }
+): Promise<Review> => {
+  const authorName = reviewData.author || "Anonymous";
+  const parts = authorName.trim().split(/\s+/);
+  let computedInitials = "";
+  if (parts.length > 0 && parts[0]) computedInitials += parts[0][0].toUpperCase();
+  if (parts.length > 1 && parts[parts.length - 1]) computedInitials += parts[parts.length - 1][0].toUpperCase();
+  if (!computedInitials) computedInitials = "U";
+
+  const palette = ["#1D4ED8", "#7C3AED", "#065F46", "#B45309", "#BE185D", "#0F766E", "#9333EA", "#DC2626"];
+  let hash = 0;
+  for (let i = 0; i < authorName.length; i++) {
+    hash = authorName.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  const computedColor = palette[Math.abs(hash) % palette.length];
+  const computedRole = reviewData.role || `Homeowner, ${reviewData.location || "Clearwater"}`;
+
+  const photosList: string[] = reviewData.photos || [];
+  if (reviewData.newReviewPhoto) {
+    photosList.push(reviewData.newReviewPhoto);
+  }
+
+  const newReview: Review = {
+    id: `review-${Date.now()}-${Math.random().toString(36).substring(2, 7)}`,
+    title: reviewData.title,
+    text: reviewData.text,
+    author: reviewData.author,
+    location: reviewData.location,
+    rating: reviewData.rating,
+    featured: true,
+    createdAt: new Date().toISOString(),
+    photos: photosList,
+    role: computedRole,
+    initials: computedInitials,
+    avatarColor: computedColor
+  };
+
+  const list = [newReview, ...loadReviews()];
+  saveReviews(list);
+  return newReview;
+};
+
+export const toggleReviewFeatured = async (id: string): Promise<Review[]> => {
+  const list = loadReviews().map((r) => (r.id === id ? { ...r, featured: !r.featured } : r));
+  saveReviews(list);
+  return list;
+};
+
+export const replyToReview = async (id: string, replyText: string): Promise<Review[]> => {
+  const list = loadReviews().map((r) => (r.id === id ? { ...r, replyText } : r));
+  saveReviews(list);
+  return list;
+};
+
+export const uploadReviewPhoto = async (reviewId: string, base64Photo: string): Promise<Review[]> => {
+  const list = loadReviews().map((r) => {
+    if (r.id === reviewId) {
+      return {
+        ...r,
+        photos: [...(r.photos || []), base64Photo]
+      };
+    }
+    return r;
+  });
+  saveReviews(list);
+  return list;
+};
+
+// ── CHAT API ──
+
+export const getChatSessions = async (): Promise<ChatSession[]> => {
+  return loadChats();
+};
+
+export const getChatSessionById = async (sessionId: string): Promise<ChatSession | null> => {
+  const session = loadChats().find((s) => s.id === sessionId);
+  return session || null;
+};
+
+export const createChatSession = async (
+  clientName: string,
+  clientCity: string = "Clearwater",
+  clientEmail?: string,
+  clientPhone?: string
+): Promise<ChatSession> => {
+  const newSession: ChatSession = {
+    id: `session-${Date.now()}-${Math.random().toString(36).substring(2, 7)}`,
+    clientName,
+    clientCity,
+    clientEmail: clientEmail || "",
+    clientPhone: clientPhone || "",
+    lastMessage: "Chat started",
+    lastMessageTime: new Date().toISOString(),
+    unread: false,
+    messages: []
+  };
+  const list = [newSession, ...loadChats()];
+  saveChats(list);
+  return newSession;
+};
+
+export const sendChatMessage = async (
+  sessionId: string,
+  sender: "client" | "admin",
+  text: string
+): Promise<ChatSession | null> => {
+  const isoTime = new Date().toISOString();
+  const newMsg: ChatMessage = {
+    id: `msg-${Date.now()}-${Math.random().toString(36).substring(2, 7)}`,
+    sender,
+    text,
+    timestamp: isoTime
+  };
+
+  let updatedSession: ChatSession | null = null;
+  const list = loadChats().map((s) => {
+    if (s.id === sessionId) {
+      updatedSession = {
+        ...s,
+        messages: [...s.messages, newMsg],
+        lastMessage: text,
+        lastMessageTime: isoTime,
+        unread: sender === "client"
+      };
+      return updatedSession;
+    }
+    return s;
+  });
+
+  if (updatedSession) {
+    saveChats(list);
+  }
+  return updatedSession;
+};
+
+export const markChatAsRead = async (sessionId: string): Promise<ChatSession[]> => {
+  const list = loadChats().map((s) => (s.id === sessionId ? { ...s, unread: false } : s));
+  saveChats(list);
+  return list;
+};
+
+// ── GALLERY PHOTOS API ──
+
 export const getGalleryPhotos = async (): Promise<GalleryPhoto[]> => {
-  return getGalleryPhotosFn();
+  return loadGallery();
 };
 
 export const uploadGalleryPhoto = async (base64Photo: string): Promise<GalleryPhoto[]> => {
-  await uploadGalleryPhotoFn({ data: { base64Photo } });
-  return getGalleryPhotosFn();
+  const newPhoto: GalleryPhoto = {
+    id: `photo-${Date.now()}-${Math.random().toString(36).substring(2, 7)}`,
+    url: base64Photo,
+    uploadedAt: new Date().toISOString()
+  };
+  const list = [newPhoto, ...loadGallery()];
+  saveGallery(list);
+  return list;
 };
 
 export const removeGalleryPhoto = async (id: string): Promise<GalleryPhoto[]> => {
-  await removeGalleryPhotoFn({ data: { id } });
-  return getGalleryPhotosFn();
+  const list = loadGallery().filter((p) => p.id !== id);
+  saveGallery(list);
+  return list;
 };
 
-// Analytics calculator helper
-export const getAnalyticsData = () => {
-  const leads = getLeads(); // Note: This remains synchronous in local usage, if this needs to be async, adjust usage site
-  const reviews = getReviews();
+// ── WEB EMAILS API ──
 
-  const totalValue = leads.reduce((acc, curr) => curr.status !== "lost" ? acc + curr.estimatedValue : acc, 0);
-  const activeCount = leads.filter(l => ["contacted", "consultation_scheduled", "proposal_sent"].includes(l.status)).length;
-  
-  const wonLeads = leads.filter(l => l.status === "won");
-  const lostLeads = leads.filter(l => l.status === "lost");
+export const getWebEmails = async (): Promise<WebEmail[]> => {
+  return loadEmails();
+};
+
+export const addWebEmail = async (emailData: Omit<WebEmail, "id" | "createdAt">): Promise<WebEmail> => {
+  const newEmail: WebEmail = {
+    ...emailData,
+    id: `email-${Date.now()}-${Math.random().toString(36).substring(2, 7)}`,
+    createdAt: new Date().toISOString()
+  };
+  const list = [newEmail, ...loadEmails()];
+  saveEmails(list);
+  return newEmail;
+};
+
+export const deleteWebEmail = async (id: string): Promise<WebEmail[]> => {
+  const list = loadEmails().filter((e) => e.id !== id);
+  saveEmails(list);
+  return list;
+};
+
+// ── AUTHENTICATION & PORTAL USERS API ──
+
+export const loginAdmin = async (
+  username: string,
+  password: string
+): Promise<{ success: boolean; token: string }> => {
+  const users = loadUsers();
+  const normalized = username.toLowerCase().trim();
+  const user = users.find((u) => u.username.toLowerCase() === normalized);
+
+  if (!user || user.password !== password) {
+    throw new Error("Invalid username or password");
+  }
+
+  const token = `admin-token-${Date.now()}-${Math.random().toString(36).substring(2, 10)}`;
+  if (typeof window !== "undefined") {
+    window.localStorage.setItem("jrm-admin-token", token);
+  }
+  return { success: true, token };
+};
+
+export const verifyAdminToken = async (
+  token: string
+): Promise<{ valid: boolean; id?: string; username?: string; role?: string }> => {
+  if (!token) return { valid: false };
+  const users = loadUsers();
+  const user = users[0] || DEFAULT_USERS[0];
+  return {
+    valid: true,
+    id: user.id,
+    username: user.username,
+    role: user.role || "admin"
+  };
+};
+
+export const updateUserCredentials = async (
+  userId: string,
+  username?: string,
+  password?: string
+): Promise<{ success: boolean; username: string }> => {
+  const users = loadUsers();
+  const user = users.find((u) => u.id === userId);
+  if (!user) {
+    throw new Error("User not found");
+  }
+
+  if (username && username.trim()) {
+    const existing = users.find((u) => u.username.toLowerCase() === username.toLowerCase().trim() && u.id !== userId);
+    if (existing) {
+      throw new Error("Username already taken");
+    }
+    user.username = username.toLowerCase().trim();
+  }
+
+  if (password && password.trim()) {
+    user.password = password;
+  }
+
+  saveUsers([...users]);
+  return { success: true, username: user.username };
+};
+
+export const getPortalUsers = async (): Promise<PortalUser[]> => {
+  return loadUsers().map(({ password: _, ...rest }) => rest);
+};
+
+export const createPortalUser = async (
+  username: string,
+  password: string,
+  role: string
+): Promise<{ success: boolean; id: string; username: string; role: string }> => {
+  const users = loadUsers();
+  const normalized = username.toLowerCase().trim();
+  const existing = users.find((u) => u.username.toLowerCase() === normalized);
+  if (existing) {
+    throw new Error("Username already exists");
+  }
+
+  const newUser: StoredUser = {
+    id: `user-${Date.now()}-${Math.random().toString(36).substring(2, 7)}`,
+    username: normalized,
+    password,
+    role: role || "viewer"
+  };
+
+  users.push(newUser);
+  saveUsers(users);
+  return { success: true, id: newUser.id, username: newUser.username, role: newUser.role };
+};
+
+export const deletePortalUser = async (userId: string): Promise<{ success: boolean }> => {
+  const users = loadUsers();
+  const target = users.find((u) => u.id === userId);
+  if (!target) {
+    throw new Error("User not found");
+  }
+  if (target.username === "right") {
+    throw new Error("Cannot delete primary administrator account");
+  }
+
+  const updated = users.filter((u) => u.id !== userId);
+  saveUsers(updated);
+  return { success: true };
+};
+
+// ── ANALYTICS HELPER ──
+
+export const getAnalyticsData = () => {
+  const leads = loadLeads();
+
+  const totalValue = leads.reduce((acc, curr) => (curr.status !== "lost" ? acc + curr.estimatedValue : acc), 0);
+  const activeCount = leads.filter((l) => ["contacted", "consultation_scheduled", "proposal_sent"].includes(l.status)).length;
+
+  const wonLeads = leads.filter((l) => l.status === "won");
+  const lostLeads = leads.filter((l) => l.status === "lost");
   const wonValue = wonLeads.reduce((acc, curr) => acc + curr.estimatedValue, 0);
   const totalClosed = wonLeads.length + lostLeads.length;
   const winRate = totalClosed > 0 ? Math.round((wonLeads.length / totalClosed) * 100) : 0;
-  
+
   const averageValue = leads.length > 0 ? Math.round(leads.reduce((acc, curr) => acc + curr.estimatedValue, 0) / leads.length) : 0;
 
-  // 1. Project type distribution
   const typeCounts: Record<string, { count: number; value: number }> = {};
-  leads.forEach(l => {
+  leads.forEach((l) => {
     if (!typeCounts[l.projectType]) {
       typeCounts[l.projectType] = { count: 0, value: 0 };
     }
@@ -642,12 +913,11 @@ export const getAnalyticsData = () => {
   });
 
   const projectTypesChart = Object.entries(typeCounts).map(([name, data]) => ({
-    name: name.split("-").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" "),
+    name: name.split("-").map((w) => w.charAt(0).toUpperCase() + w.slice(1)).join(" "),
     value: data.count,
     amount: data.value
   }));
 
-  // 2. Status distribution
   const statusLabels: Record<Lead["status"], string> = {
     new: "New Lead",
     contacted: "Contacted",
@@ -659,16 +929,18 @@ export const getAnalyticsData = () => {
 
   const statusCounts: Record<string, number> = {
     "New Lead": 0,
-    "Contacted": 0,
+    Contacted: 0,
     "Consultation Scheduled": 0,
     "Proposal Sent": 0,
     "Contract Won": 0,
     "Lost / Closed": 0
   };
 
-  leads.forEach(l => {
+  leads.forEach((l) => {
     const label = statusLabels[l.status];
-    statusCounts[label] = (statusCounts[label] || 0) + 1;
+    if (label) {
+      statusCounts[label] = (statusCounts[label] || 0) + 1;
+    }
   });
 
   const statusChart = Object.entries(statusCounts).map(([name, value]) => ({
@@ -676,15 +948,12 @@ export const getAnalyticsData = () => {
     value
   }));
 
-  // 3. Regional distribution (cities)
   const cityCounts: Record<string, number> = {};
-  leads.forEach(l => {
-    // extract city from address: "..., <City>, TX ..."
+  leads.forEach((l) => {
     const parts = l.address.split(",");
     let city = "Clearwater";
     if (parts.length >= 2) {
-      const cityPart = parts[parts.length - 2].trim();
-      city = cityPart;
+      city = parts[parts.length - 2].trim();
     }
     cityCounts[city] = (cityCounts[city] || 0) + 1;
   });
@@ -693,25 +962,22 @@ export const getAnalyticsData = () => {
     .map(([name, value]) => ({ name, value }))
     .sort((a, b) => b.value - a.value);
 
-  // 4. Growth monthly timeline (mocking historical progression based on createdAt)
-  // Let's bucket leads by month
   const monthlyData: Record<string, { count: number; value: number }> = {
-    "Jan": { count: 4, value: 54000 },
-    "Feb": { count: 6, value: 89000 },
-    "Mar": { count: 8, value: 145000 },
-    "Apr": { count: 9, value: 110000 },
-    "May": { count: 12, value: 240000 },
-    "Jun": { count: 0, value: 0 } // June leads will be populated dynamically from leads
+    Jan: { count: 4, value: 54000 },
+    Feb: { count: 6, value: 89000 },
+    Mar: { count: 8, value: 145000 },
+    Apr: { count: 9, value: 110000 },
+    May: { count: 12, value: 240000 },
+    Jun: { count: 0, value: 0 }
   };
 
-  leads.forEach(l => {
+  leads.forEach((l) => {
     const date = new Date(l.createdAt);
     const month = date.toLocaleString("en-US", { month: "short" });
     if (monthlyData[month]) {
       monthlyData[month].count += 1;
       monthlyData[month].value += l.estimatedValue;
     } else {
-      // In case date is outside above, initialize
       monthlyData[month] = { count: 1, value: l.estimatedValue };
     }
   });
@@ -734,128 +1000,4 @@ export const getAnalyticsData = () => {
     regionChart,
     timelineChart
   };
-};
-
-// ── NEW CHAT DATA TYPES ──
-export interface ChatMessage {
-  id: string;
-  sender: "client" | "admin";
-  text: string;
-  timestamp: string;
-}
-
-export interface ChatSession {
-  id: string;
-  clientName: string;
-  clientCity: string;
-  clientEmail?: string;
-  clientPhone?: string;
-  lastMessage: string;
-  lastMessageTime: string;
-  unread: boolean;
-  messages: ChatMessage[];
-}
-
-export const INITIAL_CHATS: ChatSession[] = [
-  {
-    id: "session-1",
-    clientName: "David Miller",
-    clientCity: "St. Petersburg",
-    lastMessage: "Hi Ronnie, when can you come out to estimate the outdoor kitchen?",
-    lastMessageTime: new Date(Date.now() - 3600000 * 2).toISOString(),
-    unread: true,
-    messages: [
-      {
-        id: "msg-1",
-        sender: "client",
-        text: "Hi, I'm interested in an outdoor kitchen for my pool area.",
-        timestamp: new Date(Date.now() - 3600000 * 2.2).toISOString()
-      },
-      {
-        id: "msg-2",
-        sender: "admin",
-        text: "Hi David! I'd love to help. We do complete custom flagstone and granite outdoor kitchens. Do you have a rough size in mind?",
-        timestamp: new Date(Date.now() - 3600000 * 2.1).toISOString()
-      },
-      {
-        id: "msg-3",
-        sender: "client",
-        text: "Yes, about 12 feet long. Hi Ronnie, when can you come out to estimate the outdoor kitchen?",
-        timestamp: new Date(Date.now() - 3600000 * 2).toISOString()
-      }
-    ]
-  },
-  {
-    id: "session-2",
-    clientName: "Anonymous Visitor",
-    clientCity: "Largo",
-    lastMessage: "Sounds good, thanks!",
-    lastMessageTime: new Date(Date.now() - 3600000 * 5).toISOString(),
-    unread: false,
-    messages: [
-      {
-        id: "msg-4",
-        sender: "client",
-        text: "Do you serve the Largo area for turf installations?",
-        timestamp: new Date(Date.now() - 3600000 * 5.2).toISOString()
-      },
-      {
-        id: "msg-5",
-        sender: "admin",
-        text: "Yes we do! We serve Largo, Comfort, and all surrounding areas. Our artificial turf includes a premium 15-year warranty.",
-        timestamp: new Date(Date.now() - 3600000 * 5.1).toISOString()
-      },
-      {
-        id: "msg-6",
-        sender: "client",
-        text: "Sounds good, thanks!",
-        timestamp: new Date(Date.now() - 3600000 * 5).toISOString()
-      }
-    ]
-  }
-];
-
-// Synchronous helpers removed, replaced by async exports above.
-
-export const getWebEmails = async (): Promise<WebEmail[]> => {
-  return getWebEmailsFn();
-};
-
-export const addWebEmail = async (emailData: Omit<WebEmail, "id" | "createdAt">): Promise<WebEmail> => {
-  return addWebEmailFn({ data: emailData });
-};
-
-export const deleteWebEmail = async (id: string): Promise<WebEmail[]> => {
-  await deleteWebEmailFn({ data: { id } });
-  return getWebEmailsFn();
-};
-
-export const loginAdmin = async (username: string, password: string): Promise<{ success: boolean; token: string }> => {
-  return loginAdminFn({ data: { username, password } });
-};
-
-export const verifyAdminToken = async (token: string): Promise<{ valid: boolean; id?: string; username?: string; role?: string }> => {
-  return verifyAdminTokenFn({ data: { token } });
-};
-
-export interface PortalUser {
-  id: string;
-  username: string;
-  role: string;
-}
-
-export const updateUserCredentials = async (userId: string, username?: string, password?: string): Promise<{ success: boolean; username: string }> => {
-  return updateUserCredentialsFn({ data: { userId, username, password } });
-};
-
-export const getPortalUsers = async (): Promise<PortalUser[]> => {
-  return getPortalUsersFn();
-};
-
-export const createPortalUser = async (username: string, password: string, role: string): Promise<{ success: boolean; id: string; username: string; role: string }> => {
-  return createPortalUserFn({ data: { username, password, role } });
-};
-
-export const deletePortalUser = async (userId: string): Promise<{ success: boolean }> => {
-  return deletePortalUserFn({ data: { userId } });
 };

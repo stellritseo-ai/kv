@@ -33,6 +33,7 @@ import {
   ShieldAlert,
   Building,
   HeartPulse,
+  Leaf,
   Timer,
   Info
 } from "lucide-react";

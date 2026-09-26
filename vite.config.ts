@@ -14,11 +14,5 @@ export default defineConfig({
   },
   nitro: {
     preset: "vercel",
-    // Externalize CJS packages so Vercel can handle them natively.
-    // Without this, Nitro bundles mongoose into ESM and its internal
-    // require() calls crash with "require is not defined" at runtime.
-    externals: {
-      external: ["mongoose", "mongodb"],
-    },
   },
 });

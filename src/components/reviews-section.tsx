@@ -1,5 +1,7 @@
 import { useRef, useState, useEffect } from "react";
-import { Star } from "lucide-react";
+import { Star, MessageSquarePlus } from "lucide-react";
+import { Link } from "@tanstack/react-router";
+import { useTranslation } from "@/context/translation-context";
 import { getReviews } from "@/lib/leads-store";
 
 interface TestimonialType {
@@ -13,67 +15,67 @@ interface TestimonialType {
 
 const FALLBACK_REVIEWS: TestimonialType[] = [
   {
-    text: "The backyard fencing and covered patio upgrade they did for our home was outstanding. Professional, clean, and finished ahead of schedule.",
-    name: "Marcus T.",
-    role: "Homeowner, Clearwater",
+    text: "KV Property Inc remodeled our entire kitchen and the transformation is breathtaking. Professional crew, clean workspace every day, and delivered on time.",
+    name: "Michael R.",
+    role: "Homeowner, Neptune, NJ",
     rating: 5,
-    initials: "MT",
+    initials: "MR",
     avatarColor: "#1D4ED8",
   },
   {
-    text: "Called them for emergency cleanup and debris removal after the storm — they arrived within 45 minutes and worked tirelessly. Truly 24/7 service.",
-    name: "Priya S.",
-    role: "Property Manager, Largo",
+    text: "We hired them for a complete master bathroom renovation in Asbury Park. Their attention to tile detail and plumbing fixtures was exceptional. Built to last!",
+    name: "Sarah L.",
+    role: "Property Owner, Asbury Park, NJ",
     rating: 5,
-    initials: "PS",
+    initials: "SL",
     avatarColor: "#7C3AED",
   },
   {
-    text: "They installed a gorgeous artificial turf and paved walkway in our courtyard. Flawless execution. I'll never use another handyman company again.",
-    name: "Jared W.",
-    role: "Homeowner, St. Petersburg",
+    text: "KV Property built our custom multi-level composite deck. Solid construction, gorgeous design, and made our outdoor living space our favorite spot.",
+    name: "David K.",
+    role: "Homeowner, Spring Lake, NJ",
     rating: 5,
-    initials: "JW",
+    initials: "DK",
     avatarColor: "#065F46",
   },
   {
-    text: "Best remodeling contractor in Clearwater. They wired, painted, and finished our entire office renovation — on time, on budget, and zero issues.",
-    name: "Diana L.",
-    role: "Business Owner, Dunedin",
+    text: "Outstanding general contracting for our commercial store renovation. Dependable, communicated every step, and kept everything within our budget.",
+    name: "Anthony P.",
+    role: "Business Owner, Red Bank, NJ",
     rating: 5,
-    initials: "DL",
+    initials: "AP",
     avatarColor: "#B45309",
   },
   {
-    text: "Mulching, landscaping, and property maintenance was seamless. They set up Lutron outdoor lighting and fixed all our deck issues.",
-    name: "Kenji M.",
-    role: "Homeowner, Clearwater Beach",
+    text: "Called them for emergency repairs and handyman services. They showed up quickly, diagnosed the issue, and resolved it cleanly. Highly recommend KV Property Inc.",
+    name: "Jennifer M.",
+    role: "Homeowner, Wall Township, NJ",
     rating: 5,
-    initials: "KM",
+    initials: "JM",
     avatarColor: "#BE185D",
   },
   {
-    text: "Hired them for a complete drywall repair and painting of a 1970s bungalow. They passed every inspection. Excellent team.",
-    name: "Rosa F.",
-    role: "Real Estate Investor, Pinellas Park",
+    text: "From framing to drywall and custom painting, their 20+ years of experience really shows. Transparent estimate with zero surprises at the end.",
+    name: "Robert G.",
+    role: "Property Manager, Long Branch, NJ",
     rating: 5,
-    initials: "RF",
+    initials: "RG",
     avatarColor: "#0F766E",
   },
   {
-    text: "Pressure washing and concrete demolition was smooth and the team was incredibly knowledgeable. They left the site spotless.",
-    name: "Tony B.",
-    role: "Restaurant Owner, Tarpon Springs",
+    text: "They completed a two-room home addition seamlessly matching our existing roofline and siding. Honest, skilled craftsmen who take pride in their work.",
+    name: "Lisa T.",
+    role: "Homeowner, Freehold, NJ",
     rating: 5,
-    initials: "TB",
+    initials: "LT",
     avatarColor: "#9333EA",
   },
   {
-    text: "Outstanding service from start to finish. The crew was courteous, efficient, and clearly knew what they were doing. Highly recommend.",
-    name: "Sandra K.",
-    role: "Property Manager, Safety Harbor",
+    text: "Top-tier property maintenance and flooring installation. Reliable local service and financing options made our large project very manageable.",
+    name: "Carlos D.",
+    role: "Homeowner, Neptune City, NJ",
     rating: 5,
-    initials: "SK",
+    initials: "CD",
     avatarColor: "#DC2626",
   },
 ];
@@ -112,7 +114,7 @@ function TestimonialCard({ review }: { review: any }) {
   const name = review.author || review.name || "Anonymous";
   const initials = review.initials || getInitials(name);
   const avatarColor = review.avatarColor || getAvatarColor(name);
-  const role = review.role || `Homeowner, ${review.location || "Clearwater"}`;
+  const role = review.role || `Homeowner, ${review.location || "Neptune, NJ"}`;
   const rating = review.rating || 5;
   const text = review.text || "";
 
@@ -122,7 +124,7 @@ function TestimonialCard({ review }: { review: any }) {
       <StarRating count={rating} />
 
       {/* Text */}
-      <p className="text-slate-600 text-sm leading-relaxed font-medium flex-1">
+      <p className="text-slate-600 text-sm leading-relaxed font-normal flex-1">
         "{text}"
       </p>
 
@@ -186,6 +188,7 @@ function MarqueeRow({
 }
 
 export function ReviewsSection() {
+  const { t } = useTranslation();
   const [dbReviews, setDbReviews] = useState<any[]>([]);
 
   useEffect(() => {
@@ -198,7 +201,7 @@ export function ReviewsSection() {
           setDbReviews(featured);
         }
       } catch (error) {
-        console.error("Error loading reviews for landing page:", error);
+        console.error("Error loading reviews:", error);
       }
     };
     fetchReviews();
@@ -223,24 +226,29 @@ export function ReviewsSection() {
         <div className="pointer-events-none absolute bottom-0 left-1/4 w-[400px] h-[300px] rounded-full bg-orange-200/30 blur-[100px]" />
 
         {/* Section Header */}
-        <div className="mx-auto w-[90%] max-w-7xl text-center mb-16 relative z-10">
-          <div className="inline-flex items-center gap-2 bg-white border border-slate-200 rounded-full px-4 py-1.5 text-xs font-semibold text-slate-500 uppercase tracking-widest mb-5 shadow-sm">
+        <div className="mx-auto w-[90%] max-w-7xl text-center mb-12 relative z-10">
+          <div className="inline-flex items-center gap-2 bg-white border border-slate-200 rounded-full px-4 py-1.5 text-xs font-semibold text-slate-500 uppercase tracking-widest mb-4 shadow-sm">
             <span className="w-1.5 h-1.5 rounded-full bg-yellow-400 animate-pulse" />
-            Client Reviews
+            Reviews
           </div>
 
-          <h2 className="text-[26px] sm:text-[32px] lg:text-[40px] font-extrabold text-slate-900 tracking-tight leading-tight capitalize -mt-[5px] mb-[10px]">
-            Trusted by{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#ffa326] to-[#cc7e14]">
-              hundreds
-            </span>{" "}
-            of customers
+          <h2 className="text-[26px] sm:text-[32px] lg:text-[40px] font-extrabold text-slate-900 tracking-tight leading-tight -mt-[5px] mb-[10px]">
+            What Our Clients Say
           </h2>
 
-          <p className="mx-auto max-w-xl text-[#000] text-sm sm:text-base leading-relaxed -mb-[35px]">
-            Real experiences from real clients across Clearwater & Pinellas County. See
-            why homeowners and businesses choose us every time.
+          <p className="mx-auto max-w-xl text-neutral-600 text-sm sm:text-base leading-relaxed mb-6 font-normal">
+            Quality work. Professional service. Results built to last. Your project could be our next success story.
           </p>
+
+          <div>
+            <Link
+              to="/reviews"
+              className="inline-flex items-center gap-2 rounded-full bg-white hover:bg-neutral-50 text-neutral-900 border border-neutral-300 px-6 py-2.5 text-xs font-bold uppercase tracking-wider shadow-sm hover:shadow transition-all duration-200"
+            >
+              <MessageSquarePlus className="w-4 h-4 text-[#cc7e14]" />
+              <span>Leave Us A Review</span>
+            </Link>
+          </div>
         </div>
 
         {/* Marquee Rows */}

@@ -42,7 +42,7 @@ export function EmergencyCTA() {
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#ffa326] opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-[#ffa326]"></span>
                 </span>
-                {t("cta.prompt.badge")}
+                <span>Emergency Service</span>
               </motion.div>
 
               <motion.h2
@@ -50,9 +50,9 @@ export function EmergencyCTA() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.1 }}
-                className="text-[22px] sm:text-[28px] lg:text-[34px] font-extrabold capitalize tracking-tight leading-tight text-white font-sans"
+                className="text-[24px] sm:text-[30px] lg:text-[38px] font-extrabold tracking-tight leading-tight text-white font-sans"
               >
-                {t("cta.prompt.title")}
+                When You Need Help, We're Here.
               </motion.h2>
 
               <motion.p
@@ -60,9 +60,9 @@ export function EmergencyCTA() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.2 }}
-                className="text-base text-white/80 max-w-xl leading-relaxed font-sans"
+                className="text-base text-white/90 max-w-xl leading-relaxed font-sans"
               >
-                {t("cta.prompt.desc")}
+                Property problems don't always happen during normal business hours. KV Property Inc provides 24/7 emergency service for urgent property needs.
               </motion.p>
 
               <motion.ul
@@ -77,7 +77,7 @@ export function EmergencyCTA() {
                     <Clock className="h-3.5 w-3.5" />
                   </div>
                   <span className="text-sm font-medium">
-                    {t("cta.prompt.f1")}
+                    24/7 Rapid Response
                   </span>
                 </li>
                 <li className="flex items-center gap-3 text-white/90">
@@ -85,7 +85,7 @@ export function EmergencyCTA() {
                     <Zap className="h-3.5 w-3.5" />
                   </div>
                   <span className="text-sm font-medium">
-                    {t("cta.prompt.f2")}
+                    Urgent Repairs &amp; Safety
                   </span>
                 </li>
                 <li className="flex items-center gap-3 text-white/90">
@@ -93,7 +93,7 @@ export function EmergencyCTA() {
                     <ShieldCheck className="h-3.5 w-3.5" />
                   </div>
                   <span className="text-sm font-medium">
-                    {t("cta.prompt.f3")}
+                    Licensed &amp; Insured
                   </span>
                 </li>
                 <li className="flex items-center gap-3 text-white/90">
@@ -101,7 +101,7 @@ export function EmergencyCTA() {
                     <CheckCircle2 className="h-3.5 w-3.5" />
                   </div>
                   <span className="text-sm font-medium">
-                    {t("cta.prompt.f4")}
+                    Residential &amp; Commercial
                   </span>
                 </li>
               </motion.ul>
@@ -121,12 +121,11 @@ export function EmergencyCTA() {
               className="lg:col-span-5 flex flex-col items-center gap-4 w-full"
             >
               <div className="relative group w-full max-w-full sm:max-w-sm">
-                {/* Outer pulsing ring background effect */}
                 <div className="absolute -inset-0.5 bg-gradient-to-r from-[#ffa326] to-[#cc7e14] rounded-2xl blur opacity-30 group-hover:opacity-60 transition duration-1000 group-hover:duration-200"></div>
 
                 <a
-                  href="tel:7276420201"
-                  className="relative flex items-center justify-between gap-4 rounded-2xl bg-gradient-to-r from-[#ffa326] to-[#cc7e14] p-5 sm:p-6 font-semibold text-white shadow-2xl hover:brightness-110 transition-all duration-300 w-full"
+                  href="tel:7326776674"
+                  className="relative flex items-center justify-between gap-4 rounded-2xl bg-gradient-to-r from-[#ffa326] to-[#cc7e14] hover:from-[#ffb147] hover:to-[#b86d0b] p-5 sm:p-6 font-semibold text-white shadow-2xl hover:brightness-110 transition-all duration-300 w-full"
                 >
                   <div className="flex items-center gap-4">
                     <span className="relative grid place-items-center h-12 w-12 rounded-full bg-white/10 ring-4 ring-white/5 pulse-ring shrink-0">
@@ -134,10 +133,10 @@ export function EmergencyCTA() {
                     </span>
                     <div className="text-left">
                       <span className="block text-[10px] uppercase tracking-widest text-white/80 font-bold">
-                        {t("cta.prompt.btn.sub")}
+                        Call Now:
                       </span>
                       <span className="block text-xl sm:text-2xl font-sans font-black leading-tight tracking-tight mt-0.5">
-                        (727) 642-0201
+                        (732) 677-6674
                       </span>
                     </div>
                   </div>
@@ -147,7 +146,7 @@ export function EmergencyCTA() {
               {/* Micro-trust glass badge */}
               <div className="flex items-center gap-2 rounded-xl bg-white/5 border border-white/10 px-4 py-2.5 text-xs text-white/70 w-full max-w-sm justify-center lg:justify-start">
                 <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
-                <span>{t("cta.prompt.badge.loc")}</span>
+                <span>Neptune, NJ &amp; Surrounding Communities • 24/7 Available</span>
               </div>
             </motion.div>
           </div>

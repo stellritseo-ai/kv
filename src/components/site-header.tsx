@@ -1,6 +1,26 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "@tanstack/react-router";
-import { Phone, ChevronDown, X, Menu, ExternalLink, Sparkles, Droplets, Hammer, Truck, Wrench, Trash2, Leaf, Key, FileText, Fence, MonitorDot, Landmark, Factory, Home, RepeatIcon, MapPin } from "lucide-react";
+import {
+  Phone,
+  ChevronDown,
+  X,
+  ArrowRight,
+  Sparkles,
+  Droplets,
+  Hammer,
+  Fence,
+  Leaf,
+  Home,
+  Paintbrush,
+  Landmark,
+  Wrench,
+  ShieldCheck,
+  Factory,
+  Building2,
+  Mail,
+  MapPin,
+  Clock,
+} from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import logo from "@/assets/logo.png";
 import { TopBar } from "./top-bar";
@@ -9,37 +29,85 @@ import { useTranslation } from "@/context/translation-context";
 const navItems = [
   { key: "nav.home", to: "/", label: "Home" },
   { key: "nav.about", to: "/about-us", label: "About" },
-  { key: "nav.services", to: "#", label: "Services" },
-  { key: "nav.areas", to: "#", label: "Service Areas" },
+  { key: "nav.services", to: "/services", label: "Services" },
   { key: "nav.work", to: "/our-work", label: "Our Work" },
   { key: "nav.reviews", to: "/reviews", label: "Reviews" },
   { key: "nav.contact", to: "/contact-us", label: "Contact" },
 ] as const;
 
 const servicesSubMenu = [
-  { label: "Property Maintenance",         to: "/property-maintenance",         hash: undefined, icon: Wrench,      desc: "General handyman & home repairs" },
-  { label: "Post Construction Cleaning",   to: "/post-construction-cleaning",   hash: undefined, icon: Sparkles,    desc: "Detailed move-in ready cleaning" },
-  { label: "Pressure Washing",             to: "/pressure-washing",             hash: undefined, icon: Droplets,    desc: "Restore driveways, decks & siding" },
-  { label: "Demolition",                   to: "/demolition",                   hash: undefined, icon: Hammer,      desc: "Safe structural dismantling" },
-  { label: "Junk Removal & Hauling",       to: "/junk-removal",                 hash: undefined, icon: Truck,       desc: "Full-service waste hauling" },
-  { label: "Waste & Debris Removal",       to: "/waste-debris-removal",         hash: undefined, icon: Trash2,      desc: "Drywall, metal & concrete clearing" },
-  { label: "Landscaping",                  to: "/landscaping",                  hash: undefined, icon: Leaf,        desc: "Garden upkeep, sod & mulching" },
-  { label: "Fence Removal",                to: "/fence-removal",                hash: undefined, icon: Fence,       desc: "Safe, complete fence haul-away" },
-  { label: "Window Cleaning & Removal",    to: "/window-cleaning-removal",      hash: undefined, icon: MonitorDot,  desc: "Crystal-clear residential & commercial" },
-  { label: "Bank Occupancy Licences",      to: "/bank-occupancy-licences",      hash: undefined, icon: Landmark,    desc: "Inspection-ready bank cleaning" },
-  { label: "Industrial Leases Cleaning",   to: "/industrial-leases-cleaning",   hash: undefined, icon: Factory,     desc: "Warehouses & manufacturing plants" },
-  { label: "Residential Leases Cleaning",  to: "/residential-leases-cleaning",  hash: undefined, icon: Home,        desc: "Apartments, condos & houses" },
-  { label: "Cleaning Contracts",           to: "/cleaning-contracts",           hash: undefined, icon: RepeatIcon,  desc: "Short & long-term property care" },
-] as const;
-
-const serviceAreasSubMenu = [
-  { label: "Tampa, FL",                    to: "/service-areas/tampa-fl",               hash: undefined, icon: MapPin, desc: "Primary target market & city" },
-  { label: "Hillsborough County",          to: "/service-areas/hillsborough-county-fl", hash: undefined, icon: MapPin, desc: "Countywide residential & commercial" },
-  { label: "Pinellas County",              to: "/service-areas/pinellas-county-fl",     hash: undefined, icon: MapPin, desc: "Clearwater base & full county" },
-  { label: "Clearwater, FL",               to: "/service-areas/clearwater-fl",          hash: undefined, icon: MapPin, desc: "Headquarters & coastal communities" },
-  { label: "St. Petersburg, FL",           to: "/service-areas/st-petersburg-fl",       hash: undefined, icon: MapPin, desc: "Full city & south Pinellas" },
-  { label: "Brandon, FL",                  to: "/service-areas/brandon-fl",             hash: undefined, icon: MapPin, desc: "East Hillsborough communities" },
-  { label: "All Tampa Bay Service Areas",  to: "/service-areas",                        hash: undefined, icon: MapPin, desc: "Complete regional service footprint" },
+  {
+    label: "Kitchen Remodeling",
+    to: "/services",
+    icon: Sparkles,
+    desc: "Designed around the way you live",
+  },
+  {
+    label: "Bathroom Remodeling",
+    to: "/services",
+    icon: Droplets,
+    desc: "Quality materials & thoughtful design",
+  },
+  {
+    label: "General Contracting",
+    to: "/services",
+    icon: Hammer,
+    desc: "Complete construction management",
+  },
+  {
+    label: "Deck & Outdoor Living",
+    to: "/services",
+    icon: Fence,
+    desc: "Comfort, entertaining & living",
+  },
+  {
+    label: "Pools & Outdoor Spaces",
+    to: "/services",
+    icon: Leaf,
+    desc: "Functional & attractive outdoor spaces",
+  },
+  {
+    label: "Home Additions",
+    to: "/services",
+    icon: Home,
+    desc: "Expand your living space",
+  },
+  {
+    label: "Interior & Exterior Painting",
+    to: "/services",
+    icon: Paintbrush,
+    desc: "Refresh & protect your property",
+  },
+  {
+    label: "Flooring",
+    to: "/services",
+    icon: Landmark,
+    desc: "Beautiful, durable flooring",
+  },
+  {
+    label: "Handyman Services",
+    to: "/services",
+    icon: Wrench,
+    desc: "Reliable repairs & property needs",
+  },
+  {
+    label: "Property Maintenance",
+    to: "/property-maintenance",
+    icon: ShieldCheck,
+    desc: "Keep your property at its best",
+  },
+  {
+    label: "Custom Builds",
+    to: "/services",
+    icon: Factory,
+    desc: "Bring your ideas to life",
+  },
+  {
+    label: "Commercial Improvements",
+    to: "/services",
+    icon: Building2,
+    desc: "Commercial construction & repairs",
+  },
 ] as const;
 
 export function SiteHeader() {
@@ -49,18 +117,17 @@ export function SiteHeader() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
-  const [areasOpen, setAreasOpen] = useState(false);
 
   const getActiveItem = () => {
     if (currentPath === "/") return "nav.home";
     if (currentPath.startsWith("/about-us")) return "nav.about";
     if (
       currentPath.startsWith("/services") ||
+      currentPath.startsWith("/property-maintenance") ||
       currentPath.startsWith("/post-construction-cleaning") ||
       currentPath.startsWith("/pressure-washing") ||
       currentPath.startsWith("/demolition") ||
       currentPath.startsWith("/junk-removal") ||
-      currentPath.startsWith("/property-maintenance") ||
       currentPath.startsWith("/waste-debris-removal") ||
       currentPath.startsWith("/landscaping") ||
       currentPath.startsWith("/fence-removal") ||
@@ -71,7 +138,6 @@ export function SiteHeader() {
       currentPath.startsWith("/cleaning-contracts")
     )
       return "nav.services";
-    if (currentPath.startsWith("/service-areas")) return "nav.areas";
     if (currentPath.startsWith("/our-work")) return "nav.work";
     if (currentPath.startsWith("/reviews")) return "nav.reviews";
     if (currentPath.startsWith("/contact-us")) return "nav.contact";
@@ -86,233 +152,269 @@ export function SiteHeader() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Lock body scroll when menu is open
+  // Lock body scroll when mobile menu is open
   useEffect(() => {
     document.body.style.overflow = menuOpen ? "hidden" : "";
-    return () => { document.body.style.overflow = ""; };
+    return () => {
+      document.body.style.overflow = "";
+    };
   }, [menuOpen]);
 
-  const closeMenu = () => { setMenuOpen(false); setServicesOpen(false); };
+  const closeMenu = () => {
+    setMenuOpen(false);
+    setServicesOpen(false);
+  };
 
   return (
     <>
-      {/* ── TOP BAR ── */}
-      <div className="w-full bg-[#f4f3ef] pt-[15px] pb-0 px-[15px]">
-        <div className="mx-auto max-w-[1400px] w-full rounded-t-[10px] overflow-hidden border-x border-t border-[#e1ded4] shadow-[0_-2px_8px_rgba(0,0,0,0.04)] bg-white">
+      {/* ── TOP BAR ISLAND ── */}
+      <div className="w-full bg-[#f4f3ef] pt-3 sm:pt-[15px] pb-0 px-3 sm:px-[15px]">
+        <div className="mx-auto max-w-[1400px] w-full rounded-t-[10px] overflow-hidden border-x border-t border-[#eae6dd] shadow-[0_-2px_8px_rgba(0,0,0,0.02)] bg-white">
           <TopBar />
         </div>
       </div>
 
-      {/* ── STICKY NAV ── */}
-      <div
-        className={`
-          sticky top-0 z-50 w-full
-          transition-all duration-300 ease-in-out
-          ${scrolled
-            ? "bg-white/92 backdrop-blur-xl shadow-[0_4px_24px_rgba(0,0,0,0.10)] border-b border-[#e1ded4]"
-            : "bg-[#f4f3ef] px-[15px] pb-[5px]"
-          }
-        `}
+      {/* ── STICKY NAVIGATION BAR ── */}
+      <header
+        className={`sticky top-0 z-50 w-full transition-all duration-300 ease-in-out ${
+          scrolled
+            ? "bg-white/95 backdrop-blur-xl shadow-[0_10px_35px_rgba(0,0,0,0.06)] border-b border-[#eae6dd]"
+            : "bg-[#f4f3ef] px-3 sm:px-[15px] pb-1.5"
+        }`}
       >
         <div
-          className={`
-            w-full transition-all duration-300 ease-in-out
-            ${scrolled
-              ? "max-w-full mx-auto"
-              : "max-w-[1400px] mx-auto rounded-b-[20px] border-x border-b border-[#e1ded4] shadow-[0_12px_30px_rgba(0,0,0,0.08)] bg-white"
-            }
-          `}
+          className={`mx-auto max-w-[1400px] w-full transition-all duration-300 ease-in-out ${
+            scrolled
+              ? "px-4 sm:px-6 lg:px-8 py-1.5 sm:py-2"
+              : "bg-white rounded-b-[20px] border-x border-b border-[#eae6dd] shadow-[0_10px_30px_rgba(0,0,0,0.04)] px-4 sm:px-6 lg:px-8 py-1.5 sm:py-2"
+          }`}
         >
-          <div
-            className={`relative flex items-center w-full transition-all duration-300 ${scrolled
-              ? "px-4 sm:px-6 lg:px-10 xl:px-16 py-2.5 justify-between"
-              : "px-6 md:px-8 py-[10px] justify-between rounded-b-[19px]"
-              }`}
-          >
+          <div className="relative flex items-center justify-between w-full">
             {/* Logo */}
-            <Link to="/" className="flex items-center gap-3 hover:opacity-90 transition-opacity shrink-0">
+            <Link
+              to="/"
+              className="flex items-center gap-3 group shrink-0 select-none py-0.5"
+              aria-label="KV Property Inc Home"
+            >
               <img
                 src={logo}
-                alt="Right Lane Handyman Services, LLC"
-                className={`w-auto object-contain transition-all duration-300 ${scrolled ? "h-9 sm:h-11 md:h-[52px]" : "h-12 sm:h-14 md:h-16 lg:h-20"
-                  }`}
+                alt="KV Property Inc"
+                className={`w-auto object-contain transition-all duration-300 group-hover:scale-[1.02] ${
+                  scrolled
+                    ? "h-10 sm:h-11 md:h-12 lg:h-[50px]"
+                    : "h-13 sm:h-15 md:h-16 lg:h-[72px]"
+                }`}
               />
             </Link>
 
-            {/* Mobile controls */}
-            <div className="lg:hidden flex items-center gap-2.5">
-              <a
-                href="tel:7276420201"
-                className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-[#ffa326] to-[#cc7e14] text-white shadow-md transition-all duration-200 hover:scale-105 active:scale-95"
-              >
-                <Phone className="h-3.5 w-3.5 fill-white text-white" />
-              </a>
-
-              {/* Premium Hamburger Button */}
-              <button
-                onClick={() => setMenuOpen(true)}
-                aria-label="Open navigation menu"
-                className="relative flex h-10 w-10 flex-col items-center justify-center gap-[5px] rounded-xl border border-[#e1ded4] bg-white shadow-sm hover:shadow-md hover:border-[#ffa326]/40 active:scale-95 transition-all duration-200 cursor-pointer group"
-              >
-                <span className="block w-5 h-[1.5px] bg-neutral-700 rounded-full transition-all duration-300 group-hover:bg-[#ffa326]" />
-                <span className="block w-4 h-[1.5px] bg-neutral-700 rounded-full transition-all duration-300 group-hover:w-5 group-hover:bg-[#ffa326]" />
-                <span className="block w-3 h-[1.5px] bg-neutral-700 rounded-full transition-all duration-300 group-hover:w-5 group-hover:bg-[#ffa326]" />
-              </button>
-            </div>
-
-            {/* Desktop Nav */}
-            <nav className="hidden lg:flex items-center gap-1 xl:gap-2 ml-auto mr-8">
+            {/* Desktop Navigation Items */}
+            <nav className="hidden lg:flex items-center gap-1 xl:gap-1.5 ml-auto mr-5 xl:mr-6">
               {navItems.map((item) => {
                 const isActive = item.key === activeItem;
+
+                // Services Mega Menu Dropdown
                 if (item.key === "nav.services") {
                   return (
                     <div key={item.key} className="relative group py-2">
                       <Link
                         to={item.to}
-                        className={
+                        className={`relative px-4 py-2 rounded-full text-[14px] font-semibold tracking-[-0.01em] transition-all duration-200 flex items-center gap-1.5 select-none ${
                           isActive
-                            ? "border border-[#cc7e14] px-4 py-1.5 rounded-full bg-white/60 backdrop-blur-md text-[15px] font-medium text-[#cc7e14] transition-all duration-200 shadow-[0_1px_2px_rgba(0,0,0,0.05)] flex items-center gap-1.5"
-                            : "border border-transparent px-4 py-1.5 rounded-full flex items-center gap-1.5 text-[15px] font-medium text-neutral-800 hover:text-[#b26b0d] hover:bg-black/5 transition-all duration-200"
-                        }
+                            ? "bg-[#ffa326]/12 text-[#b86d0b] border border-[#ffa326]/35 shadow-[0_2px_8px_rgba(255,163,38,0.12)]"
+                            : "text-neutral-700 hover:text-neutral-950 hover:bg-neutral-900/[0.04] border border-transparent"
+                        }`}
                       >
-                        {t(item.key)}
-                        <ChevronDown className="h-3.5 w-3.5 text-neutral-500 group-hover:rotate-180 transition-transform duration-250" />
+                        <span>{t(item.key) || item.label}</span>
+                        <ChevronDown className="h-3.5 w-3.5 text-neutral-400 group-hover:text-[#cc7e14] group-hover:rotate-180 transition-transform duration-300" />
                       </Link>
-                      <div className="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-[580px] bg-white/95 backdrop-blur-xl border border-neutral-200/80 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.12)] p-5 opacity-0 scale-95 invisible group-hover:opacity-100 group-hover:scale-100 group-hover:visible transition-all duration-300 origin-top z-50">
-                        <div className="grid grid-cols-2 gap-3">
-                          {servicesSubMenu.map((sub) => (
+
+                      {/* Mega Menu Dropdown Container */}
+                      <div className="absolute top-full left-1/2 -translate-x-1/2 pt-2.5 w-[640px] xl:w-[680px] opacity-0 scale-[0.98] invisible pointer-events-none group-hover:opacity-100 group-hover:scale-100 group-hover:visible group-hover:pointer-events-auto transition-all duration-250 ease-out origin-top z-50">
+                        {/* Invisible bridge to prevent cursor gap closing */}
+                        <div className="absolute -top-3 inset-x-0 h-4" />
+
+                        <div className="bg-white/98 backdrop-blur-2xl border border-neutral-200/90 rounded-2xl shadow-[0_24px_60px_rgba(0,0,0,0.14)] overflow-hidden">
+                          {/* Accent Gradient Line */}
+                          <div className="h-[2.5px] w-full bg-gradient-to-r from-transparent via-[#ffa326] to-transparent" />
+
+                          {/* Mega Menu Top Header */}
+                          <div className="px-5 py-3.5 bg-[#fbfaf7] border-b border-neutral-200/70 flex items-center justify-between">
+                            <div className="flex items-center gap-2">
+                              <span className="w-2 h-2 rounded-full bg-[#ffa326] animate-pulse" />
+                              <span className="text-[12px] font-bold uppercase tracking-wider text-neutral-800">
+                                Property Improvement Specialties
+                              </span>
+                              <span className="text-[10px] font-semibold text-[#cc7e14] bg-[#ffa326]/10 border border-[#ffa326]/20 px-2 py-0.5 rounded-full">
+                                12 Services
+                              </span>
+                            </div>
                             <Link
-                              key={sub.label}
-                              to={sub.to}
-                              hash={sub.hash}
-                              className="group/item flex items-start gap-3.5 p-3 rounded-2xl hover:bg-copper/5 transition-all duration-200 text-left"
+                              to="/services"
+                              className="text-[12px] font-bold text-[#cc7e14] hover:text-[#b86d0b] flex items-center gap-1 transition-colors"
                             >
-                              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-copper/5 text-copper group-hover/item:bg-copper group-hover/item:text-white transition-all duration-300 shrink-0 shadow-xs">
-                                <sub.icon className="h-4.5 w-4.5" />
-                              </div>
-                              <div className="flex flex-col min-w-0">
-                                <span className="text-[13px] font-bold text-neutral-900 group-hover/item:text-copper transition-colors duration-200 leading-snug">
-                                  {sub.label}
-                                </span>
-                                <span className="text-[11px] text-neutral-500 font-medium leading-normal mt-0.5">
-                                  {sub.desc}
-                                </span>
-                              </div>
+                              <span>View All Services</span>
+                              <ArrowRight className="w-3.5 h-3.5" />
                             </Link>
-                          ))}
+                          </div>
+
+                          {/* 2-Column Services Grid */}
+                          <div className="p-4 grid grid-cols-2 gap-2">
+                            {servicesSubMenu.map((sub) => {
+                              const SubIcon = sub.icon;
+                              return (
+                                <Link
+                                  key={sub.label}
+                                  to={sub.to}
+                                  className="group/sub flex items-start gap-3 p-2.5 rounded-xl hover:bg-gradient-to-r hover:from-[#ffa326]/10 hover:to-transparent border border-transparent hover:border-[#ffa326]/20 transition-all duration-200 text-left"
+                                >
+                                  <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#ffa326]/10 text-[#cc7e14] group-hover/sub:bg-[#ffa326] group-hover/sub:text-white group-hover/sub:scale-105 transition-all duration-300 shrink-0 shadow-xs">
+                                    <SubIcon className="h-4.5 w-4.5" />
+                                  </div>
+                                  <div className="flex flex-col min-w-0">
+                                    <span className="text-[13px] font-bold text-neutral-900 group-hover/sub:text-[#cc7e14] transition-colors leading-snug">
+                                      {sub.label}
+                                    </span>
+                                    <span className="text-[11px] text-neutral-500 font-normal leading-normal mt-0.5 line-clamp-1">
+                                      {sub.desc}
+                                    </span>
+                                  </div>
+                                </Link>
+                              );
+                            })}
+                          </div>
+
+                          {/* Mega Menu Footer Banner */}
+                          <div className="px-5 py-3 bg-gradient-to-r from-[#181410] to-[#251e17] text-white flex items-center justify-between">
+                            <div className="flex items-center gap-2.5 text-xs text-neutral-300">
+                              <span className="relative flex h-2 w-2">
+                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                              </span>
+                              <span className="font-medium">24/7 Emergency Service:</span>
+                              <a
+                                href="tel:7326776674"
+                                className="font-bold text-white hover:text-[#ffa326] transition-colors"
+                              >
+                                (732) 677-6674
+                              </a>
+                            </div>
+                            <Link
+                              to="/free-estimate"
+                              className="text-[11px] font-bold uppercase tracking-wider text-[#ffa326] hover:text-[#ffc570] flex items-center gap-1 transition-colors"
+                            >
+                              <span>Free Estimate</span>
+                              <ArrowRight className="w-3 h-3" />
+                            </Link>
+                          </div>
                         </div>
                       </div>
                     </div>
                   );
                 }
-                if (item.key === "nav.areas") {
-                  return (
-                    <div key={item.key} className="relative group py-2">
-                      <Link
-                        to="/service-areas"
-                        className={
-                          isActive
-                            ? "border border-[#cc7e14] px-4 py-1.5 rounded-full bg-white/60 backdrop-blur-md text-[15px] font-medium text-[#cc7e14] transition-all duration-200 shadow-[0_1px_2px_rgba(0,0,0,0.05)] flex items-center gap-1.5"
-                            : "border border-transparent px-4 py-1.5 rounded-full flex items-center gap-1.5 text-[15px] font-medium text-neutral-800 hover:text-[#b26b0d] hover:bg-black/5 transition-all duration-200"
-                        }
-                      >
-                        {t(item.key)}
-                        <ChevronDown className="h-3.5 w-3.5 text-neutral-500 group-hover:rotate-180 transition-transform duration-250" />
-                      </Link>
-                      <div className="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-[460px] bg-white/95 backdrop-blur-xl border border-neutral-200/80 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.12)] p-5 opacity-0 scale-95 invisible group-hover:opacity-100 group-hover:scale-100 group-hover:visible transition-all duration-300 origin-top z-50">
-                        <div className="grid grid-cols-1 gap-2.5">
-                          {serviceAreasSubMenu.map((sub) => (
-                            <Link
-                              key={sub.label}
-                              to={sub.to}
-                              hash={sub.hash}
-                              className="group/item flex items-start gap-3.5 p-2.5 rounded-xl hover:bg-copper/5 transition-all duration-200 text-left"
-                            >
-                              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-copper/5 text-copper group-hover/item:bg-copper group-hover/item:text-white transition-all duration-300 shrink-0 shadow-xs">
-                                <sub.icon className="h-4 w-4" />
-                              </div>
-                              <div className="flex flex-col min-w-0">
-                                <span className="text-[13px] font-bold text-neutral-900 group-hover/item:text-copper transition-colors duration-200 leading-snug">
-                                  {sub.label}
-                                </span>
-                                <span className="text-[11px] text-neutral-500 font-medium leading-normal">
-                                  {sub.desc}
-                                </span>
-                              </div>
-                            </Link>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                  );
-                }
+
+                // Standard Nav Links
                 return (
                   <Link
                     key={item.key}
                     to={item.to}
-                    className={
+                    className={`relative px-4 py-2 rounded-full text-[14px] font-semibold tracking-[-0.01em] transition-all duration-200 select-none ${
                       isActive
-                        ? "border border-[#cc7e14] px-4 py-1.5 rounded-full bg-white/60 backdrop-blur-md text-[15px] font-medium text-[#cc7e14] transition-all duration-200 shadow-[0_1px_2px_rgba(0,0,0,0.05)]"
-                        : "border border-transparent px-4 py-1.5 rounded-full flex items-center gap-1 text-[15px] font-medium text-neutral-800 hover:text-[#b26b0d] hover:bg-black/5 transition-all duration-200"
-                    }
+                        ? "bg-[#ffa326]/12 text-[#b86d0b] border border-[#ffa326]/35 shadow-[0_2px_8px_rgba(255,163,38,0.12)]"
+                        : "text-neutral-700 hover:text-neutral-950 hover:bg-neutral-900/[0.04] border border-transparent"
+                    }`}
                   >
-                    {t(item.key)}
+                    {t(item.key) || item.label}
                   </Link>
                 );
               })}
             </nav>
 
-            {/* Desktop CTAs */}
-            <div className="hidden lg:flex items-center gap-3">
+            {/* Desktop Premium CTA Action Group */}
+            <div className="hidden lg:flex items-center gap-2.5 xl:gap-3">
+              {/* Primary Free Estimate Button */}
               <Link
                 to="/free-estimate"
-                className={`rounded-full px-6 py-2 text-sm transition-all duration-200 shadow-sm hover:scale-[1.02] active:scale-[0.98] ${
+                className={`relative group overflow-hidden rounded-full px-5 xl:px-6 py-2.5 text-xs sm:text-[13px] font-bold uppercase tracking-wider transition-all duration-300 shadow-[0_4px_16px_rgba(255,163,38,0.28)] hover:shadow-[0_6px_22px_rgba(255,163,38,0.45)] hover:scale-[1.02] active:scale-[0.98] select-none flex items-center gap-1.5 ${
                   activeItem === "nav.estimate"
-                    ? "bg-[#cc7e14] text-white ring-2 ring-[#ffa326] ring-offset-2 font-bold"
-                    : "bg-gradient-to-r from-[#ffa326] to-[#cc7e14] hover:from-[#ffa326] hover:to-[#995906] text-white font-normal"
+                    ? "bg-[#cc7e14] text-white ring-2 ring-[#ffa326] ring-offset-2"
+                    : "bg-gradient-to-r from-[#ffa326] via-[#ea8d15] to-[#cc7e14] text-white"
                 }`}
               >
-                Free Estimate
+                <span className="absolute inset-0 w-1/2 h-full bg-white/20 skew-x-12 -translate-x-full group-hover:translate-x-[350%] transition-transform duration-1000 ease-out pointer-events-none" />
+                <span>Free Estimate</span>
+                <ArrowRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-0.5" />
               </Link>
+
+              {/* Direct Call Button with Live Dot */}
               <a
-                href="tel:7276420201"
-                className="flex items-center gap-2 rounded-full bg-gradient-to-r from-[#32322d] to-[#1e1e1a] hover:from-[#23231f] hover:to-[#121210] px-6 py-2 text-white hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 shadow-sm"
+                href="tel:7326776674"
+                className="group flex items-center gap-2 rounded-full bg-neutral-900 hover:bg-neutral-800 border border-neutral-700/80 text-white px-4 xl:px-5 py-2.5 text-xs sm:text-[13px] font-bold tracking-wide shadow-[0_3px_12px_rgba(0,0,0,0.10)] hover:shadow-[0_6px_18px_rgba(0,0,0,0.18)] hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 select-none"
               >
-                <Phone className="h-3.5 w-3.5 fill-white text-white" />
-                <span className="font-normal text-sm">(727) 642-0201</span>
+                <span className="relative flex h-2 w-2 mr-0.5">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#ffa326] opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-[#ffa326]"></span>
+                </span>
+                <Phone className="h-3.5 w-3.5 text-[#ffa326] fill-[#ffa326]/20 transition-transform duration-300 group-hover:scale-110" />
+                <span>(732) 677-6674</span>
               </a>
+            </div>
+
+            {/* Mobile Controls */}
+            <div className="lg:hidden flex items-center gap-2 sm:gap-2.5">
+              <a
+                href="tel:7326776674"
+                className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-r from-[#ffa326] to-[#cc7e14] text-white shadow-md transition-all duration-200 hover:scale-105 active:scale-95"
+                aria-label="Call KV Property Inc"
+              >
+                <Phone className="h-4 w-4 fill-white text-white" />
+              </a>
+
+              {/* Animated Hamburger Button */}
+              <button
+                onClick={() => setMenuOpen(true)}
+                aria-label="Open navigation menu"
+                className="relative flex h-10 w-10 flex-col items-center justify-center gap-[5px] rounded-xl border border-[#eae6dd] bg-white shadow-xs hover:shadow-md hover:border-[#ffa326]/40 active:scale-95 transition-all duration-200 cursor-pointer group"
+              >
+                <span className="block w-5 h-[2px] bg-neutral-800 rounded-full transition-all duration-300 group-hover:bg-[#ffa326]" />
+                <span className="block w-4 h-[2px] bg-neutral-800 rounded-full transition-all duration-300 group-hover:w-5 group-hover:bg-[#ffa326]" />
+                <span className="block w-3 h-[2px] bg-neutral-800 rounded-full transition-all duration-300 group-hover:w-5 group-hover:bg-[#ffa326]" />
+              </button>
             </div>
           </div>
         </div>
-      </div>
+      </header>
 
-      {/* ── PREMIUM MOBILE FULL-SCREEN MENU ── */}
+      {/* ── MOBILE FULL-SCREEN SLIDE-OVER DRAWER ── */}
       <AnimatePresence>
         {menuOpen && (
           <>
-            {/* Backdrop */}
+            {/* Backdrop Overlay */}
             <motion.div
               key="backdrop"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.25 }}
-              className="fixed inset-0 z-[60] bg-black/50 backdrop-blur-sm lg:hidden"
+              className="fixed inset-0 z-[60] bg-black/60 backdrop-blur-sm lg:hidden"
               onClick={closeMenu}
             />
 
-            {/* Slide-in panel */}
+            {/* Slide-in Panel */}
             <motion.div
               key="drawer"
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", stiffness: 320, damping: 32 }}
-              className="fixed top-0 right-0 bottom-0 z-[70] w-[88vw] max-w-[360px] lg:hidden flex flex-col bg-white border-l border-neutral-100 shadow-[-20px_0_80px_rgba(0,0,0,0.22)]"
+              className="fixed top-0 right-0 bottom-0 z-[70] w-[88vw] max-w-[380px] lg:hidden flex flex-col bg-white border-l border-neutral-100 shadow-[-20px_0_80px_rgba(0,0,0,0.25)]"
             >
-              {/* ── Panel Header ── */}
-              <div className="flex items-center justify-between px-6 py-5 border-b border-[#eae8e1] bg-white">
-                <img src={logo} alt="Right Lane Handyman Services" className="h-14 w-auto object-contain" />
+              {/* Drawer Header */}
+              <div className="flex items-center justify-between px-6 py-4 border-b border-[#eae6dd] bg-white">
+                <img
+                  src={logo}
+                  alt="KV Property Inc"
+                  className="h-12 sm:h-13 w-auto object-contain"
+                />
                 <button
                   onClick={closeMenu}
                   aria-label="Close menu"
@@ -322,21 +424,34 @@ export function SiteHeader() {
                 </button>
               </div>
 
-              {/* ── Nav Links ── */}
-              <nav className="flex-1 overflow-y-auto px-4 py-5 space-y-1">
+              {/* Trust Badge Bar */}
+              <div className="mx-4 mt-3 px-3.5 py-1.5 rounded-full bg-[#ffa326]/10 border border-[#ffa326]/20 text-[#cc7e14] text-[11px] font-bold uppercase tracking-wider flex items-center justify-between select-none">
+                <span>Licensed &amp; Insured</span>
+                <span>•</span>
+                <span>20+ Yrs Exp</span>
+                <span>•</span>
+                <span>Financing</span>
+              </div>
+
+              {/* Navigation Links Scrollable Area */}
+              <nav className="flex-1 overflow-y-auto px-4 py-4 space-y-1">
                 {navItems.map((item, idx) => {
+                  // Services Accordion in Mobile
                   if (item.key === "nav.services") {
                     return (
                       <motion.div
                         key={item.key}
                         initial={{ opacity: 0, x: 24 }}
                         animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: idx * 0.06 + 0.1, duration: 0.35, ease: "easeOut" }}
+                        transition={{
+                          delay: idx * 0.05 + 0.1,
+                          duration: 0.35,
+                          ease: "easeOut",
+                        }}
                       >
-                        {/* Services accordion trigger */}
                         <button
                           onClick={() => setServicesOpen(!servicesOpen)}
-                          className="w-full flex items-center justify-between px-4 py-3.5 rounded-xl text-left font-semibold text-[15px] text-neutral-800 hover:bg-[#ffa326]/8 hover:text-[#cc7e14] transition-all duration-200 cursor-pointer group"
+                          className="w-full flex items-center justify-between px-4 py-3 rounded-xl text-left font-semibold text-[15px] text-neutral-800 hover:bg-[#ffa326]/8 hover:text-[#cc7e14] transition-all duration-200 cursor-pointer group"
                         >
                           <span className="flex items-center gap-3">
                             <span className="w-1.5 h-1.5 rounded-full bg-[#ffa326] shrink-0" />
@@ -350,7 +465,7 @@ export function SiteHeader() {
                           </motion.div>
                         </button>
 
-                        {/* Services submenu */}
+                        {/* Services Submenu Accordion */}
                         <AnimatePresence>
                           {servicesOpen && (
                             <motion.div
@@ -360,87 +475,27 @@ export function SiteHeader() {
                               transition={{ duration: 0.3, ease: "easeInOut" }}
                               className="overflow-hidden"
                             >
-                              <div className="ml-4 mt-1 mb-2 pl-4 border-l-2 border-[#ffa326]/20 grid grid-cols-2 gap-x-2 gap-y-0.5">
-                                {servicesSubMenu.map((sub, subIdx) => (
-                                  <motion.div
-                                    key={sub.label}
-                                    initial={{ opacity: 0, y: 6 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ delay: subIdx * 0.03 }}
-                                  >
-                                    <Link
-                                      to={sub.to}
-                                      hash={sub.hash}
-                                      onClick={closeMenu}
-                                      className="flex items-center gap-2 px-2.5 py-1.5 text-[12px] font-semibold text-neutral-600 hover:text-copper hover:bg-copper/5 rounded-lg transition-all duration-150 text-left"
+                              <div className="ml-4 mt-1 mb-2 pl-3 border-l-2 border-[#ffa326]/20 flex flex-col space-y-0.5">
+                                {servicesSubMenu.map((sub, subIdx) => {
+                                  const SubIcon = sub.icon;
+                                  return (
+                                    <motion.div
+                                      key={sub.label}
+                                      initial={{ opacity: 0, y: 6 }}
+                                      animate={{ opacity: 1, y: 0 }}
+                                      transition={{ delay: subIdx * 0.02 }}
                                     >
-                                      <sub.icon className="h-3.5 w-3.5 text-copper shrink-0" />
-                                      <span>{sub.label}</span>
-                                    </Link>
-                                  </motion.div>
-                                ))}
-                              </div>
-                            </motion.div>
-                          )}
-                        </AnimatePresence>
-                      </motion.div>
-                    );
-                  }
-
-                  if (item.key === "nav.areas") {
-                    return (
-                      <motion.div
-                        key={item.key}
-                        initial={{ opacity: 0, x: 24 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: idx * 0.06 + 0.1, duration: 0.35, ease: "easeOut" }}
-                      >
-                        {/* Service Areas accordion trigger */}
-                        <button
-                          onClick={() => setAreasOpen(!areasOpen)}
-                          className="w-full flex items-center justify-between px-4 py-3.5 rounded-xl text-left font-semibold text-[15px] text-neutral-800 hover:bg-[#ffa326]/8 hover:text-[#cc7e14] transition-all duration-200 cursor-pointer group"
-                        >
-                          <span className="flex items-center gap-3">
-                            <span className="w-1.5 h-1.5 rounded-full bg-[#ffa326] shrink-0" />
-                            Service Areas
-                          </span>
-                          <motion.div
-                            animate={{ rotate: areasOpen ? 180 : 0 }}
-                            transition={{ duration: 0.25 }}
-                          >
-                            <ChevronDown className="h-4 w-4 text-neutral-400 group-hover:text-[#ffa326]" />
-                          </motion.div>
-                        </button>
-
-                        {/* Service Areas submenu */}
-                        <AnimatePresence>
-                          {areasOpen && (
-                            <motion.div
-                              initial={{ height: 0, opacity: 0 }}
-                              animate={{ height: "auto", opacity: 1 }}
-                              exit={{ height: 0, opacity: 0 }}
-                              transition={{ duration: 0.3, ease: "easeInOut" }}
-                              className="overflow-hidden"
-                            >
-                              <div className="ml-4 mt-1 mb-2 pl-4 border-l-2 border-[#ffa326]/20 flex flex-col space-y-1">
-                                {serviceAreasSubMenu.map((sub, subIdx) => (
-                                  <motion.div
-                                    key={sub.label}
-                                    initial={{ opacity: 0, y: 6 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ delay: subIdx * 0.03 }}
-                                  >
-                                    <Link
-                                      to={sub.to}
-                                      hash={sub.hash}
-                                      onClick={closeMenu}
-                                      className="flex items-center gap-2 px-2.5 py-1.5 text-[12px] font-semibold text-neutral-600 hover:text-copper hover:bg-copper/5 rounded-lg transition-all duration-150 text-left"
-                                    >
-                                      <sub.icon className="h-3.5 w-3.5 text-copper shrink-0" />
-                                      <span>{sub.label}</span>
-                                    </Link>
-                                  </motion.div>
-                                ))}
+                                      <Link
+                                        to={sub.to}
+                                        onClick={closeMenu}
+                                        className="flex items-center gap-2.5 px-3 py-2 text-[12.5px] font-semibold text-neutral-700 hover:text-[#cc7e14] hover:bg-[#ffa326]/8 rounded-lg transition-all duration-150 text-left"
+                                      >
+                                        <SubIcon className="h-3.5 w-3.5 text-[#cc7e14] shrink-0" />
+                                        <span>{sub.label}</span>
+                                      </Link>
+                                    </motion.div>
+                                  );
+                                })}
                               </div>
                             </motion.div>
                           )}
@@ -456,53 +511,70 @@ export function SiteHeader() {
                       key={item.key}
                       initial={{ opacity: 0, x: 24 }}
                       animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: idx * 0.06 + 0.1, duration: 0.35, ease: "easeOut" }}
+                      transition={{
+                        delay: idx * 0.05 + 0.1,
+                        duration: 0.35,
+                        ease: "easeOut",
+                      }}
                     >
                       <Link
                         to={item.to}
                         onClick={closeMenu}
-                        className={`flex items-center gap-3 w-full px-4 py-3.5 rounded-xl font-semibold text-[15px] transition-all duration-200 ${
+                        className={`flex items-center gap-3 w-full px-4 py-3 rounded-xl font-semibold text-[15px] transition-all duration-200 ${
                           isActive
-                            ? "bg-[#ffa326]/10 text-[#cc7e14]"
+                            ? "bg-[#ffa326]/12 text-[#cc7e14]"
                             : "text-neutral-800 hover:bg-[#ffa326]/8 hover:text-[#cc7e14]"
                         }`}
                       >
-                        <span className={`w-1.5 h-1.5 rounded-full shrink-0 transition-colors ${
-                          isActive ? "bg-[#cc7e14]" : "bg-neutral-300"
-                        }`} />
-                        {item.label}
+                        <span
+                          className={`w-1.5 h-1.5 rounded-full shrink-0 transition-colors ${
+                            isActive ? "bg-[#cc7e14]" : "bg-neutral-300"
+                          }`}
+                        />
+                        {t(item.key) || item.label}
                       </Link>
                     </motion.div>
                   );
                 })}
               </nav>
 
-              {/* ── Divider + Info strip ── */}
-              <div className="px-6 py-3 bg-[#f7f6f2] border-t border-[#eae8e1]">
-                <p className="text-[10px] font-bold uppercase tracking-widest text-neutral-400 mb-1">Serving Clearwater & Surrounding Areas</p>
-                <p className="text-[10px] text-neutral-500">Licensed · Insured · Bonded · 25 Years of Experience</p>
+              {/* Mobile Info Strip */}
+              <div className="px-6 py-3 bg-[#fbfaf7] border-t border-[#eae6dd] space-y-1.5">
+                <div className="flex items-center gap-2 text-xs text-neutral-700">
+                  <MapPin className="h-3.5 w-3.5 text-[#cc7e14] shrink-0" />
+                  <span>Neptune, NJ (25-Mile Service Radius)</span>
+                </div>
+                <div className="flex items-center gap-2 text-xs text-neutral-700">
+                  <Mail className="h-3.5 w-3.5 text-[#cc7e14] shrink-0" />
+                  <a
+                    href="mailto:kvpropertyinc@gmail.com"
+                    className="hover:underline"
+                  >
+                    kvpropertyinc@gmail.com
+                  </a>
+                </div>
+                <div className="flex items-center gap-2 text-xs text-emerald-700 font-medium">
+                  <Clock className="h-3.5 w-3.5 text-emerald-600 shrink-0" />
+                  <span>24/7 Emergency Service Available</span>
+                </div>
               </div>
 
-              {/* ── Bottom CTA Bar ── */}
-              <div className="p-4 border-t border-[#eae8e1] bg-white space-y-3">
+              {/* Bottom Sticky Action Buttons */}
+              <div className="p-4 border-t border-[#eae6dd] bg-white space-y-2.5">
                 <Link
                   to="/free-estimate"
                   onClick={closeMenu}
-                  className={`flex items-center justify-center gap-2 w-full rounded-xl py-3.5 text-[13px] font-bold tracking-wide uppercase transition-all duration-200 shadow-md hover:shadow-lg hover:scale-[1.01] active:scale-[0.98] ${
-                    currentPath === "/free-estimate"
-                      ? "bg-[#cc7e14] text-white ring-2 ring-[#ffa326] ring-offset-2"
-                      : "bg-gradient-to-r from-[#ffa326] to-[#cc7e14] hover:from-[#ffa326] hover:to-[#995906] text-white"
-                  }`}
+                  className="flex items-center justify-center gap-2 w-full rounded-xl py-3.5 text-[13px] font-bold tracking-wide uppercase transition-all duration-200 shadow-md hover:shadow-lg bg-gradient-to-r from-[#ffa326] via-[#ea8d15] to-[#cc7e14] text-white hover:brightness-105 active:scale-[0.98]"
                 >
-                  <ExternalLink className="h-3.5 w-3.5" />
-                  Free Estimate
+                  <span>Request A Free Estimate</span>
+                  <ArrowRight className="h-3.5 w-3.5" />
                 </Link>
                 <a
-                  href="tel:7276420201"
-                  className="flex items-center justify-center gap-2.5 w-full rounded-xl bg-gradient-to-r from-[#32322d] to-[#1e1e1a] hover:from-[#23231f] hover:to-[#121210] py-3.5 text-white text-[13px] font-bold tracking-wide shadow-md hover:shadow-lg hover:scale-[1.01] active:scale-[0.98] transition-all duration-200"
+                  href="tel:7326776674"
+                  className="flex items-center justify-center gap-2.5 w-full rounded-xl bg-neutral-900 hover:bg-neutral-800 py-3.5 text-white text-[13px] font-bold tracking-wide shadow-sm hover:shadow-md active:scale-[0.98] transition-all duration-200"
                 >
-                  <Phone className="h-3.5 w-3.5 fill-white text-white" />
-                  (727) 642-0201
+                  <Phone className="h-3.5 w-3.5 text-[#ffa326] fill-[#ffa326]/30" />
+                  <span>Call (732) 677-6674</span>
                 </a>
               </div>
             </motion.div>

@@ -1,25 +1,27 @@
 import { useState, useEffect } from "react";
 import { useTranslation } from "@/context/translation-context";
-import { X, ZoomIn } from "lucide-react";
-import junkRemoval from "@/assets/svc-junk-removal.png";
-import debrisRemoval from "@/assets/svc-debris-removal.png";
-import pressureWash from "@/assets/svc-pressure-wash.png";
-import demolition from "@/assets/svc-demolition.png";
-import maintenance from "@/assets/svc-maintenance.png";
-import cleaning from "@/assets/svc-cleaning.png";
-import statsCleanup from "@/assets/stats-cleanup.png";
+import { X, ZoomIn, ArrowRight } from "lucide-react";
+import { Link } from "@tanstack/react-router";
+
+import kitchenImg from "@/assets/svc-kitchen-remodel.jpg";
+import bathImg from "@/assets/svc-bathroom-remodel.jpg";
+import deckImg from "@/assets/svc-deck-outdoor.jpg";
+import contractingImg from "@/assets/why-choose-1.png";
+import additionsImg from "@/assets/why-choose-2.png";
+import handymanImg from "@/assets/why-choose-3.png";
+import maintenanceImg from "@/assets/svc-maintenance.png";
 import welImg from "@/assets/wel-img.png";
 
 import { getGalleryPhotos } from "@/lib/leads-store";
 
 const DEFAULT_PHOTOS = [
-  junkRemoval,
-  debrisRemoval,
-  pressureWash,
-  demolition,
-  maintenance,
-  cleaning,
-  statsCleanup,
+  kitchenImg,
+  bathImg,
+  deckImg,
+  contractingImg,
+  additionsImg,
+  handymanImg,
+  maintenanceImg,
   welImg
 ];
 
@@ -38,7 +40,7 @@ export function GallerySection() {
           setGalleryPhotos(DEFAULT_PHOTOS);
         }
       } catch (error) {
-        console.error("Failed to load gallery photos from DB, falling back to defaults:", error);
+        console.error("Failed to load gallery photos, falling back to defaults:", error);
         setGalleryPhotos(DEFAULT_PHOTOS);
       }
     };
@@ -50,13 +52,19 @@ export function GallerySection() {
       <section id="gallery" className="mx-auto max-w-[1400px] w-full rounded-[10px] bg-[#fbfaf7] px-[30px] py-[50px] border border-[#eae8e1] shadow-[0_12px_40px_rgb(0,0,0,0.04)] text-center">
         {/* Badge */}
         <div className="inline-flex items-center bg-[#2b1a05] border border-[#593203] text-white text-[10px] md:text-[11px] font-extrabold px-5 py-2 rounded-full uppercase tracking-widest mb-4 shadow-sm select-none">
-          {t("gallery.badge")}
+          Our Work
         </div>
 
         {/* Title */}
-        <h2 className="text-2xl md:text-3xl lg:text-[34px] font-black text-neutral-900 tracking-tight mb-8">
-          {t("gallery.title")}
+        <h2 className="text-2xl md:text-3xl lg:text-[34px] font-black text-neutral-900 tracking-tight mb-3">
+          Craftsmanship You Can See.
         </h2>
+
+        {/* Subtitle */}
+        <p className="text-sm sm:text-base text-neutral-600 max-w-2xl mx-auto mb-8 font-normal leading-relaxed">
+          Every project is an opportunity to improve a space, solve a problem, and create something built to last.<br className="hidden sm:inline" />{" "}
+          Explore our residential and commercial work and see the quality behind KV Property Inc.
+        </p>
 
         {/* Justified Centered Flex Grid */}
         <div className="flex flex-wrap justify-center gap-3 md:gap-4 w-full">
@@ -68,7 +76,7 @@ export function GallerySection() {
             >
               <img
                 src={img}
-                alt="Right Lane Handyman Services, LLC Project Detail"
+                alt="KV Property Inc Craftsmanship"
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
                 loading="lazy"
               />
@@ -80,6 +88,17 @@ export function GallerySection() {
               </div>
             </div>
           ))}
+        </div>
+
+        {/* View Our Projects Button */}
+        <div className="mt-10">
+          <Link
+            to="/our-work"
+            className="inline-flex items-center gap-2 bg-gradient-to-r from-[#ffa326] to-[#cc7e14] hover:from-[#ffb147] hover:to-[#995906] text-white rounded-full px-8 py-3.5 text-xs sm:text-sm font-bold uppercase tracking-wider shadow-md hover:scale-[1.02] active:scale-[0.98] transition-all duration-300"
+          >
+            <span>{t("gallery.btn") || "View Our Projects"}</span>
+            <ArrowRight className="w-4 h-4" />
+          </Link>
         </div>
       </section>
 
@@ -105,14 +124,14 @@ export function GallerySection() {
           >
             <img
               src={selectedImage}
-              alt="Right Lane Handyman Services, LLC Project Detail Large View"
+              alt="KV Property Inc Project Detail Large View"
               className="max-w-full max-h-[85vh] md:max-h-[90vh] object-contain rounded-lg shadow-2xl border border-white/10"
             />
           </div>
         </div>
       )}
 
-      {/* Dynamic Keyframes Injection */}
+      {/* Dynamic Keyframes */}
       <style>{`
         @keyframes fadeIn {
           from { opacity: 0; }

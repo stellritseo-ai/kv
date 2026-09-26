@@ -444,7 +444,7 @@ function DashboardPage() {
           if (msg.sender !== "admin") {
             hasNew = true;
             lastNewMsg = msg;
-            chatSessionTitle = session.userName || "Visitor";
+            chatSessionTitle = session.clientName || (session as any).userName || "Visitor";
           }
         }
       });
@@ -2204,7 +2204,7 @@ function DashboardPage() {
                   <div className="rounded-xl border border-[#ffa326]/30 bg-[#ffa326]/5 px-5 py-4 space-y-2">
                     <div className="flex items-center justify-between">
                       <p className="text-xs font-bold text-[#cc7e14] uppercase tracking-wider">
-                        Uploading to Cloudinary...
+                        Uploading Photo...
                       </p>
                       <span className="text-xs font-black text-[#ffa326]">
                         {uploadProgress.current} / {uploadProgress.total}
@@ -2227,7 +2227,7 @@ function DashboardPage() {
                   <div className="rounded-xl border border-red-500/30 bg-red-50/50 px-5 py-4 space-y-2 animate-in fade-in duration-200">
                     <div className="flex items-center justify-between">
                       <p className="text-xs font-bold text-red-700 uppercase tracking-wider">
-                        Deleting from Cloudinary & Database...
+                        Deleting Photo...
                       </p>
                       <span className="text-xs font-black text-red-600">
                         {deleteProgress.current} / {deleteProgress.total}

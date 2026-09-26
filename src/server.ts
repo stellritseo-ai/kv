@@ -1,7 +1,4 @@
-// ESM shim: mongoose internally calls require("node:diagnostics_channel") inside a try/catch,
-// but in a pure ESM context "require" is not defined at all — causing a ReferenceError that
-// crashes module initialization before the catch can handle it. We patch globalThis.require
-// with Node's createRequire so these CJS-style internal calls work safely on Vercel.
+// Node ESM compatibility shim
 import { createRequire } from "module";
 if (typeof globalThis.require === "undefined") {
   (globalThis as any).require = createRequire(import.meta.url);

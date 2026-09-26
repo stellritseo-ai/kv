@@ -5,3 +5,4 @@ node_modules/.vite
 .tanstack
 dist
 .DS_Store
+**/.DS_Store

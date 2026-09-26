@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Mail, MapPin, ChevronDown } from "lucide-react";
+import { Mail, MapPin, Phone, Clock, ChevronDown, CheckCircle2 } from "lucide-react";
 import { useTranslation } from "@/context/translation-context";
 import { addLead, addWebEmail } from "@/lib/leads-store";
 import welBg from "@/assets/wel-bg.png";
@@ -10,40 +10,46 @@ export function CTASection() {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
+  const [projectType, setProjectType] = useState("");
+  const [propertyType, setPropertyType] = useState("residential");
   const [address, setAddress] = useState("");
-  const [service, setService] = useState("");
-  const [message, setMessage] = useState("");
+  const [budget, setBudget] = useState("");
+  const [details, setDetails] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!name.trim() || !email.trim()) return;
+    if (!name.trim() || !phone.trim()) return;
 
     setIsSubmitting(true);
     try {
+      const budgetNum = budget ? parseInt(budget.replace(/[^0-9]/g, ""), 10) : undefined;
+
       await addLead({
         name,
-        email,
+        email: email || "no-email@kvproperty.com",
         phone,
         address,
-        projectType: service || "general",
-        description: message,
+        projectType: projectType || "General Remodeling",
+        propertyType: propertyType as "residential" | "commercial",
+        description: `Budget: ${budget || "Not specified"}. Details: ${details}`,
+        estimatedValue: budgetNum,
         contactTime: "morning"
       });
 
       await addWebEmail({
         name,
-        email,
+        email: email || "no-email@kvproperty.com",
         phone,
-        service: service || "general",
-        message: message + (address ? ` (Address: ${address})` : ""),
+        service: projectType || "General Remodeling",
+        message: `Property Type: ${propertyType}. Address: ${address}. Budget: ${budget}. Details: ${details}`,
         source: "landing_page"
       });
 
       setIsSubmitted(true);
     } catch (error) {
-      console.error("Failed to submit CTA contact form:", error);
+      console.error("Failed to submit estimate request:", error);
     } finally {
       setIsSubmitting(false);
     }
@@ -51,147 +57,283 @@ export function CTASection() {
 
   return (
     <div className="w-full bg-[#f4f3ef] mt-[15px] mb-0 pt-[5px] pb-0 px-[15px]">
-      <section id="contact" className="mx-auto max-w-[1400px] w-full rounded-t-[10px] rounded-b-none bg-[#2c241d] py-6 sm:py-8 px-4 sm:px-6 md:px-12 lg:px-[80px] xl:px-[150px] border border-neutral-800 shadow-[0_12px_45px_rgba(0,0,0,0.035)] relative overflow-hidden text-center">
+      <section id="contact" className="mx-auto max-w-[1400px] w-full rounded-t-[10px] rounded-b-none bg-[#2c241d] py-10 sm:py-14 px-4 sm:px-6 md:px-12 lg:px-16 border border-neutral-800 shadow-[0_12px_45px_rgba(0,0,0,0.035)] relative overflow-hidden text-center">
 
-        {/* Inner Card Container with textured linen background */}
-        <div
-          className="w-full rounded-[8px] bg-cover bg-center border border-[#eae8e1]/70 shadow-[0_10px_35px_rgba(0,0,0,0.02)] relative z-10 p-5 sm:p-8 md:p-10 lg:p-[40px_50px]"
-          style={{ backgroundImage: "url(/src/assets/wel-bg.png)", backgroundColor: "#fbfaf7" }}
-        >
-          {/* Badge */}
-          <div className="inline-block bg-[#3f4a1f] text-white text-[10px] font-extrabold uppercase tracking-widest px-5 py-2 rounded-full mb-6 select-none shadow-sm">
-            {t("cta.badge")}
-          </div>
-
-          {/* Title */}
-          <h2
-            className="text-2xl md:text-[32px] text-neutral-900 leading-tight tracking-tight"
-            style={{
-              marginTop: "-15px",
-              fontWeight: 700,
-              marginBottom: "10px",
-            }}
-          >
-            {t("cta.title")}
+        {/* ── 1. FINAL CTA BANNER ── */}
+        <div className="relative z-10 max-w-4xl mx-auto mb-12 sm:mb-16 text-center">
+          <span className="inline-flex items-center gap-2 bg-[#ffa326]/10 border border-[#ffa326]/30 text-[#ffa326] rounded-full px-4 py-1.5 text-xs font-bold uppercase tracking-wider mb-4">
+            <span className="w-2 h-2 rounded-full bg-[#ffa326] animate-pulse" />
+            Start Your Project
+          </span>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight leading-tight mb-4">
+            Let's Build Something Great.
           </h2>
-
-          {/* Description */}
-          <p
-            className="text-neutral-700 leading-relaxed max-w-2xl mx-auto"
-            style={{
-              fontSize: "14px",
-              fontWeight: 400,
-              marginBottom: "22px",
-            }}
-          >
-            {t("cta.desc")}
+          <p className="text-sm sm:text-base text-neutral-300 max-w-2xl mx-auto leading-relaxed mb-8 font-normal">
+            From remodeling and repairs to complete property improvements, KV Property Inc is ready to help bring your project to life.
           </p>
+          <div className="flex flex-wrap items-center justify-center gap-4">
+            <a
+              href="#estimate-form"
+              className="inline-flex items-center justify-center bg-gradient-to-r from-[#ffa326] to-[#cc7e14] hover:from-[#ffb147] hover:to-[#b86d0b] text-white text-xs sm:text-sm font-bold uppercase tracking-wider rounded-full px-8 py-3.5 transition-all duration-300 shadow-lg hover:scale-105"
+            >
+              Get A Free Estimate
+            </a>
+            <a
+              href="tel:7326776674"
+              className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 hover:bg-white hover:text-neutral-900 text-white text-xs sm:text-sm font-bold uppercase tracking-wider px-8 py-3.5 transition-all duration-300 backdrop-blur-md"
+            >
+              <Phone className="w-4 h-4 fill-current" />
+              <span>Call (732) 677-6674</span>
+            </a>
+          </div>
+        </div>
 
-          {isSubmitted ? (
-            <div className="flex flex-col justify-center items-center text-center w-full py-12 space-y-4">
-              <div className="bg-[#3f4a1f]/10 text-[#3f4a1f] p-4 rounded-full animate-bounce">
-                <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                </svg>
+        {/* ── 2. CONTACT INFO + FORM CONTAINER ── */}
+        <div
+          id="estimate-form"
+          className="w-full rounded-[10px] bg-cover bg-center border border-[#eae8e1]/70 shadow-[0_10px_35px_rgba(0,0,0,0.02)] relative z-10 p-6 sm:p-10 lg:p-12 text-left"
+          style={{ backgroundImage: `url(${welBg})`, backgroundColor: "#fbfaf7" }}
+        >
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start">
+
+            {/* Left Column: Contact Information */}
+            <div className="lg:col-span-5 flex flex-col justify-between h-full">
+              <div>
+                <span className="inline-block bg-[#3f4a1f] text-white text-[10px] font-extrabold uppercase tracking-widest px-4 py-1.5 rounded-full mb-4 shadow-sm">
+                  Contact
+                </span>
+                <h3 className="text-2xl sm:text-3xl font-extrabold text-neutral-900 leading-tight mb-3">
+                  Let's Talk About Your Project.
+                </h3>
+                <p className="text-sm text-neutral-600 leading-relaxed mb-8">
+                  Have a project in mind? Tell us what you need, and let's discuss how KV Property Inc can help.
+                </p>
+
+                {/* Info Cards */}
+                <div className="space-y-4">
+                  <div className="flex items-start gap-3.5 p-3.5 rounded-xl bg-white/80 border border-neutral-200/80 shadow-xs">
+                    <div className="w-10 h-10 rounded-full bg-[#ffa326]/10 text-[#cc7e14] flex items-center justify-center shrink-0">
+                      <Phone className="w-5 h-5 fill-current" />
+                    </div>
+                    <div>
+                      <span className="text-[11px] font-bold text-neutral-400 uppercase tracking-wider block">Phone</span>
+                      <a href="tel:7326776674" className="text-sm sm:text-base font-bold text-neutral-900 hover:text-[#cc7e14] transition-colors">
+                        (732) 677-6674
+                      </a>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-3.5 p-3.5 rounded-xl bg-white/80 border border-neutral-200/80 shadow-xs">
+                    <div className="w-10 h-10 rounded-full bg-[#ffa326]/10 text-[#cc7e14] flex items-center justify-center shrink-0">
+                      <Mail className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <span className="text-[11px] font-bold text-neutral-400 uppercase tracking-wider block">Email</span>
+                      <a href="mailto:kvpropertyinc@gmail.com" className="text-sm sm:text-base font-bold text-neutral-900 hover:text-[#cc7e14] transition-colors break-all">
+                        kvpropertyinc@gmail.com
+                      </a>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-3.5 p-3.5 rounded-xl bg-white/80 border border-neutral-200/80 shadow-xs">
+                    <div className="w-10 h-10 rounded-full bg-[#ffa326]/10 text-[#cc7e14] flex items-center justify-center shrink-0">
+                      <MapPin className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <span className="text-[11px] font-bold text-neutral-400 uppercase tracking-wider block">Location</span>
+                      <span className="text-sm sm:text-base font-bold text-neutral-900">
+                        Neptune, NJ
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-3.5 p-3.5 rounded-xl bg-white/80 border border-neutral-200/80 shadow-xs">
+                    <div className="w-10 h-10 rounded-full bg-[#ffa326]/10 text-[#cc7e14] flex items-center justify-center shrink-0">
+                      <Clock className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <span className="text-[11px] font-bold text-neutral-400 uppercase tracking-wider block">Hours &amp; Emergency</span>
+                      <p className="text-xs sm:text-sm font-semibold text-neutral-800">
+                        Monday–Saturday 8:00 AM – 6:00 PM
+                      </p>
+                      <p className="text-xs font-bold text-emerald-600 flex items-center gap-1 mt-0.5">
+                        <CheckCircle2 className="w-3.5 h-3.5" /> Emergency Service: 24/7
+                      </p>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <h3 className="text-xl font-bold text-neutral-900 font-serif">
-                Thank You for Reaching Out!
-              </h3>
-              <p className="text-sm text-neutral-700 max-w-md">
-                We have received your message and our team will get in touch with you within 24 hours.
-              </p>
             </div>
-          ) : (
-            /* Contact Form */
-            <form className="w-full space-y-4.5 text-left" onSubmit={handleSubmit}>
 
-              {/* Row 1: Name and Phone */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4.5">
-                <input
-                  type="text"
-                  required
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  placeholder={t("cta.form.name")}
-                  className="w-full bg-white rounded-[5px] shadow-[0_4px_15px_rgba(0,0,0,0.01)] border border-neutral-100/50 py-3 px-4 text-sm text-neutral-800 placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-[#3f4a1f]/20 transition-all"
-                />
-                <input
-                  type="text"
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
-                  placeholder={t("cta.form.phone")}
-                  className="w-full bg-white rounded-[5px] shadow-[0_4px_15px_rgba(0,0,0,0.01)] border border-neutral-100/50 py-3 px-4 text-sm text-neutral-800 placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-[#3f4a1f]/20 transition-all"
-                />
-              </div>
+            {/* Right Column: Request A Free Estimate Form */}
+            <div className="lg:col-span-7 bg-white rounded-2xl p-6 sm:p-8 border border-neutral-200 shadow-sm">
+              <h4 className="text-xl sm:text-2xl font-bold text-neutral-900 mb-2">
+                Request A Free Estimate
+              </h4>
+              <p className="text-xs sm:text-sm text-neutral-500 mb-6">
+                Tell us about your project, and let's discuss how KV Property Inc can help.
+              </p>
 
-              {/* Row 2: Email and Address with Icons */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4.5">
-                <div className="relative w-full">
-                  <input
-                    type="email"
-                    required
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder={t("cta.form.email")}
-                    className="w-full bg-white rounded-[5px] shadow-[0_4px_15px_rgba(0,0,0,0.01)] border border-neutral-100/50 py-3 pl-4 pr-10 text-sm text-neutral-800 placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-[#3f4a1f]/20 transition-all"
-                  />
-                  <Mail className="absolute right-3.5 top-1/2 -translate-y-1/2 h-4.5 w-4.5 text-[#3f4a1f]/75" />
+              {isSubmitted ? (
+                <div className="flex flex-col justify-center items-center text-center py-12 space-y-4">
+                  <div className="bg-emerald-100 text-emerald-600 p-4 rounded-full animate-bounce">
+                    <CheckCircle2 className="w-8 h-8" />
+                  </div>
+                  <h4 className="text-xl font-bold text-neutral-900">
+                    Thank You for Contacting KV Property Inc!
+                  </h4>
+                  <p className="text-sm text-neutral-600 max-w-md">
+                    We have received your estimate request. Our team will review your project details and get back to you promptly.
+                  </p>
                 </div>
-                <div className="relative w-full">
-                  <input
-                    type="text"
-                    value={address}
-                    onChange={(e) => setAddress(e.target.value)}
-                    placeholder={t("cta.form.address")}
-                    className="w-full bg-white rounded-[5px] shadow-[0_4px_15px_rgba(0,0,0,0.01)] border border-neutral-100/50 py-3 pl-4 pr-10 text-sm text-neutral-800 placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-[#3f4a1f]/20 transition-all"
-                  />
-                  <MapPin className="absolute right-3.5 top-1/2 -translate-y-1/2 h-4.5 w-4.5 text-[#3f4a1f]/75" />
-                </div>
-              </div>
+              ) : (
+                <form className="space-y-4" onSubmit={handleSubmit}>
+                  {/* Name and Phone */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-[11px] font-bold uppercase tracking-wider text-neutral-600 mb-1.5">
+                        Name *
+                      </label>
+                      <input
+                        type="text"
+                        required
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        placeholder="John Doe"
+                        className="w-full bg-[#fbfaf7] rounded-lg border border-neutral-200 py-2.5 px-3.5 text-sm text-neutral-900 focus:outline-none focus:border-[#cc7e14] focus:ring-1 focus:ring-[#cc7e14]"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-[11px] font-bold uppercase tracking-wider text-neutral-600 mb-1.5">
+                        Phone *
+                      </label>
+                      <input
+                        type="tel"
+                        required
+                        value={phone}
+                        onChange={(e) => setPhone(e.target.value)}
+                        placeholder="(732) 000-0000"
+                        className="w-full bg-[#fbfaf7] rounded-lg border border-neutral-200 py-2.5 px-3.5 text-sm text-neutral-900 focus:outline-none focus:border-[#cc7e14] focus:ring-1 focus:ring-[#cc7e14]"
+                      />
+                    </div>
+                  </div>
 
-              {/* Row 3: Services select dropdown */}
-              <div className="relative w-full">
-                <select
-                  value={service}
-                  onChange={(e) => setService(e.target.value)}
-                  className="w-full bg-white rounded-[5px] shadow-[0_4px_15px_rgba(0,0,0,0.01)] border border-neutral-100/50 py-3 pl-4 pr-10 text-sm text-neutral-800 placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-[#3f4a1f]/20 transition-all appearance-none cursor-pointer"
-                >
-                  <option value="" disabled hidden>
-                    {t("cta.form.services")}
-                  </option>
-                  <option value="post-construction-cleaning">{t("services.cleaning")}</option>
-                  <option value="pressure-washing">{t("services.pressurewash")}</option>
-                  <option value="demolition">{t("services.demolition")}</option>
-                  <option value="junk-hauling">{t("services.junkremoval")}</option>
-                  <option value="property-maintenance">{t("services.maintenance")}</option>
-                  <option value="debris-removal">{t("services.debrisremoval")}</option>
-                  <option value="landscaping">{t("services.landscaping")}</option>
-                </select>
-                <div className="pointer-events-none absolute right-3.5 top-1/2 -translate-y-1/2 flex items-center">
-                  <ChevronDown className="h-4.5 w-4.5 text-[#3f4a1f]/75" />
-                </div>
-              </div>
+                  {/* Email and Project Type */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-[11px] font-bold uppercase tracking-wider text-neutral-600 mb-1.5">
+                        Email
+                      </label>
+                      <input
+                        type="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        placeholder="john@example.com"
+                        className="w-full bg-[#fbfaf7] rounded-lg border border-neutral-200 py-2.5 px-3.5 text-sm text-neutral-900 focus:outline-none focus:border-[#cc7e14] focus:ring-1 focus:ring-[#cc7e14]"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-[11px] font-bold uppercase tracking-wider text-neutral-600 mb-1.5">
+                        Project Type
+                      </label>
+                      <div className="relative">
+                        <select
+                          value={projectType}
+                          onChange={(e) => setProjectType(e.target.value)}
+                          className="w-full bg-[#fbfaf7] rounded-lg border border-neutral-200 py-2.5 px-3.5 text-sm text-neutral-900 focus:outline-none focus:border-[#cc7e14] focus:ring-1 focus:ring-[#cc7e14] appearance-none cursor-pointer"
+                        >
+                          <option value="">Select Project Type</option>
+                          <option value="Kitchen Remodeling">Kitchen Remodeling</option>
+                          <option value="Bathroom Remodeling">Bathroom Remodeling</option>
+                          <option value="General Contracting">General Contracting</option>
+                          <option value="Deck & Outdoor Living">Deck &amp; Outdoor Living</option>
+                          <option value="Pools & Outdoor Spaces">Pools &amp; Outdoor Spaces</option>
+                          <option value="Home Additions">Home Additions</option>
+                          <option value="Interior & Exterior Painting">Interior &amp; Exterior Painting</option>
+                          <option value="Flooring">Flooring</option>
+                          <option value="Handyman Services">Handyman Services</option>
+                          <option value="Property Maintenance">Property Maintenance</option>
+                          <option value="Custom Builds">Custom Builds</option>
+                          <option value="Commercial Improvements">Commercial Improvements</option>
+                        </select>
+                        <ChevronDown className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-400" />
+                      </div>
+                    </div>
+                  </div>
 
-              {/* Row 4: Message Textarea */}
-              <textarea
-                rows={4}
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
-                placeholder={t("cta.form.message")}
-                className="w-full bg-white rounded-[5px] shadow-[0_4px_15px_rgba(0,0,0,0.01)] border border-neutral-100/50 py-3 px-4 text-sm text-neutral-800 placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-[#3f4a1f]/20 transition-all resize-none"
-              />
+                  {/* Property Type and Estimated Budget */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-[11px] font-bold uppercase tracking-wider text-neutral-600 mb-1.5">
+                        Property Type
+                      </label>
+                      <div className="relative">
+                        <select
+                          value={propertyType}
+                          onChange={(e) => setPropertyType(e.target.value)}
+                          className="w-full bg-[#fbfaf7] rounded-lg border border-neutral-200 py-2.5 px-3.5 text-sm text-neutral-900 focus:outline-none focus:border-[#cc7e14] focus:ring-1 focus:ring-[#cc7e14] appearance-none cursor-pointer"
+                        >
+                          <option value="residential">Residential</option>
+                          <option value="commercial">Commercial</option>
+                        </select>
+                        <ChevronDown className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-400" />
+                      </div>
+                    </div>
+                    <div>
+                      <label className="block text-[11px] font-bold uppercase tracking-wider text-neutral-600 mb-1.5">
+                        Estimated Budget
+                      </label>
+                      <input
+                        type="text"
+                        value={budget}
+                        onChange={(e) => setBudget(e.target.value)}
+                        placeholder="e.g. $5,000 - $15,000"
+                        className="w-full bg-[#fbfaf7] rounded-lg border border-neutral-200 py-2.5 px-3.5 text-sm text-neutral-900 focus:outline-none focus:border-[#cc7e14] focus:ring-1 focus:ring-[#cc7e14]"
+                      />
+                    </div>
+                  </div>
 
-              {/* Row 5: Submit Button */}
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                className="w-full bg-[#2c241d] hover:bg-[#1a1511] text-white text-xs md:text-sm font-bold uppercase tracking-[0.2em] rounded-[5px] py-3.5 transition-all duration-300 shadow-md hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.99] select-none cursor-pointer text-center disabled:opacity-75 disabled:pointer-events-none"
-              >
-                {isSubmitting ? "Submitting..." : t("cta.form.btn")}
-              </button>
+                  {/* Project Address */}
+                  <div>
+                    <label className="block text-[11px] font-bold uppercase tracking-wider text-neutral-600 mb-1.5">
+                      Project Address
+                    </label>
+                    <input
+                      type="text"
+                      value={address}
+                      onChange={(e) => setAddress(e.target.value)}
+                      placeholder="e.g. 123 Main St, Neptune, NJ"
+                      className="w-full bg-[#fbfaf7] rounded-lg border border-neutral-200 py-2.5 px-3.5 text-sm text-neutral-900 focus:outline-none focus:border-[#cc7e14] focus:ring-1 focus:ring-[#cc7e14]"
+                    />
+                  </div>
 
-            </form>
-          )}
+                  {/* Project Details */}
+                  <div>
+                    <label className="block text-[11px] font-bold uppercase tracking-wider text-neutral-600 mb-1.5">
+                      Project Details
+                    </label>
+                    <textarea
+                      rows={3}
+                      value={details}
+                      onChange={(e) => setDetails(e.target.value)}
+                      placeholder="Tell us about your project, timeline, specific requirements, and what you want to accomplish..."
+                      className="w-full bg-[#fbfaf7] rounded-lg border border-neutral-200 py-2.5 px-3.5 text-sm text-neutral-900 focus:outline-none focus:border-[#cc7e14] focus:ring-1 focus:ring-[#cc7e14] resize-none"
+                    />
+                  </div>
+
+                  {/* Submit Button */}
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="w-full bg-gradient-to-r from-[#ffa326] to-[#cc7e14] hover:from-[#ffb147] hover:to-[#b86d0b] text-white text-xs sm:text-sm font-bold uppercase tracking-wider rounded-lg py-3.5 transition-all duration-300 shadow-md hover:scale-[1.01] active:scale-[0.99] cursor-pointer disabled:opacity-75 disabled:pointer-events-none text-center"
+                  >
+                    {isSubmitting ? "Submitting..." : "Request A Free Estimate"}
+                  </button>
+                </form>
+              )}
+            </div>
+
+          </div>
         </div>
 
       </section>

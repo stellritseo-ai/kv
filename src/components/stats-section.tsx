@@ -5,6 +5,8 @@ import hit3 from "@/assets/hit3.png";
 import exp from "@/assets/hit4.png";
 import { useTranslation } from "@/context/translation-context";
 import statsCleanup from "@/assets/stats-cleanup.png";
+import { Link } from "@tanstack/react-router";
+import { ArrowRight, CircleDollarSign } from "lucide-react";
 
 function AnimatedCounter({ value }: { value: string }) {
   const numericValue = parseInt(value.replace(/[^0-9]/g, ""), 10) || 0;
@@ -21,14 +23,13 @@ function AnimatedCounter({ value }: { value: string }) {
           hasAnimated.current = true;
           
           const end = numericValue;
-          const duration = 2000; // 2 seconds animation
+          const duration = 2000;
           const startTime = performance.now();
 
           const animate = (currentTime: number) => {
             const elapsedTime = currentTime - startTime;
             const progress = Math.min(elapsedTime / duration, 1);
             
-            // Easing function: easeOutQuart
             const easeProgress = 1 - Math.pow(1 - progress, 4);
             const currentCount = Math.floor(easeProgress * end);
             
@@ -68,10 +69,10 @@ function AnimatedCounter({ value }: { value: string }) {
 }
 
 const stats = [
-  { icon: hit1, value: "5,000+", labelKey: "stats.label.complete_project" },
-  { icon: hit2, value: "4,900+", labelKey: "stats.label.happy_clients" },
-  { icon: hit3, value: "15+", labelKey: "stats.label.expert_member" },
-  { icon: exp, value: "25+", labelKey: "stats.label.years_experience" },
+  { icon: exp, value: "20+", labelKey: "stats.label.years_experience" },
+  { icon: hit1, value: "100%", labelKey: "stats.label.licensed_insured" },
+  { icon: hit3, value: "25", labelKey: "stats.label.service_radius" },
+  { icon: hit2, value: "24/7", labelKey: "stats.label.emergency_response" },
 ] as const;
 
 export function StatsSection() {
@@ -83,27 +84,40 @@ export function StatsSection() {
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
 
-          {/* Left Column: Title, Description, Button, and Cards */}
+          {/* Left Column: Title, Description, Buttons, and Cards */}
           <div className="w-full lg:col-span-8 flex flex-col justify-between z-10">
             <div>
+              {/* Badge */}
+              <div className="inline-flex items-center gap-2 bg-[#ffa326]/10 border border-[#ffa326]/20 text-[#cc7e14] rounded-full px-4 py-1.5 text-xs font-bold uppercase tracking-wider mb-4">
+                <CircleDollarSign className="w-4 h-4" />
+                <span>Financing</span>
+              </div>
+
               {/* Title */}
-              <h2 className="text-[26px] sm:text-[32px] font-bold text-neutral-900 leading-tight mb-4 tracking-tight">
-                {t("stats.title")}
+              <h2 className="text-[26px] sm:text-[32px] lg:text-[36px] font-bold text-neutral-900 leading-tight mb-4 tracking-tight">
+                Ready To Start Your Project?
               </h2>
 
               {/* Description */}
-              <p className="text-[14px] sm:text-[15px] text-neutral-700 leading-relaxed mb-6 max-w-[760px] font-medium">
-                {t("stats.desc")}
+              <p className="text-[14px] sm:text-[15px] text-neutral-700 leading-relaxed mb-6 max-w-[760px] font-normal">
+                Make your remodeling or property improvement project more manageable with financing options available through KV Property Inc.
               </p>
 
-              {/* Gradient Pill Button */}
-              <div className="mb-8 select-none">
-                <a
-                  href="tel:7276420201"
-                  className="inline-flex items-center justify-center bg-gradient-to-r from-[#0d0d0d] to-[#ffa326] text-white text-[12px] sm:text-xs font-bold rounded-full px-6 py-3.5 transition-all duration-300 shadow-md hover:-translate-y-0.5 hover:shadow-lg active:translate-y-0 active:scale-95 cursor-pointer"
+              {/* Action Buttons */}
+              <div className="mb-8 flex flex-wrap gap-3 sm:gap-4 select-none">
+                <Link
+                  to="/contact-us"
+                  className="inline-flex items-center justify-center bg-gradient-to-r from-[#ffa326] to-[#cc7e14] hover:from-[#ffb147] hover:to-[#b86d0b] text-white text-xs sm:text-sm font-bold rounded-full px-7 py-3.5 transition-all duration-300 shadow-md hover:-translate-y-0.5 hover:shadow-lg active:translate-y-0 active:scale-95 cursor-pointer uppercase tracking-wider"
                 >
-                  Call Emergency Line: (727) 642-0201
-                </a>
+                  <span>Ask About Financing</span>
+                </Link>
+                <Link
+                  to="/free-estimate"
+                  className="inline-flex items-center justify-center bg-neutral-900 hover:bg-neutral-800 text-white text-xs sm:text-sm font-bold rounded-full px-7 py-3.5 transition-all duration-300 shadow-md hover:-translate-y-0.5 hover:shadow-lg active:translate-y-0 active:scale-95 cursor-pointer uppercase tracking-wider"
+                >
+                  <span>Get A Free Estimate</span>
+                  <ArrowRight className="w-4 h-4 ml-1.5" />
+                </Link>
               </div>
 
               {/* 4 Stats Cards */}
@@ -117,23 +131,23 @@ export function StatsSection() {
                         : "border-neutral-200/60 shadow-[0_4px_20px_rgba(0,0,0,0.01)] hover:border-[#ffa326]/40 hover:shadow-[0_15px_30px_rgba(255,163,38,0.12)]"
                     }`}
                   >
-                    {/* Icon Wrapper for uniform alignment */}
-                    <div className="h-12 flex items-center justify-center mb-3">
+                    {/* Icon Wrapper */}
+                    <div className="h-10 flex items-center justify-center mb-2.5">
                       <img
                         src={icon}
                         alt={value}
-                        className="h-9 w-auto object-contain transition-transform duration-500 group-hover:scale-110"
+                        className="h-8 w-auto object-contain transition-transform duration-500 group-hover:scale-110"
                       />
                     </div>
 
                     {/* Value */}
                     <div className="text-xl md:text-2xl font-black text-neutral-900 leading-none tracking-tight transition-colors duration-300 group-hover:text-[#cc7e14]">
-                      <AnimatedCounter value={value} />
+                      {value.includes("/") ? value : <AnimatedCounter value={value} />}
                     </div>
 
                     {/* Label */}
-                    <div className="text-[9px] md:text-[10px] font-extrabold text-neutral-400 uppercase tracking-widest mt-2 leading-none transition-colors duration-300 group-hover:text-neutral-500">
-                      {t(labelKey)}
+                    <div className="text-[9px] md:text-[10px] font-extrabold text-neutral-400 uppercase tracking-widest mt-2 leading-none transition-colors duration-300 group-hover:text-neutral-600">
+                      {t(labelKey as any)}
                     </div>
                   </div>
                 ))}
@@ -145,7 +159,7 @@ export function StatsSection() {
           <div className="w-full lg:col-span-4 h-[220px] sm:h-[280px] lg:h-[430px] relative rounded-3xl overflow-hidden border border-neutral-200/20 shadow-[0_15px_35px_rgba(0,0,0,0.04)]">
             <img
               src={statsCleanup}
-              alt="Post-construction cleanup"
+              alt="KV Property Inc Financing & Quality"
               className="w-full h-full object-cover"
               loading="lazy"
             />
