@@ -47,11 +47,11 @@ function NotFoundComponent() {
             <span>All Services</span>
           </Link>
           <Link
-            to="/service-areas"
+            to="/free-estimate"
             className="flex items-center gap-2.5 p-3 rounded-xl border border-neutral-200 hover:border-[#ffa326] hover:bg-[#ffa326]/5 transition-all text-sm font-medium text-neutral-800"
           >
             <MapPin className="w-4 h-4 text-[#ffa326] shrink-0" />
-            <span>Tampa Bay Areas</span>
+            <span>Free Estimate</span>
           </Link>
           <Link
             to="/contact-us"

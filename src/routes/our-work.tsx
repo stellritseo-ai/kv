@@ -21,10 +21,10 @@ import {
 } from "lucide-react";
 import logo from "@/assets/logo.png";
 import welBg from "@/assets/wel-bg.png";
-import workHero from "@/assets/wel-img.png";
+import workHero from "@/assets/wel-bg.png";
 
 // Project local images from assets folder
-import imgOutdoorLiving from "@/assets/wel-img.png";
+import imgOutdoorLiving from "@/assets/svc-deck-outdoor.jpg";
 import imgPressureWash from "@/assets/svc-pressure-wash.png";
 import imgDemolition from "@/assets/svc-demolition.png";
 import imgJunkRemoval from "@/assets/svc-junk-removal.png";

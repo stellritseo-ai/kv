@@ -21,8 +21,8 @@ import {
 } from "lucide-react";
 import logo from "@/assets/logo.png";
 import welBg from "@/assets/wel-bg.png";
-import welImg from "@/assets/wel-img.png";
-import heroImage from "@/assets/wel-img.png";
+import welImg from "@/assets/wel-bg.png";
+import heroImage from "@/assets/wel-bg.png";
 import statsJobsite from "@/assets/stats-cleanup.png";
 
 import { getBreadcrumbSchema } from "@/lib/seo-schema";
@@ -576,7 +576,7 @@ function AboutUsPage() {
                 Call Ronnie Now
               </a>
               <Link
-                to="/contact"
+                to="/contact-us"
                 className="rounded-full border border-white/30 bg-white/10 hover:bg-white hover:text-neutral-900 px-8 py-3.5 text-white text-[14px] font-bold tracking-wider uppercase transition-all duration-300 shadow-lg hover:scale-[1.03]"
               >
                 Get Your Free Estimate Today!

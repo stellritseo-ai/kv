@@ -4,15 +4,12 @@ import { HeroSection } from "@/components/hero-section";
 import { TrustSection } from "@/components/trust-section";
 import { WelcomeSection } from "@/components/welcome-section";
 import { ServicesSection } from "@/components/services-section";
-import { FeaturedServices } from "@/components/featured-services";
 import { GallerySection } from "@/components/gallery-section";
 import { WhyChooseSection } from "@/components/why-choose";
 import { Process } from "@/components/process";
 import { StatsSection } from "@/components/stats-section";
 import { ReviewsSection } from "@/components/reviews-section";
 import { QuoteSection } from "@/components/quote-section";
-import { EmergencyCTA } from "@/components/emergency-cta";
-import { FAQSection } from "@/components/faq-section";
 import { CTASection } from "@/components/cta-section";
 import { SiteFooter } from "@/components/site-footer";
 import { FloatingChat } from "@/components/floating-chat";
@@ -89,7 +86,7 @@ function Index() {
   const faqSchema = getFAQSchema(HOMEPAGE_FAQS);
 
   return (
-    <div className="min-h-screen bg-[#f4f3ef]">
+    <div className="min-h-screen bg-[#f4f3ef] overflow-x-clip">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
@@ -99,18 +96,15 @@ function Index() {
       <TrustSection />
       <WelcomeSection />
       <ServicesSection />
-      <FeaturedServices />
-      <GallerySection />
       <WhyChooseSection />
+      <GallerySection />
+      <ReviewsSection />
       <Process />
       <StatsSection />
-      <ReviewsSection />
       <QuoteSection />
-      <EmergencyCTA />
-      <FAQSection />
       <CTASection />
       <SiteFooter />
-      <FloatingChat />
+      {/* <FloatingChat /> */}
     </div>
   );
 }

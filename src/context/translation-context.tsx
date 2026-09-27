@@ -51,6 +51,7 @@ export const translations = {
     "nav.areas": "Service Area",
     "nav.work": "Our Work",
     "nav.reviews": "Reviews",
+    "nav.financing": "Financing",
     "nav.contact": "Contact Us",
     "nav.talk": "Let's Talk",
     "nav.estimate": "Free Estimate",
@@ -184,6 +185,7 @@ export const translations = {
     // Why Choose Section
     "whychoose.badge": "WHY CHOOSE KV PROPERTY INC?",
     "whychoose.title": "Experience You Can Build On.",
+    "whychoose.desc": "From precision home remodeling to larger commercial improvements, we bring professional craftsmanship, dependable service, and attention to detail to every project.",
     "whychoose.f1.title": "20+ Years of Experience",
     "whychoose.f1.desc": "Decades of hands-on experience across remodeling, construction, repairs, and property improvements.",
     "whychoose.f2.title": "Quality Craftsmanship",
@@ -228,7 +230,7 @@ export const translations = {
     // Service Area Section
     "servicearea.badge": "SERVICE AREA",
     "servicearea.title": "Proudly Serving Neptune, NJ & Surrounding Communities",
-    "servicearea.desc": "KV Property Inc proudly serves homeowners and businesses throughout Neptune, New Jersey and surrounding communities within approximately a 25-mile service area. Looking for professional remodeling, construction, handyman, or property improvement services? Contact KV Property Inc today to discuss your project.",
+    "servicearea.desc": "Professional remodeling, construction, and property improvements for homes and businesses throughout Neptune, NJ and surrounding communities within a 25-mile radius.",
     "servicearea.btn": "Check Service Availability",
 
     // Emergency Service Section
@@ -296,8 +298,11 @@ export const translations = {
     "stats.btn.consultation": "Request An Estimate",
     "stats.label.years_experience": "Years Of Experience",
     "stats.label.complete_project": "Licensed & Insured",
-    "stats.label.happy_clients": "25-Mile Service Area",
-    "stats.label.expert_member": "24/7 Emergency Service",
+    "stats.label.licensed_insured": "Licensed & Insured",
+    "stats.label.happy_clients": "Service Radius",
+    "stats.label.service_radius": "Service Radius",
+    "stats.label.expert_member": "Emergency Service",
+    "stats.label.emergency_response": "Emergency Service",
 
     // Footer Section
     "footer.desc":
@@ -340,6 +345,7 @@ export const translations = {
     "nav.areas": "Área de Servicio",
     "nav.work": "Proyectos",
     "nav.reviews": "Opiniones",
+    "nav.financing": "Financiamiento",
     "nav.contact": "Contacto",
     "nav.talk": "Hablemos",
     "nav.estimate": "Presupuesto Gratis",
@@ -464,6 +470,7 @@ export const translations = {
 
     "whychoose.badge": "¿POR QUÉ ELEGIR KV PROPERTY INC?",
     "whychoose.title": "Experiencia Sobre la que Puede Construir.",
+    "whychoose.desc": "Desde remodelaciones residenciales precisas hasta importantes mejoras comerciales, aportamos mano de obra profesional, servicio confiable y atención al detalle en cada proyecto.",
     "whychoose.f1.title": "20+ Años de Experiencia",
     "whychoose.f1.desc": "Décadas de trabajo práctico en remodelación, construcción y reparaciones.",
     "whychoose.f2.title": "Mano de Obra de Calidad",
@@ -567,8 +574,11 @@ export const translations = {
     "stats.btn.consultation": "Solicitar Presupuesto",
     "stats.label.years_experience": "Años de Experiencia",
     "stats.label.complete_project": "Licenciado y Asegurado",
-    "stats.label.happy_clients": "Radio de 25 Millas",
-    "stats.label.expert_member": "Servicio de Emergencia 24/7",
+    "stats.label.licensed_insured": "Licenciado y Asegurado",
+    "stats.label.happy_clients": "Radio de Cobertura",
+    "stats.label.service_radius": "Radio de Cobertura",
+    "stats.label.expert_member": "Servicio de Emergencia",
+    "stats.label.emergency_response": "Servicio de Emergencia",
 
     "footer.desc":
       "Servicios profesionales de remodelación, construcción, reparaciones y mejoras para propiedades residenciales y comerciales.",

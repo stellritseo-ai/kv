@@ -64,7 +64,7 @@ export function getLocalBusinessSchema() {
     telephone: BUSINESS_INFO.telephone,
     email: BUSINESS_INFO.email,
     priceRange: BUSINESS_INFO.priceRange,
-    image: `${BUSINESS_INFO.domain}/assets/wel-img.png`,
+    image: `${BUSINESS_INFO.domain}/assets/wel-bg.png`,
     logo: `${BUSINESS_INFO.domain}/assets/logo.png`,
     description:
       "Right Lane Handyman Services LLC provides top-rated handyman services, residential home repair, property maintenance, demolition, pressure washing, junk removal, and post-construction cleaning throughout Tampa, Hillsborough County, Pinellas County, and the Tampa Bay Area.",
@@ -142,7 +142,7 @@ export function getServiceSchema({
     description,
     serviceType,
     url: `${BUSINESS_INFO.domain}${url}`,
-    image: image ? `${BUSINESS_INFO.domain}${image}` : `${BUSINESS_INFO.domain}/assets/wel-img.png`,
+    image: image ? `${BUSINESS_INFO.domain}${image}` : `${BUSINESS_INFO.domain}/assets/wel-bg.png`,
     provider: {
       "@type": ["LocalBusiness", "Handyman"],
       "@id": `${BUSINESS_INFO.domain}/#business`,

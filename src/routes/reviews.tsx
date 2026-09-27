@@ -22,7 +22,7 @@ import {
 } from "lucide-react";
 import logo from "@/assets/logo.png";
 import welBg from "@/assets/wel-bg.png";
-import reviewsHero from "@/assets/wel-img.png";
+import reviewsHero from "@/assets/wel-bg.png";
 import bbbBadge from "@/assets/bbb-badge.png";
 import yelpBadge from "@/assets/yelp-badge.png";
 import homeAdvisorBadge from "@/assets/homeadvisor-badge.png";
@@ -780,7 +780,7 @@ function ReviewsPage() {
                 Call Ronnie Now
               </a>
               <Link
-                to="/contact"
+                to="/contact-us"
                 className="rounded-full border border-white/30 bg-white/10 hover:bg-white hover:text-neutral-900 px-8 py-3.5 text-white text-[14px] font-bold tracking-wider uppercase transition-all duration-300 shadow-lg hover:scale-[1.03]"
               >
                 Request Your Free Estimate Today!

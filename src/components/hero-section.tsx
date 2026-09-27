@@ -1,17 +1,17 @@
-import heroImage from "@/assets/wel-img.png";
-import heroVideo from "@/assets/rightlane.mp4";
+import heroImage from "@/assets/wel-bg.png";
+import heroVideo from "@/assets/kv-welcome.mp4";
 import { useTranslation } from "@/context/translation-context";
 import { Phone, ChevronRight, Award, Building2, MapPin } from "lucide-react";
 import { motion } from "framer-motion";
-import { Link } from "@tanstack/react-router";
+
 
 export function HeroSection() {
   const { t } = useTranslation();
 
   return (
-    <div className="w-full bg-[#f4f3ef] pt-[5px] pb-[5px] px-[15px]">
+    <div className="w-full bg-[#f4f3ef] pt-[5px] pb-[5px] px-2.5 sm:px-[15px]">
       <section
-        className="relative mx-auto max-w-[1400px] w-full rounded-[10px] overflow-hidden border border-[#eae8e1] shadow-[0_12px_40px_rgb(0,0,0,0.06)] min-h-[520px] sm:min-h-[580px] md:min-h-[660px] flex items-center justify-start text-left px-4 sm:px-8 md:px-12 lg:px-16 py-12 sm:py-16 md:py-24"
+        className="relative mx-auto max-w-[1400px] w-full rounded-[10px] overflow-hidden border border-[#eae8e1] shadow-[0_12px_40px_rgb(0,0,0,0.06)] min-h-[520px] sm:min-h-[580px] md:min-h-[660px] flex items-center justify-start text-left px-4 sm:px-8 md:px-12 lg:px-16 py-8 sm:py-16 md:py-24"
       >
         {/* Background Video */}
         <video
@@ -53,7 +53,7 @@ export function HeroSection() {
 
           {/* Headline */}
           <h1
-            className="text-white leading-[1.18] tracking-tight drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)] font-serif text-[28px] sm:text-[36px] md:text-[46px] lg:text-[50px] font-bold -mt-2 mb-2"
+            className="text-white leading-[1.18] tracking-tight drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)] font-serif text-[26px] xs:text-[28px] sm:text-[36px] md:text-[46px] lg:text-[50px] font-bold -mt-2 mb-2"
           >
             Built With Purpose.{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#ffa326] to-[#ffc570]">
@@ -76,9 +76,9 @@ export function HeroSection() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="text-xs sm:text-sm text-neutral-300 font-medium tracking-wide flex items-center gap-2"
+            className="text-xs sm:text-sm text-neutral-300 font-medium tracking-wide flex items-center gap-2 flex-wrap"
           >
-            <Award className="w-4 h-4 text-[#ffa326]" />
+            <Award className="w-4 h-4 text-[#ffa326] shrink-0" />
             <span>20+ Years of Experience | Residential &amp; Commercial | 25-Mile Service Area</span>
           </motion.div>
 
@@ -87,22 +87,22 @@ export function HeroSection() {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.45, ease: "easeOut" }}
-            className="flex flex-wrap items-center gap-3 sm:gap-4 pt-1 sm:pt-2"
+            className="flex flex-row items-center gap-2 xs:gap-3 sm:gap-4 pt-1 sm:pt-2 w-full sm:w-auto"
           >
-            <Link
-              to="/free-estimate"
-              className="inline-flex items-center gap-1.5 rounded-full bg-gradient-to-r from-[#ffa326] to-[#cc7e14] hover:from-[#ffb147] hover:to-[#b86d0b] px-6 sm:px-8 py-3.5 sm:py-4 text-white text-xs sm:text-sm font-bold uppercase tracking-wider hover:scale-[1.03] active:scale-[0.98] transition-all duration-300 shadow-[0_4px_14px_rgba(255,163,38,0.35)]"
+            <button
+              type="button"
+              className="inline-flex items-center justify-center gap-1 sm:gap-1.5 rounded-full bg-gradient-to-r from-[#ffa326] to-[#cc7e14] hover:from-[#ffb147] hover:to-[#b86d0b] px-3.5 xs:px-5 sm:px-8 py-3 sm:py-4 text-white text-[11px] xs:text-xs sm:text-sm font-bold uppercase tracking-wider hover:scale-[1.03] active:scale-[0.98] transition-all duration-300 shadow-[0_4px_14px_rgba(255,163,38,0.35)] cursor-pointer whitespace-nowrap"
             >
               <span>Get a Free Estimate</span>
-              <ChevronRight className="w-4 h-4" />
-            </Link>
-            <a
-              href="tel:7326776674"
-              className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 backdrop-blur-md px-6 sm:px-8 py-3.5 sm:py-4 text-white text-xs sm:text-sm font-bold uppercase tracking-wider hover:bg-white hover:text-neutral-900 hover:scale-[1.03] active:scale-[0.98] transition-all duration-300"
+              <ChevronRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
+            </button>
+            <button
+              type="button"
+              className="inline-flex items-center justify-center gap-1.5 sm:gap-2 rounded-full border border-white/20 bg-white/10 backdrop-blur-md px-3.5 xs:px-5 sm:px-8 py-3 sm:py-4 text-white text-[11px] xs:text-xs sm:text-sm font-bold uppercase tracking-wider hover:bg-white hover:text-neutral-900 hover:scale-[1.03] active:scale-[0.98] transition-all duration-300 cursor-pointer whitespace-nowrap"
             >
-              <Phone className="w-4 h-4 fill-current" />
+              <Phone className="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-current shrink-0" />
               <span>Call (732) 677-6674</span>
-            </a>
+            </button>
           </motion.div>
 
           {/* Premium Trust Pillars Block */}
@@ -129,10 +129,10 @@ export function HeroSection() {
                     <Award className="w-5 h-5 stroke-[2.2]" />
                   </div>
                   <div className="min-w-0">
-                    <h4 className="text-white text-[13px] sm:text-[13px] lg:text-sm font-bold tracking-tight leading-snug whitespace-nowrap">
+                    <h4 className="text-white text-[13px] sm:text-[13px] lg:text-sm font-bold tracking-tight leading-snug truncate">
                       20+ Years Experience
                     </h4>
-                    <p className="text-[11px] sm:text-xs text-neutral-300/85 font-medium leading-snug mt-0.5 whitespace-nowrap">
+                    <p className="text-[11px] sm:text-xs text-neutral-300/85 font-medium leading-snug mt-0.5 truncate">
                       Trusted Craftsmanship
                     </p>
                   </div>
@@ -147,10 +147,10 @@ export function HeroSection() {
                     <Building2 className="w-5 h-5 stroke-[2.2]" />
                   </div>
                   <div className="min-w-0">
-                    <h4 className="text-white text-[13px] sm:text-[13px] lg:text-sm font-bold tracking-tight leading-snug whitespace-nowrap">
+                    <h4 className="text-white text-[13px] sm:text-[13px] lg:text-sm font-bold tracking-tight leading-snug truncate">
                       Residential &amp; Commercial
                     </h4>
-                    <p className="text-[11px] sm:text-xs text-neutral-300/85 font-medium leading-snug mt-0.5 whitespace-nowrap">
+                    <p className="text-[11px] sm:text-xs text-neutral-300/85 font-medium leading-snug mt-0.5 truncate">
                       Custom Projects
                     </p>
                   </div>
@@ -165,10 +165,10 @@ export function HeroSection() {
                     <MapPin className="w-5 h-5 stroke-[2.2]" />
                   </div>
                   <div className="min-w-0">
-                    <h4 className="text-white text-[13px] sm:text-[13px] lg:text-sm font-bold tracking-tight leading-snug whitespace-nowrap">
+                    <h4 className="text-white text-[13px] sm:text-[13px] lg:text-sm font-bold tracking-tight leading-snug truncate">
                       25-Mile Service Area
                     </h4>
-                    <p className="text-[11px] sm:text-xs text-neutral-300/85 font-medium leading-snug mt-0.5 whitespace-nowrap">
+                    <p className="text-[11px] sm:text-xs text-neutral-300/85 font-medium leading-snug mt-0.5 truncate">
                       Neptune, NJ &amp; Surrounding
                     </p>
                   </div>

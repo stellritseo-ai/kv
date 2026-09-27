@@ -20,7 +20,7 @@ import {
 } from "@/components/ui/carousel";
 import AutoScroll from "embla-carousel-auto-scroll";
 import { motion } from "framer-motion";
-import { Link } from "@tanstack/react-router";
+
 
 const services = [
   {
@@ -118,11 +118,11 @@ export function ServicesSection() {
   const slideItems = [...services.slice(3), ...services.slice(3)];
 
   return (
-    <div className="w-full bg-[#f4f3ef] pt-[5px] pb-[5px] px-[15px]">
-      <section id="services" className="mx-auto max-w-[1400px] w-full rounded-[10px] bg-[#f8f8f8] px-[30px] py-[50px] border border-[#eae8e1] shadow-[0_12px_40px_rgb(0,0,0,0.04)] overflow-hidden">
+    <div className="w-full bg-[#f4f3ef] pt-[5px] pb-[5px] px-2.5 sm:px-[15px]">
+      <section id="services" className="mx-auto max-w-[1400px] w-full rounded-[10px] bg-[#f8f8f8] px-4 py-8 sm:px-[30px] sm:py-[50px] border border-[#eae8e1] shadow-[0_12px_40px_rgb(0,0,0,0.04)] overflow-hidden">
 
         {/* Top Row Grid: Left Text Column + 3 Right Image Cards */}
-        <div className="grid lg:grid-cols-[40%_1fr] gap-12 lg:gap-16 items-center">
+        <div className="grid lg:grid-cols-[40%_1fr] gap-8 lg:gap-16 items-center">
 
           {/* Left Text Block */}
           <motion.div
@@ -143,12 +143,12 @@ export function ServicesSection() {
                 From remodeling and repairs to custom construction and outdoor living, KV Property Inc provides professional solutions for residential and commercial properties.
               </p>
               <div className="mt-7">
-                <Link
-                  to="/services"
-                  className="inline-flex items-center gap-2.5 bg-gradient-to-r from-[#ffa326] to-[#cc7e14] hover:from-[#ffa326] hover:to-[#995906] text-white rounded-full px-7 py-3 text-[14px] font-bold shadow-[0_4px_14px_rgba(204,126,20,0.3)] hover:scale-[1.03] active:scale-[0.97] transition-all duration-300"
+                <button
+                  type="button"
+                  className="inline-flex items-center gap-2.5 bg-gradient-to-r from-[#ffa326] to-[#cc7e14] hover:from-[#ffa326] hover:to-[#995906] text-white rounded-full px-7 py-3 text-[14px] font-bold shadow-[0_4px_14px_rgba(204,126,20,0.3)] hover:scale-[1.03] active:scale-[0.97] transition-all duration-300 cursor-pointer"
                 >
                   Explore All Services
-                </Link>
+                </button>
               </div>
             </div>
           </motion.div>
@@ -189,14 +189,13 @@ export function ServicesSection() {
                       </p>
 
                       <div className="pt-2">
-                        <Link
-                          to={s.to}
-                          className="relative inline-flex items-center gap-1 text-[#cc7e14] hover:text-[#ffa326] font-bold text-[10px] uppercase tracking-widest pb-0.5 transition-colors duration-300"
+                        <span
+                          className="relative inline-flex items-center gap-1 text-[#cc7e14] hover:text-[#ffa326] font-bold text-[10px] uppercase tracking-widest pb-0.5 transition-colors duration-300 select-none"
                         >
                           <span>View More</span>
                           <ArrowRight className="w-3 h-3" />
                           <span className="absolute bottom-0 left-0 w-full h-[1px] bg-[#cc7e14] hover:bg-[#ffa326] transition-colors duration-300" />
-                        </Link>
+                        </span>
                       </div>
                     </div>
                   </div>
@@ -258,14 +257,13 @@ export function ServicesSection() {
                           </p>
 
                           <div className="pt-2">
-                            <Link
-                              to={s.to}
-                              className="relative inline-flex items-center gap-1 text-[#cc7e14] hover:text-[#ffa326] font-bold text-[10px] uppercase tracking-widest pb-0.5 transition-colors duration-300"
+                            <span
+                              className="relative inline-flex items-center gap-1 text-[#cc7e14] hover:text-[#ffa326] font-bold text-[10px] uppercase tracking-widest pb-0.5 transition-colors duration-300 select-none"
                             >
                               <span>View More</span>
                               <ArrowRight className="w-3 h-3" />
                               <span className="absolute bottom-0 left-0 w-full h-[1px] bg-[#cc7e14] hover:bg-[#ffa326] transition-colors duration-300" />
-                            </Link>
+                            </span>
                           </div>
                         </div>
                       </div>

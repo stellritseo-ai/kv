@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect } from "react";
 import { Star, MessageSquarePlus } from "lucide-react";
-import { Link } from "@tanstack/react-router";
+
 import { useTranslation } from "@/context/translation-context";
 import { getReviews } from "@/lib/leads-store";
 
@@ -119,7 +119,7 @@ function TestimonialCard({ review }: { review: any }) {
   const text = review.text || "";
 
   return (
-    <div className="relative flex-shrink-0 w-[280px] sm:w-[340px] md:w-[380px] mx-3 bg-white border border-slate-200 shadow-[0_2px_20px_rgba(0,0,0,0.06)] rounded-2xl p-5 sm:p-6 flex flex-col gap-4 group hover:shadow-[0_6px_30px_rgba(0,0,0,0.10)] hover:border-slate-300 transition-all duration-300">
+    <div className="relative flex-shrink-0 w-[260px] xs:w-[280px] sm:w-[340px] md:w-[380px] mx-2.5 sm:mx-3 bg-white border border-slate-200 shadow-[0_2px_20px_rgba(0,0,0,0.06)] rounded-2xl p-4 sm:p-6 flex flex-col gap-3.5 sm:gap-4 group hover:shadow-[0_6px_30px_rgba(0,0,0,0.10)] hover:border-slate-300 transition-all duration-300">
       {/* Rating */}
       <StarRating count={rating} />
 
@@ -175,8 +175,8 @@ function MarqueeRow({
       }}
     >
       {/* Fade edges */}
-      <div className="pointer-events-none absolute inset-y-0 left-0 w-24 z-10 bg-gradient-to-r from-[#fbfaf7] to-transparent" />
-      <div className="pointer-events-none absolute inset-y-0 right-0 w-24 z-10 bg-gradient-to-l from-[#fbfaf7] to-transparent" />
+      <div className="pointer-events-none absolute inset-y-0 left-0 w-10 sm:w-20 md:w-24 z-10 bg-gradient-to-r from-[#fbfaf7] to-transparent" />
+      <div className="pointer-events-none absolute inset-y-0 right-0 w-10 sm:w-20 md:w-24 z-10 bg-gradient-to-l from-[#fbfaf7] to-transparent" />
 
       <div ref={trackRef} className={`flex ${animClass}`}>
         {duplicated.map((review, i) => (
@@ -216,10 +216,10 @@ export function ReviewsSection() {
   const row2 = reviewsToUse.slice(half);
 
   return (
-    <div className="w-full bg-[#f4f3ef] mt-[15px] mb-[15px] pt-[5px] pb-[5px] px-[15px]">
+    <div className="w-full bg-[#f4f3ef] mt-[15px] mb-[15px] pt-[5px] pb-[5px] px-2.5 sm:px-[15px]">
       <section
         id="reviews"
-        className="mx-auto max-w-[1400px] w-full rounded-[10px] bg-[#fbfaf7] border border-[#eae8e1] shadow-[0_12px_40px_rgba(0,0,0,0.04)] relative py-[60px] overflow-hidden"
+        className="mx-auto max-w-[1400px] w-full rounded-[10px] bg-[#fbfaf7] border border-[#eae8e1] shadow-[0_12px_40px_rgba(0,0,0,0.04)] relative py-10 sm:py-[60px] overflow-hidden"
       >
         {/* Background glow accents */}
         <div className="pointer-events-none absolute -top-40 left-1/2 -translate-x-1/2 w-[700px] h-[400px] rounded-full bg-amber-200/40 blur-[120px]" />
@@ -241,13 +241,13 @@ export function ReviewsSection() {
           </p>
 
           <div>
-            <Link
-              to="/reviews"
-              className="inline-flex items-center gap-2 rounded-full bg-white hover:bg-neutral-50 text-neutral-900 border border-neutral-300 px-6 py-2.5 text-xs font-bold uppercase tracking-wider shadow-sm hover:shadow transition-all duration-200"
+            <button
+              type="button"
+              className="inline-flex items-center gap-2 rounded-full bg-white hover:bg-neutral-50 text-neutral-900 border border-neutral-300 px-6 py-2.5 text-xs font-bold uppercase tracking-wider shadow-sm hover:shadow transition-all duration-200 cursor-pointer"
             >
               <MessageSquarePlus className="w-4 h-4 text-[#cc7e14]" />
               <span>Leave Us A Review</span>
-            </Link>
+            </button>
           </div>
         </div>
 

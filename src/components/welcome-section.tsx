@@ -4,7 +4,7 @@ import welBg from "@/assets/wel-bg.png";
 import welcomeVideo from "@/assets/welcome.mp4";
 import { useTranslation } from "@/context/translation-context";
 import { motion } from "framer-motion";
-import { Link } from "@tanstack/react-router";
+
 
 export function WelcomeSection() {
   const { t } = useTranslation();
@@ -19,9 +19,9 @@ export function WelcomeSection() {
   };
 
   return (
-    <div className="w-full bg-[#f4f3ef] mt-[15px] mb-[15px] pt-[5px] pb-[5px] px-[15px]">
+    <div className="w-full bg-[#f4f3ef] mt-[15px] mb-[15px] pt-[5px] pb-[5px] px-2.5 sm:px-[15px]">
       <section
-        className="mx-auto max-w-[1400px] w-full rounded-[10px] bg-[#f1e8db] bg-cover bg-center px-5 py-10 sm:px-8 sm:py-14 md:px-12 lg:px-16 lg:py-20 border border-[#eae8e1] shadow-[0_12px_40px_rgb(0,0,0,0.04)]"
+        className="mx-auto max-w-[1400px] w-full rounded-[10px] bg-[#f1e8db] bg-cover bg-center px-4 py-8 sm:px-8 sm:py-14 md:px-12 lg:px-16 lg:py-20 border border-[#eae8e1] shadow-[0_12px_40px_rgb(0,0,0,0.04)]"
         style={{ backgroundImage: `url(${welBg})` }}
       >
         <div className="grid gap-10 sm:gap-12 lg:grid-cols-[1.5fr_1fr] lg:gap-16 items-center">
@@ -71,19 +71,19 @@ export function WelcomeSection() {
               <ContactCard label="Email Us:" value="kvpropertyinc@gmail.com" isEmail={true} />
             </div>
 
-            <div className="mt-7 flex flex-wrap gap-3 sm:gap-4">
-              <a
-                href="tel:7326776674"
-                className="rounded-full bg-gradient-to-r from-[#32322d] to-[#1e1e1a] hover:from-[#23231f] hover:to-[#121210] px-6 sm:px-7 py-3 text-white text-sm font-normal hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 shadow-md"
+            <div className="mt-7 flex flex-col xs:flex-row flex-wrap gap-3 sm:gap-4 w-full xs:w-auto">
+              <button
+                type="button"
+                className="rounded-full bg-gradient-to-r from-[#32322d] to-[#1e1e1a] hover:from-[#23231f] hover:to-[#121210] px-6 sm:px-7 py-3 text-white text-sm font-normal hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 shadow-md cursor-pointer text-center w-full xs:w-auto"
               >
                 Call (732) 677-6674
-              </a>
-              <Link
-                to="/about-us"
-                className="rounded-full bg-gradient-to-r from-[#ffa326] to-[#cc7e14] hover:from-[#ffb147] hover:to-[#995906] px-6 sm:px-7 py-3 text-white text-sm font-normal hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 shadow-md"
+              </button>
+              <button
+                type="button"
+                className="rounded-full bg-gradient-to-r from-[#ffa326] to-[#cc7e14] hover:from-[#ffb147] hover:to-[#995906] px-6 sm:px-7 py-3 text-white text-sm font-normal hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 shadow-md cursor-pointer text-center w-full xs:w-auto"
               >
                 Learn More About Us
-              </Link>
+              </button>
             </div>
           </motion.div>
 
@@ -105,8 +105,8 @@ export function WelcomeSection() {
 
               {/* Architectural outer glass frame */}
               <div className="relative w-full p-2 sm:p-2.5 rounded-[26px] bg-white/70 backdrop-blur-md border border-white/90 shadow-[0_20px_50px_-10px_rgba(204,126,20,0.18),0_10px_25px_-5px_rgba(0,0,0,0.08)] transition-all duration-500 group-hover:shadow-[0_25px_60px_-10px_rgba(204,126,20,0.25),0_12px_30px_-5px_rgba(0,0,0,0.12)]">
-                {/* Video container with +60px height (540px on sm/desktop) */}
-                <div className="relative w-full rounded-[20px] overflow-hidden bg-neutral-950 h-[500px] sm:h-[540px] shadow-inner">
+                {/* Video container with proportional responsive height */}
+                <div className="relative w-full rounded-[20px] overflow-hidden bg-neutral-950 h-[400px] xs:h-[460px] sm:h-[540px] shadow-inner">
                   {/* Subtle top vignette */}
                   <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-black/60 via-black/20 to-transparent pointer-events-none z-10" />
 
@@ -157,7 +157,7 @@ export function WelcomeSection() {
                   />
 
                   {/* Consultant Overlay Glass Card */}
-                  <div className="absolute bottom-3 left-3 right-3 sm:bottom-3.5 sm:left-3.5 sm:right-3.5 z-20 bg-white/92 backdrop-blur-xl border border-white/80 rounded-2xl p-3 sm:p-3.5 shadow-[0_12px_32px_rgba(0,0,0,0.18)] flex items-center justify-between gap-3 select-none transition-all duration-300 group-hover:bottom-4 group-hover:bg-white/96 group-hover:shadow-[0_16px_40px_rgba(0,0,0,0.22)]">
+                  <div className="absolute bottom-3 left-3 right-3 sm:bottom-3.5 sm:left-3.5 sm:right-3.5 z-20 bg-white/92 backdrop-blur-xl border border-white/80 rounded-2xl p-2.5 sm:p-3.5 shadow-[0_12px_32px_rgba(0,0,0,0.18)] flex items-center justify-between gap-2.5 sm:gap-3 select-none transition-all duration-300 group-hover:bottom-4 group-hover:bg-white/96 group-hover:shadow-[0_16px_40px_rgba(0,0,0,0.22)]">
                     <div className="flex items-center gap-3 min-w-0">
                       <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-gradient-to-br from-[#ffa326] via-[#e58a18] to-[#b36707] flex items-center justify-center text-white shadow-md shadow-[#ffa326]/30 shrink-0">
                         <ShieldCheck className="w-5 h-5 sm:w-6 sm:h-6 text-white" />

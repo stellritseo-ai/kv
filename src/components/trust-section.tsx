@@ -77,7 +77,7 @@ export function TrustSection() {
   const { t } = useTranslation();
 
   return (
-    <div className="w-full bg-[#f4f3ef] pt-[5px] pb-[5px] px-[15px]">
+    <div className="w-full bg-[#f4f3ef] pt-[5px] pb-[5px] px-2.5 sm:px-[15px]">
       <section className="relative mx-auto max-w-[1400px] w-full rounded-[10px] bg-white border border-[#eae8e1] shadow-[0_12px_40px_rgb(0,0,0,0.03)] px-3 sm:px-6 py-4 sm:py-5 overflow-hidden">
         {/* Soft edge gradient fades for continuous seamless marquee look */}
         <div className="pointer-events-none absolute inset-y-0 left-0 w-12 sm:w-20 md:w-28 bg-gradient-to-r from-white via-white/80 to-transparent z-10" />
@@ -110,7 +110,7 @@ export function TrustSection() {
               return (
                 <CarouselItem
                   key={idx}
-                  className="pl-3 sm:pl-4 basis-[280px] xs:basis-[305px] sm:basis-[330px] md:basis-[345px] shrink-0"
+                  className="pl-3 sm:pl-4 basis-[265px] xs:basis-[305px] sm:basis-[330px] md:basis-[345px] shrink-0"
                 >
                   <div
                     className={`group relative rounded-2xl px-4 sm:px-5 py-3.5 sm:py-4 h-[86px] sm:h-[92px] flex items-center gap-3.5 sm:gap-4 transition-all duration-300 hover:-translate-y-1 overflow-hidden ${

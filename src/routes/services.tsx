@@ -39,7 +39,7 @@ import imgLandscaping from "@/assets/svc-landscaping.png";
 import imgCommercial from "@/assets/stats-cleanup.png";
 import logo from "@/assets/logo.png";
 import welBg from "@/assets/wel-bg.png";
-import heroBg from "@/assets/wel-img.png";
+import heroBg from "@/assets/wel-bg.png";
 import imgLeasing from "@/assets/svc-leasing-licensing.png";
 import imgPropertyCare from "@/assets/svc-property-care.png";
 import { getBreadcrumbSchema, getServiceSchema } from "@/lib/seo-schema";
@@ -607,7 +607,7 @@ function ServicesPage() {
                 Call Ronnie Now
               </a>
               <Link
-                to="/lets-talk"
+                to="/free-estimate"
                 className="rounded-full border border-white/30 bg-white/10 hover:bg-white hover:text-neutral-900 px-8 py-3.5 text-white text-[14px] font-bold tracking-wider uppercase transition-all duration-300 shadow-lg hover:scale-[1.03]"
               >
                 Schedule Consultation
