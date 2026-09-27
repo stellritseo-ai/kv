@@ -67,7 +67,7 @@ export function GallerySection() {
 
         {/* Action Button: Load More or View All */}
         {visibleCount < GALLERY_IMAGES.length ? (
-          <div className="mt-10 flex flex-col xs:flex-row flex-wrap items-center justify-center gap-3 w-full">
+          <div className="mt-8 sm:mt-10 flex flex-row items-center justify-center gap-2 xs:gap-3 w-full">
             <button
               type="button"
               onClick={() =>
@@ -75,27 +75,30 @@ export function GallerySection() {
                   Math.min(prev + 15, GALLERY_IMAGES.length)
                 )
               }
-              className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-[#ffa326] to-[#cc7e14] hover:from-[#ffb147] hover:to-[#995906] text-white rounded-full px-5 sm:px-8 py-3 sm:py-3.5 text-xs sm:text-sm font-bold uppercase tracking-wider shadow-md hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 cursor-pointer w-full xs:w-auto"
+              className="inline-flex items-center justify-center gap-1.5 sm:gap-2 bg-gradient-to-r from-[#ffa326] to-[#cc7e14] hover:from-[#ffb147] hover:to-[#995906] text-white rounded-full px-3.5 xs:px-5 sm:px-8 py-2.5 sm:py-3.5 text-[11px] xs:text-xs sm:text-sm font-bold uppercase tracking-wider shadow-md hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 cursor-pointer whitespace-nowrap"
             >
-              <span>
+              <span className="hidden sm:inline">
                 Load More Projects ({GALLERY_IMAGES.length - visibleCount} Remaining)
               </span>
-              <ArrowRight className="w-4 h-4" />
+              <span className="sm:hidden">
+                Load More (+{Math.min(15, GALLERY_IMAGES.length - visibleCount)})
+              </span>
+              <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
             </button>
             <button
               type="button"
               onClick={() => setVisibleCount(GALLERY_IMAGES.length)}
-              className="inline-flex items-center justify-center gap-2 bg-white hover:bg-neutral-50 text-neutral-800 border border-neutral-300 rounded-full px-5 sm:px-7 py-3 sm:py-3.5 text-xs sm:text-sm font-bold uppercase tracking-wider shadow-xs hover:border-[#ffa326] transition-all duration-300 cursor-pointer w-full xs:w-auto"
+              className="inline-flex items-center justify-center gap-1.5 sm:gap-2 bg-white hover:bg-neutral-50 text-neutral-800 border border-neutral-300 rounded-full px-3.5 xs:px-5 sm:px-7 py-2.5 sm:py-3.5 text-[11px] xs:text-xs sm:text-sm font-bold uppercase tracking-wider shadow-xs hover:border-[#ffa326] transition-all duration-300 cursor-pointer whitespace-nowrap"
             >
               <span>View All ({GALLERY_IMAGES.length})</span>
             </button>
           </div>
         ) : (
-          <div className="mt-10">
+          <div className="mt-8 sm:mt-10 flex justify-center">
             <button
               type="button"
               onClick={() => setVisibleCount(15)}
-              className="inline-flex items-center justify-center gap-2 bg-neutral-900 hover:bg-neutral-800 text-white rounded-full px-8 py-3.5 text-xs sm:text-sm font-bold uppercase tracking-wider shadow-md hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 cursor-pointer w-full xs:w-auto"
+              className="inline-flex items-center justify-center gap-2 bg-neutral-900 hover:bg-neutral-800 text-white rounded-full px-6 sm:px-8 py-2.5 sm:py-3.5 text-xs sm:text-sm font-bold uppercase tracking-wider shadow-md hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 cursor-pointer"
             >
               <span>Show Less</span>
             </button>

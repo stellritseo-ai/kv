@@ -71,18 +71,18 @@ export function WelcomeSection() {
               <ContactCard label="Email Us:" value="kvpropertyinc@gmail.com" isEmail={true} />
             </div>
 
-            <div className="mt-7 flex flex-col xs:flex-row flex-wrap gap-3 sm:gap-4 w-full xs:w-auto">
+            <div className="mt-7 flex flex-row items-center gap-2 xs:gap-3 sm:gap-4 w-full sm:w-auto">
               <button
                 type="button"
-                className="rounded-full bg-gradient-to-r from-[#32322d] to-[#1e1e1a] hover:from-[#23231f] hover:to-[#121210] px-6 sm:px-7 py-3 text-white text-sm font-normal hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 shadow-md cursor-pointer text-center w-full xs:w-auto"
+                className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-[#32322d] to-[#1e1e1a] hover:from-[#23231f] hover:to-[#121210] px-3.5 xs:px-5 sm:px-7 py-2.5 sm:py-3 text-white text-[11px] xs:text-xs sm:text-sm font-medium hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 shadow-md cursor-pointer text-center whitespace-nowrap"
               >
-                Call (732) 677-6674
+                <span>Call (732) 677-6674</span>
               </button>
               <button
                 type="button"
-                className="rounded-full bg-gradient-to-r from-[#ffa326] to-[#cc7e14] hover:from-[#ffb147] hover:to-[#995906] px-6 sm:px-7 py-3 text-white text-sm font-normal hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 shadow-md cursor-pointer text-center w-full xs:w-auto"
+                className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-[#ffa326] to-[#cc7e14] hover:from-[#ffb147] hover:to-[#995906] px-3.5 xs:px-5 sm:px-7 py-2.5 sm:py-3 text-white text-[11px] xs:text-xs sm:text-sm font-medium hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 shadow-md cursor-pointer text-center whitespace-nowrap"
               >
-                Learn More About Us
+                <span>Learn More About Us</span>
               </button>
             </div>
           </motion.div>
