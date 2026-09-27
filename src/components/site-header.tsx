@@ -188,9 +188,9 @@ export function SiteHeader() {
               <img
                 src={logo}
                 alt="KV Property Inc"
-                className={`w-auto max-w-[140px] sm:max-w-none object-contain transition-all duration-300 group-hover:scale-[1.02] ${scrolled
-                  ? "h-9 sm:h-11 md:h-12 lg:h-[50px]"
-                  : "h-11 sm:h-15 md:h-16 lg:h-[72px]"
+                className={`w-auto max-w-[220px] xs:max-w-[260px] sm:max-w-none object-contain transition-all duration-300 group-hover:scale-[1.02] ${scrolled
+                  ? "h-[48px] xs:h-[50px] sm:h-11 md:h-12 lg:h-[50px]"
+                  : "h-[64px] xs:h-[68px] sm:h-15 md:h-16 lg:h-[72px]"
                   }`}
               />
             </div>
@@ -402,7 +402,7 @@ export function SiteHeader() {
                 <img
                   src={logo}
                   alt="KV Property Inc"
-                  className="h-12 sm:h-13 w-auto object-contain"
+                  className="h-16 w-auto object-contain"
                 />
                 <button
                   onClick={closeMenu}
