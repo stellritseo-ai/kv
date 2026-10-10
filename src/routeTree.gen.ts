@@ -12,11 +12,23 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as ServicesRouteImport } from './routes/services'
 import { Route as ReviewsRouteImport } from './routes/reviews'
 import { Route as PropertyMaintenanceRouteImport } from './routes/property-maintenance'
+import { Route as PoolsOutdoorSpacesRouteImport } from './routes/pools-outdoor-spaces'
 import { Route as OurWorkRouteImport } from './routes/our-work'
 import { Route as LoginRouteImport } from './routes/login'
+import { Route as KitchenRemodelingRouteImport } from './routes/kitchen-remodeling'
+import { Route as InteriorExteriorPaintingRouteImport } from './routes/interior-exterior-painting'
+import { Route as HomeAdditionsRouteImport } from './routes/home-additions'
+import { Route as HandymanServicesRouteImport } from './routes/handyman-services'
+import { Route as GeneralContractingRouteImport } from './routes/general-contracting'
 import { Route as FreeEstimateRouteImport } from './routes/free-estimate'
+import { Route as FlooringRouteImport } from './routes/flooring'
+import { Route as FinancingRouteImport } from './routes/financing'
+import { Route as DeckOutdoorLivingRouteImport } from './routes/deck-outdoor-living'
 import { Route as DashboardRouteImport } from './routes/dashboard'
+import { Route as CustomBuildsRouteImport } from './routes/custom-builds'
 import { Route as ContactUsRouteImport } from './routes/contact-us'
+import { Route as CommercialImprovementsRouteImport } from './routes/commercial-improvements'
+import { Route as BathroomRemodelingRouteImport } from './routes/bathroom-remodeling'
 import { Route as AboutUsRouteImport } from './routes/about-us'
 import { Route as IndexRouteImport } from './routes/index'
 
@@ -35,6 +47,11 @@ const PropertyMaintenanceRoute = PropertyMaintenanceRouteImport.update({
   path: '/property-maintenance',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PoolsOutdoorSpacesRoute = PoolsOutdoorSpacesRouteImport.update({
+  id: '/pools-outdoor-spaces',
+  path: '/pools-outdoor-spaces',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const OurWorkRoute = OurWorkRouteImport.update({
   id: '/our-work',
   path: '/our-work',
@@ -45,9 +62,50 @@ const LoginRoute = LoginRouteImport.update({
   path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
+const KitchenRemodelingRoute = KitchenRemodelingRouteImport.update({
+  id: '/kitchen-remodeling',
+  path: '/kitchen-remodeling',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InteriorExteriorPaintingRoute =
+  InteriorExteriorPaintingRouteImport.update({
+    id: '/interior-exterior-painting',
+    path: '/interior-exterior-painting',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const HomeAdditionsRoute = HomeAdditionsRouteImport.update({
+  id: '/home-additions',
+  path: '/home-additions',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HandymanServicesRoute = HandymanServicesRouteImport.update({
+  id: '/handyman-services',
+  path: '/handyman-services',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GeneralContractingRoute = GeneralContractingRouteImport.update({
+  id: '/general-contracting',
+  path: '/general-contracting',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const FreeEstimateRoute = FreeEstimateRouteImport.update({
   id: '/free-estimate',
   path: '/free-estimate',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FlooringRoute = FlooringRouteImport.update({
+  id: '/flooring',
+  path: '/flooring',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FinancingRoute = FinancingRouteImport.update({
+  id: '/financing',
+  path: '/financing',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DeckOutdoorLivingRoute = DeckOutdoorLivingRouteImport.update({
+  id: '/deck-outdoor-living',
+  path: '/deck-outdoor-living',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DashboardRoute = DashboardRouteImport.update({
@@ -55,9 +113,24 @@ const DashboardRoute = DashboardRouteImport.update({
   path: '/dashboard',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CustomBuildsRoute = CustomBuildsRouteImport.update({
+  id: '/custom-builds',
+  path: '/custom-builds',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ContactUsRoute = ContactUsRouteImport.update({
   id: '/contact-us',
   path: '/contact-us',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CommercialImprovementsRoute = CommercialImprovementsRouteImport.update({
+  id: '/commercial-improvements',
+  path: '/commercial-improvements',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BathroomRemodelingRoute = BathroomRemodelingRouteImport.update({
+  id: '/bathroom-remodeling',
+  path: '/bathroom-remodeling',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AboutUsRoute = AboutUsRouteImport.update({
@@ -74,11 +147,23 @@ const IndexRoute = IndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about-us': typeof AboutUsRoute
+  '/bathroom-remodeling': typeof BathroomRemodelingRoute
+  '/commercial-improvements': typeof CommercialImprovementsRoute
   '/contact-us': typeof ContactUsRoute
+  '/custom-builds': typeof CustomBuildsRoute
   '/dashboard': typeof DashboardRoute
+  '/deck-outdoor-living': typeof DeckOutdoorLivingRoute
+  '/financing': typeof FinancingRoute
+  '/flooring': typeof FlooringRoute
   '/free-estimate': typeof FreeEstimateRoute
+  '/general-contracting': typeof GeneralContractingRoute
+  '/handyman-services': typeof HandymanServicesRoute
+  '/home-additions': typeof HomeAdditionsRoute
+  '/interior-exterior-painting': typeof InteriorExteriorPaintingRoute
+  '/kitchen-remodeling': typeof KitchenRemodelingRoute
   '/login': typeof LoginRoute
   '/our-work': typeof OurWorkRoute
+  '/pools-outdoor-spaces': typeof PoolsOutdoorSpacesRoute
   '/property-maintenance': typeof PropertyMaintenanceRoute
   '/reviews': typeof ReviewsRoute
   '/services': typeof ServicesRoute
@@ -86,11 +171,23 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about-us': typeof AboutUsRoute
+  '/bathroom-remodeling': typeof BathroomRemodelingRoute
+  '/commercial-improvements': typeof CommercialImprovementsRoute
   '/contact-us': typeof ContactUsRoute
+  '/custom-builds': typeof CustomBuildsRoute
   '/dashboard': typeof DashboardRoute
+  '/deck-outdoor-living': typeof DeckOutdoorLivingRoute
+  '/financing': typeof FinancingRoute
+  '/flooring': typeof FlooringRoute
   '/free-estimate': typeof FreeEstimateRoute
+  '/general-contracting': typeof GeneralContractingRoute
+  '/handyman-services': typeof HandymanServicesRoute
+  '/home-additions': typeof HomeAdditionsRoute
+  '/interior-exterior-painting': typeof InteriorExteriorPaintingRoute
+  '/kitchen-remodeling': typeof KitchenRemodelingRoute
   '/login': typeof LoginRoute
   '/our-work': typeof OurWorkRoute
+  '/pools-outdoor-spaces': typeof PoolsOutdoorSpacesRoute
   '/property-maintenance': typeof PropertyMaintenanceRoute
   '/reviews': typeof ReviewsRoute
   '/services': typeof ServicesRoute
@@ -99,11 +196,23 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about-us': typeof AboutUsRoute
+  '/bathroom-remodeling': typeof BathroomRemodelingRoute
+  '/commercial-improvements': typeof CommercialImprovementsRoute
   '/contact-us': typeof ContactUsRoute
+  '/custom-builds': typeof CustomBuildsRoute
   '/dashboard': typeof DashboardRoute
+  '/deck-outdoor-living': typeof DeckOutdoorLivingRoute
+  '/financing': typeof FinancingRoute
+  '/flooring': typeof FlooringRoute
   '/free-estimate': typeof FreeEstimateRoute
+  '/general-contracting': typeof GeneralContractingRoute
+  '/handyman-services': typeof HandymanServicesRoute
+  '/home-additions': typeof HomeAdditionsRoute
+  '/interior-exterior-painting': typeof InteriorExteriorPaintingRoute
+  '/kitchen-remodeling': typeof KitchenRemodelingRoute
   '/login': typeof LoginRoute
   '/our-work': typeof OurWorkRoute
+  '/pools-outdoor-spaces': typeof PoolsOutdoorSpacesRoute
   '/property-maintenance': typeof PropertyMaintenanceRoute
   '/reviews': typeof ReviewsRoute
   '/services': typeof ServicesRoute
@@ -113,11 +222,23 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about-us'
+    | '/bathroom-remodeling'
+    | '/commercial-improvements'
     | '/contact-us'
+    | '/custom-builds'
     | '/dashboard'
+    | '/deck-outdoor-living'
+    | '/financing'
+    | '/flooring'
     | '/free-estimate'
+    | '/general-contracting'
+    | '/handyman-services'
+    | '/home-additions'
+    | '/interior-exterior-painting'
+    | '/kitchen-remodeling'
     | '/login'
     | '/our-work'
+    | '/pools-outdoor-spaces'
     | '/property-maintenance'
     | '/reviews'
     | '/services'
@@ -125,11 +246,23 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/about-us'
+    | '/bathroom-remodeling'
+    | '/commercial-improvements'
     | '/contact-us'
+    | '/custom-builds'
     | '/dashboard'
+    | '/deck-outdoor-living'
+    | '/financing'
+    | '/flooring'
     | '/free-estimate'
+    | '/general-contracting'
+    | '/handyman-services'
+    | '/home-additions'
+    | '/interior-exterior-painting'
+    | '/kitchen-remodeling'
     | '/login'
     | '/our-work'
+    | '/pools-outdoor-spaces'
     | '/property-maintenance'
     | '/reviews'
     | '/services'
@@ -137,11 +270,23 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/about-us'
+    | '/bathroom-remodeling'
+    | '/commercial-improvements'
     | '/contact-us'
+    | '/custom-builds'
     | '/dashboard'
+    | '/deck-outdoor-living'
+    | '/financing'
+    | '/flooring'
     | '/free-estimate'
+    | '/general-contracting'
+    | '/handyman-services'
+    | '/home-additions'
+    | '/interior-exterior-painting'
+    | '/kitchen-remodeling'
     | '/login'
     | '/our-work'
+    | '/pools-outdoor-spaces'
     | '/property-maintenance'
     | '/reviews'
     | '/services'
@@ -150,11 +295,23 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutUsRoute: typeof AboutUsRoute
+  BathroomRemodelingRoute: typeof BathroomRemodelingRoute
+  CommercialImprovementsRoute: typeof CommercialImprovementsRoute
   ContactUsRoute: typeof ContactUsRoute
+  CustomBuildsRoute: typeof CustomBuildsRoute
   DashboardRoute: typeof DashboardRoute
+  DeckOutdoorLivingRoute: typeof DeckOutdoorLivingRoute
+  FinancingRoute: typeof FinancingRoute
+  FlooringRoute: typeof FlooringRoute
   FreeEstimateRoute: typeof FreeEstimateRoute
+  GeneralContractingRoute: typeof GeneralContractingRoute
+  HandymanServicesRoute: typeof HandymanServicesRoute
+  HomeAdditionsRoute: typeof HomeAdditionsRoute
+  InteriorExteriorPaintingRoute: typeof InteriorExteriorPaintingRoute
+  KitchenRemodelingRoute: typeof KitchenRemodelingRoute
   LoginRoute: typeof LoginRoute
   OurWorkRoute: typeof OurWorkRoute
+  PoolsOutdoorSpacesRoute: typeof PoolsOutdoorSpacesRoute
   PropertyMaintenanceRoute: typeof PropertyMaintenanceRoute
   ReviewsRoute: typeof ReviewsRoute
   ServicesRoute: typeof ServicesRoute
@@ -183,6 +340,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PropertyMaintenanceRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/pools-outdoor-spaces': {
+      id: '/pools-outdoor-spaces'
+      path: '/pools-outdoor-spaces'
+      fullPath: '/pools-outdoor-spaces'
+      preLoaderRoute: typeof PoolsOutdoorSpacesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/our-work': {
       id: '/our-work'
       path: '/our-work'
@@ -197,11 +361,67 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/kitchen-remodeling': {
+      id: '/kitchen-remodeling'
+      path: '/kitchen-remodeling'
+      fullPath: '/kitchen-remodeling'
+      preLoaderRoute: typeof KitchenRemodelingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/interior-exterior-painting': {
+      id: '/interior-exterior-painting'
+      path: '/interior-exterior-painting'
+      fullPath: '/interior-exterior-painting'
+      preLoaderRoute: typeof InteriorExteriorPaintingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/home-additions': {
+      id: '/home-additions'
+      path: '/home-additions'
+      fullPath: '/home-additions'
+      preLoaderRoute: typeof HomeAdditionsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/handyman-services': {
+      id: '/handyman-services'
+      path: '/handyman-services'
+      fullPath: '/handyman-services'
+      preLoaderRoute: typeof HandymanServicesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/general-contracting': {
+      id: '/general-contracting'
+      path: '/general-contracting'
+      fullPath: '/general-contracting'
+      preLoaderRoute: typeof GeneralContractingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/free-estimate': {
       id: '/free-estimate'
       path: '/free-estimate'
       fullPath: '/free-estimate'
       preLoaderRoute: typeof FreeEstimateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/flooring': {
+      id: '/flooring'
+      path: '/flooring'
+      fullPath: '/flooring'
+      preLoaderRoute: typeof FlooringRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/financing': {
+      id: '/financing'
+      path: '/financing'
+      fullPath: '/financing'
+      preLoaderRoute: typeof FinancingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/deck-outdoor-living': {
+      id: '/deck-outdoor-living'
+      path: '/deck-outdoor-living'
+      fullPath: '/deck-outdoor-living'
+      preLoaderRoute: typeof DeckOutdoorLivingRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/dashboard': {
@@ -211,11 +431,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/custom-builds': {
+      id: '/custom-builds'
+      path: '/custom-builds'
+      fullPath: '/custom-builds'
+      preLoaderRoute: typeof CustomBuildsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/contact-us': {
       id: '/contact-us'
       path: '/contact-us'
       fullPath: '/contact-us'
       preLoaderRoute: typeof ContactUsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/commercial-improvements': {
+      id: '/commercial-improvements'
+      path: '/commercial-improvements'
+      fullPath: '/commercial-improvements'
+      preLoaderRoute: typeof CommercialImprovementsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/bathroom-remodeling': {
+      id: '/bathroom-remodeling'
+      path: '/bathroom-remodeling'
+      fullPath: '/bathroom-remodeling'
+      preLoaderRoute: typeof BathroomRemodelingRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/about-us': {
@@ -238,11 +479,23 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutUsRoute: AboutUsRoute,
+  BathroomRemodelingRoute: BathroomRemodelingRoute,
+  CommercialImprovementsRoute: CommercialImprovementsRoute,
   ContactUsRoute: ContactUsRoute,
+  CustomBuildsRoute: CustomBuildsRoute,
   DashboardRoute: DashboardRoute,
+  DeckOutdoorLivingRoute: DeckOutdoorLivingRoute,
+  FinancingRoute: FinancingRoute,
+  FlooringRoute: FlooringRoute,
   FreeEstimateRoute: FreeEstimateRoute,
+  GeneralContractingRoute: GeneralContractingRoute,
+  HandymanServicesRoute: HandymanServicesRoute,
+  HomeAdditionsRoute: HomeAdditionsRoute,
+  InteriorExteriorPaintingRoute: InteriorExteriorPaintingRoute,
+  KitchenRemodelingRoute: KitchenRemodelingRoute,
   LoginRoute: LoginRoute,
   OurWorkRoute: OurWorkRoute,
+  PoolsOutdoorSpacesRoute: PoolsOutdoorSpacesRoute,
   PropertyMaintenanceRoute: PropertyMaintenanceRoute,
   ReviewsRoute: ReviewsRoute,
   ServicesRoute: ServicesRoute,

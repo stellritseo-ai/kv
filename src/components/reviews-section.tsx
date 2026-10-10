@@ -1,4 +1,5 @@
 import { useRef, useState, useEffect } from "react";
+import { Link } from "@tanstack/react-router";
 import { Star, MessageSquarePlus } from "lucide-react";
 
 import { useTranslation } from "@/context/translation-context";
@@ -240,14 +241,14 @@ export function ReviewsSection() {
             Quality work. Professional service. Results built to last. Your project could be our next success story.
           </p>
 
-          <div>
-            <button
-              type="button"
-              className="inline-flex items-center gap-2 rounded-full bg-white hover:bg-neutral-50 text-neutral-900 border border-neutral-300 px-6 py-2.5 text-xs font-bold uppercase tracking-wider shadow-sm hover:shadow transition-all duration-200 cursor-pointer"
+          <div className="flex items-center justify-center gap-3 flex-wrap">
+            <Link
+              to="/reviews"
+              className="inline-flex items-center gap-2 rounded-full bg-white hover:bg-neutral-50 text-neutral-900 border border-neutral-300 px-5 sm:px-6 py-2.5 text-xs font-bold uppercase tracking-wider shadow-sm hover:shadow transition-all duration-200 cursor-pointer"
             >
               <MessageSquarePlus className="w-4 h-4 text-[#cc7e14]" />
-              <span>Leave Us A Review</span>
-            </button>
+              <span>Read & Leave A Review</span>
+            </Link>
           </div>
         </div>
 

@@ -44,7 +44,7 @@ export const translations = {
     // TopBar & Header
     "topbar.email": "kvpropertyinc@gmail.com",
     "topbar.location": "Neptune, NJ",
-    "topbar.emergency": "24/7 Emergency Service: (732) 677-6674",
+    "topbar.emergency": "24/7 Emergency Service: (732) 877-8614",
     "nav.home": "Home",
     "nav.about": "About Us",
     "nav.services": "Services",
@@ -63,7 +63,7 @@ export const translations = {
       "Transforming homes and commercial spaces with professional remodeling, construction, handyman, and property improvement services.",
     "hero.tagline": "20+ Years of Experience | Residential & Commercial | 25-Mile Service Area",
     "hero.btn.consultation": "Get a Free Estimate",
-    "hero.btn.book": "Call (732) 677-6674",
+    "hero.btn.book": "Call (732) 877-8614",
 
     // Trust Section
     "trust.stat1.value": "20+",
@@ -85,7 +85,7 @@ export const translations = {
     "welcome.desc":
       "KV Property Inc is a trusted residential and commercial construction, remodeling, and property improvement company serving Neptune, NJ and surrounding communities. With more than 20 years of experience, we bring professional craftsmanship, dependable service, and attention to detail to every project. From remodeling a single room to completing larger construction and property improvement projects, our goal is simple: deliver quality work that is built to last.",
     "welcome.highlights": "Licensed • Insured • Financing Available",
-    "welcome.btn.call": "Call (732) 677-6674",
+    "welcome.btn.call": "Call (732) 877-8614",
     "welcome.btn.consultation": "Learn More About Us",
     "welcome.contact.title": "Call Us Directly:",
 
@@ -237,7 +237,7 @@ export const translations = {
     "emergency.badge": "24/7 EMERGENCY SERVICE",
     "emergency.title": "When You Need Help, We're Here.",
     "emergency.desc": "Property problems don't always happen during normal business hours. KV Property Inc provides 24/7 emergency service for urgent property needs.",
-    "emergency.btn": "Call Now: (732) 677-6674",
+    "emergency.btn": "Call Now: (732) 877-8614",
 
     // FAQ Section
     "faq.badge": "FAQ",
@@ -260,7 +260,7 @@ export const translations = {
     "faq.q8": "What types of projects do you handle?",
     "faq.a8": "We handle kitchen and bathroom remodeling, general contracting, home additions, decks and outdoor living, painting, flooring, handyman services, property maintenance, custom builds, and commercial improvements.",
     "faq.q9": "How do I get started?",
-    "faq.a9": "Call (732) 677-6674 or complete our contact form to discuss your project and request an estimate.",
+    "faq.a9": "Call (732) 877-8614 or complete our contact form to discuss your project and request an estimate.",
 
     // Prompt CTA / Emergency Banner
     "cta.prompt.badge": "24/7 EMERGENCY ASSISTANCE",
@@ -270,7 +270,7 @@ export const translations = {
     "cta.prompt.f2": "Licensed & Insured",
     "cta.prompt.f3": "25-Mile Service Area",
     "cta.prompt.f4": "Financing Available",
-    "cta.prompt.btn.sub": "Call (732) 677-6674",
+    "cta.prompt.btn.sub": "Call (732) 877-8614",
     "cta.prompt.badge.loc": "Serving Neptune, NJ & Communities within 25 Miles",
 
     // Final CTA & Contact Section
@@ -294,7 +294,7 @@ export const translations = {
     "stats.desc": "Make your remodeling or property improvement project more manageable with financing options available through KV Property Inc.",
     "stats.btn": "Ask About Financing",
     "stats.btn.estimate": "Get A Free Estimate",
-    "stats.btn.call": "Call (732) 677-6674",
+    "stats.btn.call": "Call (732) 877-8614",
     "stats.btn.consultation": "Request An Estimate",
     "stats.label.years_experience": "Years Of Experience",
     "stats.label.complete_project": "Licensed & Insured",
@@ -329,7 +329,7 @@ export const translations = {
     "footer.link.6": "Get a Free Estimate",
     "footer.link.7": "Financing",
     "footer.contact.consultant": "Licensed & Insured • Financing Available",
-    "footer.contact.robert": "Phone: (732) 677-6674",
+    "footer.contact.robert": "Phone: (732) 877-8614",
     "footer.contact.arturo": "20+ Years Of Experience",
     "footer.contact.email": "Email: kvpropertyinc@gmail.com",
     "footer.contact.address": "Location: Neptune, NJ",
@@ -338,7 +338,7 @@ export const translations = {
   es: {
     "topbar.email": "kvpropertyinc@gmail.com",
     "topbar.location": "Neptune, NJ",
-    "topbar.emergency": "Servicio de Emergencia 24/7: (732) 677-6674",
+    "topbar.emergency": "Servicio de Emergencia 24/7: (732) 877-8614",
     "nav.home": "Inicio",
     "nav.about": "Nosotros",
     "nav.services": "Servicios",
@@ -356,7 +356,7 @@ export const translations = {
       "Transformando hogares y espacios comerciales con servicios profesionales de remodelación, construcción, reparaciones y mejoras de propiedades.",
     "hero.tagline": "20+ Años de Experiencia | Residencial y Comercial | Área de Servicio de 25 Millas",
     "hero.btn.consultation": "Obtenga un Presupuesto Gratis",
-    "hero.btn.book": "Llamar al (732) 677-6674",
+    "hero.btn.book": "Llamar al (732) 877-8614",
 
     "trust.stat1.value": "20+",
     "trust.stat1.label": "Años de Experiencia",
@@ -376,7 +376,7 @@ export const translations = {
     "welcome.desc":
       "KV Property Inc es una empresa de confianza en construcción residencial y comercial, remodelación y mejoras de propiedades al servicio de Neptune, NJ y comunidades aledañas. Con más de 20 años de experiencia, ofrecemos artesanía profesional, servicio confiable y atención al detalle en cada proyecto. Nuestro objetivo es simple: entregar un trabajo de calidad construido para perdurar.",
     "welcome.highlights": "Licenciado • Asegurado • Financiamiento Disponible",
-    "welcome.btn.call": "Llamar al (732) 677-6674",
+    "welcome.btn.call": "Llamar al (732) 877-8614",
     "welcome.btn.consultation": "Conozca Más Sobre Nosotros",
     "welcome.contact.title": "Llámenos Directamente:",
 
@@ -517,7 +517,7 @@ export const translations = {
     "emergency.badge": "SERVICIO DE EMERGENCIA 24/7",
     "emergency.title": "Cuando Necesita Ayuda, Estamos Aquí.",
     "emergency.desc": "Los problemas en una propiedad no siempre ocurren en horario comercial. Ofrecemos atención 24/7.",
-    "emergency.btn": "Llamar Ahora: (732) 677-6674",
+    "emergency.btn": "Llamar Ahora: (732) 877-8614",
 
     "faq.badge": "PREGUNTAS FRECUENTES",
     "faq.title": "Preguntas Frecuentes",
@@ -539,7 +539,7 @@ export const translations = {
     "faq.q8": "¿Qué tipos de proyectos realizan?",
     "faq.a8": "Cocinas, baños, ampliaciones, terrazas, pintura, pisos, reparaciones, mantenimiento y mejoras comerciales.",
     "faq.q9": "¿Cómo comienzo?",
-    "faq.a9": "Llame al (732) 677-6674 o llene nuestro formulario para solicitar un presupuesto.",
+    "faq.a9": "Llame al (732) 877-8614 o llene nuestro formulario para solicitar un presupuesto.",
 
     "cta.prompt.badge": "ATENCIÓN DE EMERGENCIA 24/7",
     "cta.prompt.title": "Cuando Necesita Ayuda, Estamos Aquí.",
@@ -548,7 +548,7 @@ export const translations = {
     "cta.prompt.f2": "Licenciado y Asegurado",
     "cta.prompt.f3": "Radio de 25 Millas",
     "cta.prompt.f4": "Financiamiento Disponible",
-    "cta.prompt.btn.sub": "Llamar al (732) 677-6674",
+    "cta.prompt.btn.sub": "Llamar al (732) 877-8614",
     "cta.prompt.badge.loc": "Sirviendo a Neptune, NJ y 25 millas a la redonda",
 
     "cta.final.title": "Construyamos Algo Extraordinario.",
@@ -570,7 +570,7 @@ export const translations = {
     "stats.desc": "Haga su remodelación más accesible con las opciones de financiamiento de KV Property Inc.",
     "stats.btn": "Consultar Financiamiento",
     "stats.btn.estimate": "Presupuesto Gratis",
-    "stats.btn.call": "Llamar al (732) 677-6674",
+    "stats.btn.call": "Llamar al (732) 877-8614",
     "stats.btn.consultation": "Solicitar Presupuesto",
     "stats.label.years_experience": "Años de Experiencia",
     "stats.label.complete_project": "Licenciado y Asegurado",
@@ -604,7 +604,7 @@ export const translations = {
     "footer.link.6": "Presupuesto Gratis",
     "footer.link.7": "Financiamiento",
     "footer.contact.consultant": "Licenciado y Asegurado • Financiamiento Disponible",
-    "footer.contact.robert": "Teléfono: (732) 677-6674",
+    "footer.contact.robert": "Teléfono: (732) 877-8614",
     "footer.contact.arturo": "20+ Años de Experiencia",
     "footer.contact.email": "Email: kvpropertyinc@gmail.com",
     "footer.contact.address": "Ubicación: Neptune, NJ",

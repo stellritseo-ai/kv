@@ -12,6 +12,7 @@ import customBuildsImg from "@/assets/svc-custom-builds.jpg";
 import commercialImg from "@/assets/svc-commercial.jpg";
 
 import { useTranslation } from "@/context/translation-context";
+import { Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
 import {
   Carousel,
@@ -28,63 +29,63 @@ const services = [
     title: "Kitchen Remodeling",
     desc: "Create a beautiful, functional kitchen designed around the way you live.",
     image: kitchenRemodel,
-    to: "/services",
+    to: "/kitchen-remodeling",
   },
   {
     key: "services.bathroom",
     title: "Bathroom Remodeling",
     desc: "Upgrade your bathroom with quality materials, thoughtful design, and professional craftsmanship.",
     image: bathroomRemodel,
-    to: "/services",
+    to: "/bathroom-remodeling",
   },
   {
     key: "services.general",
     title: "General Contracting",
     desc: "Professional construction management and contracting services for projects of all sizes.",
     image: generalContracting,
-    to: "/services",
+    to: "/general-contracting",
   },
   {
     key: "services.deck",
     title: "Deck & Outdoor Living",
     desc: "Build and improve outdoor spaces designed for comfort, entertaining, and everyday living.",
     image: deckOutdoor,
-    to: "/services",
+    to: "/deck-outdoor-living",
   },
   {
     key: "services.pools",
     title: "Pools & Outdoor Spaces",
     desc: "Transform your outdoor property with functional and attractive spaces built around your needs.",
     image: poolsOutdoor,
-    to: "/services",
+    to: "/pools-outdoor-spaces",
   },
   {
     key: "services.additions",
     title: "Home Additions",
     desc: "Expand your living space with professionally planned and constructed home additions.",
     image: homeAdditions,
-    to: "/services",
+    to: "/home-additions",
   },
   {
     key: "services.painting",
     title: "Interior & Exterior Painting",
     desc: "Refresh and protect your property with professional interior and exterior painting.",
     image: paintingImg,
-    to: "/services",
+    to: "/interior-exterior-painting",
   },
   {
     key: "services.flooring",
     title: "Flooring",
     desc: "Install beautiful, durable flooring that complements your home or commercial space.",
     image: flooringImg,
-    to: "/services",
+    to: "/flooring",
   },
   {
     key: "services.handyman",
     title: "Handyman Services",
     desc: "Reliable solutions for repairs, improvements, installations, and everyday property needs.",
     image: handymanImg,
-    to: "/services",
+    to: "/handyman-services",
   },
   {
     key: "services.maintenance",
@@ -98,14 +99,14 @@ const services = [
     title: "Custom Builds",
     desc: "Bring your ideas to life with custom construction and improvement solutions.",
     image: customBuildsImg,
-    to: "/services",
+    to: "/custom-builds",
   },
   {
     key: "services.commercial",
     title: "Commercial Improvements",
     desc: "Professional construction, remodeling, repairs, and improvement services for commercial properties.",
     image: commercialImg,
-    to: "/services",
+    to: "/commercial-improvements",
   },
 ];
 
@@ -143,12 +144,13 @@ export function ServicesSection() {
                 From remodeling and repairs to custom construction and outdoor living, KV Property Inc provides professional solutions for residential and commercial properties.
               </p>
               <div className="mt-7">
-                <button
-                  type="button"
+                <Link
+                  to="/services"
                   className="inline-flex items-center gap-2.5 bg-gradient-to-r from-[#ffa326] to-[#cc7e14] hover:from-[#ffa326] hover:to-[#995906] text-white rounded-full px-7 py-3 text-[14px] font-bold shadow-[0_4px_14px_rgba(204,126,20,0.3)] hover:scale-[1.03] active:scale-[0.97] transition-all duration-300 cursor-pointer"
                 >
-                  Explore All Services
-                </button>
+                  <span>Explore All Services</span>
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
               </div>
             </div>
           </motion.div>
@@ -162,8 +164,11 @@ export function ServicesSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-100px" }}
                 transition={{ duration: 0.7, delay: idx * 0.15, ease: "easeOut" }}
-                className="group relative rounded-2xl overflow-hidden shadow-md bg-neutral-950 h-[220px] sm:h-[280px] lg:h-[340px] xl:h-[380px] border border-neutral-900/5 cursor-pointer"
               >
+                <Link
+                  to={s.to}
+                  className="group relative block rounded-2xl overflow-hidden shadow-md bg-neutral-950 h-[220px] sm:h-[280px] lg:h-[340px] xl:h-[380px] border border-neutral-900/5 cursor-pointer"
+                >
                 {/* Background image */}
                 <img
                   src={s.image}
@@ -200,7 +205,8 @@ export function ServicesSection() {
                     </div>
                   </div>
                 </div>
-              </motion.div>
+              </Link>
+            </motion.div>
             ))}
           </div>
         </div>
@@ -231,7 +237,10 @@ export function ServicesSection() {
             <CarouselContent className="-ml-5">
               {slideItems.map((s, idx) => (
                 <CarouselItem key={`${s.key}-${idx}`} className="pl-5 basis-full xs:basis-1/2 sm:basis-1/2 md:basis-1/3 lg:basis-1/5">
-                  <div className="group relative rounded-2xl overflow-hidden shadow-md bg-neutral-950 h-[220px] sm:h-[280px] lg:h-[340px] xl:h-[380px] border border-neutral-900/5 cursor-pointer">
+                  <Link
+                    to={s.to}
+                    className="group relative block rounded-2xl overflow-hidden shadow-md bg-neutral-950 h-[220px] sm:h-[280px] lg:h-[340px] xl:h-[380px] border border-neutral-900/5 cursor-pointer"
+                  >
                     {/* Background image */}
                     <img
                       src={s.image}
@@ -268,7 +277,7 @@ export function ServicesSection() {
                         </div>
                       </div>
                     </div>
-                  </div>
+                  </Link>
                 </CarouselItem>
               ))}
             </CarouselContent>

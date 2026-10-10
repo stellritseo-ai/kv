@@ -1,3 +1,4 @@
+import { Link } from "@tanstack/react-router";
 import { Facebook, Twitter, Youtube, Phone, Mail, MapPin, ChevronUp, ShieldCheck } from "lucide-react";
 import bbbBadge from "@/assets/bbb-badge.png";
 import yelpBadge from "@/assets/yelp-badge.png";
@@ -31,7 +32,7 @@ export function SiteFooter() {
               <p className="text-xs sm:text-sm text-neutral-400 leading-relaxed font-normal pr-0 lg:pr-8 mb-4 sm:mb-6 max-w-2xl">
                 Professional remodeling, construction, handyman, and property improvement services for residential and commercial properties. Delivering quality work that is built to last.
               </p>
-              
+
               <div className="text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-[#ffa326] mt-3 sm:mt-4 mb-4 sm:mb-6 flex flex-wrap gap-x-2 sm:gap-x-2.5 gap-y-1 sm:gap-y-1.5 items-center select-none">
                 <span className="inline-flex items-center gap-1.5">
                   <span>Licensed &amp; Insured</span>
@@ -73,49 +74,49 @@ export function SiteFooter() {
               </h4>
               <ul className="mt-2.5 sm:mt-4 space-y-2 sm:space-y-3 text-xs sm:text-sm text-neutral-400 font-normal select-none">
                 <li>
-                  <span className="hover:text-[#ffa326] transition-all duration-200 block cursor-default">
+                  <Link to="/kitchen-remodeling" className="hover:text-[#ffa326] transition-all duration-200 block cursor-pointer">
                     Kitchen Remodeling
-                  </span>
+                  </Link>
                 </li>
                 <li>
-                  <span className="hover:text-[#ffa326] transition-all duration-200 block cursor-default">
+                  <Link to="/bathroom-remodeling" className="hover:text-[#ffa326] transition-all duration-200 block cursor-pointer">
                     Bathroom Remodeling
-                  </span>
+                  </Link>
                 </li>
                 <li>
-                  <span className="hover:text-[#ffa326] transition-all duration-200 block cursor-default">
+                  <Link to="/general-contracting" className="hover:text-[#ffa326] transition-all duration-200 block cursor-pointer">
                     General Contracting
-                  </span>
+                  </Link>
                 </li>
                 <li>
-                  <span className="hover:text-[#ffa326] transition-all duration-200 block cursor-default">
+                  <Link to="/deck-outdoor-living" className="hover:text-[#ffa326] transition-all duration-200 block cursor-pointer">
                     Deck &amp; Outdoor Living
-                  </span>
+                  </Link>
                 </li>
                 <li>
-                  <span className="hover:text-[#ffa326] transition-all duration-200 block cursor-default">
-                    Painting
-                  </span>
+                  <Link to="/interior-exterior-painting" className="hover:text-[#ffa326] transition-all duration-200 block cursor-pointer">
+                    Painting &amp; Finishes
+                  </Link>
                 </li>
                 <li>
-                  <span className="hover:text-[#ffa326] transition-all duration-200 block cursor-default">
+                  <Link to="/flooring" className="hover:text-[#ffa326] transition-all duration-200 block cursor-pointer">
                     Flooring
-                  </span>
+                  </Link>
                 </li>
                 <li>
-                  <span className="hover:text-[#ffa326] transition-all duration-200 block cursor-default">
+                  <Link to="/handyman-services" className="hover:text-[#ffa326] transition-all duration-200 block cursor-pointer">
                     Handyman Services
-                  </span>
+                  </Link>
                 </li>
                 <li>
-                  <span className="hover:text-[#ffa326] transition-all duration-200 block cursor-default">
+                  <Link to="/property-maintenance" className="hover:text-[#ffa326] transition-all duration-200 block cursor-pointer">
                     Property Maintenance
-                  </span>
+                  </Link>
                 </li>
                 <li>
-                  <span className="hover:text-[#ffa326] transition-all duration-200 block cursor-default">
+                  <Link to="/custom-builds" className="hover:text-[#ffa326] transition-all duration-200 block cursor-pointer">
                     Custom Builds
-                  </span>
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -127,39 +128,39 @@ export function SiteFooter() {
               </h4>
               <ul className="mt-2.5 sm:mt-4 space-y-2 sm:space-y-3 text-xs sm:text-sm text-neutral-400 font-normal select-none">
                 <li>
-                  <span className="hover:text-[#ffa326] transition-all duration-200 block cursor-default">
+                  <Link to="/" className="hover:text-[#ffa326] transition-all duration-200 block cursor-pointer">
                     Home
-                  </span>
+                  </Link>
                 </li>
                 <li>
-                  <span className="hover:text-[#ffa326] transition-all duration-200 block cursor-default">
+                  <Link to="/about-us" className="hover:text-[#ffa326] transition-all duration-200 block cursor-pointer font-medium text-white/90">
                     About Us
-                  </span>
+                  </Link>
                 </li>
                 <li>
-                  <span className="hover:text-[#ffa326] transition-all duration-200 block cursor-default">
+                  <Link to="/our-work" className="hover:text-[#ffa326] transition-all duration-200 block cursor-pointer">
                     Our Work
-                  </span>
+                  </Link>
                 </li>
                 <li>
-                  <span className="hover:text-[#ffa326] transition-all duration-200 block cursor-default">
+                  <Link to="/reviews" className="hover:text-[#ffa326] transition-all duration-200 block cursor-pointer">
                     Reviews
-                  </span>
+                  </Link>
                 </li>
                 <li>
-                  <span className="hover:text-[#ffa326] transition-all duration-200 block cursor-default">
-                    FAQ
-                  </span>
+                  <Link to="/financing" className="hover:text-[#ffa326] transition-all duration-200 block cursor-pointer">
+                    Financing
+                  </Link>
                 </li>
                 <li>
-                  <span className="hover:text-[#ffa326] transition-all duration-200 block cursor-default">
+                  <Link to="/free-estimate" className="hover:text-[#ffa326] transition-all duration-200 block cursor-pointer">
                     Get A Free Estimate
-                  </span>
+                  </Link>
                 </li>
                 <li>
-                  <span className="hover:text-[#ffa326] transition-all duration-200 block cursor-default">
+                  <Link to="/contact-us" className="hover:text-[#ffa326] transition-all duration-200 block cursor-pointer">
                     Contact
-                  </span>
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -175,12 +176,16 @@ export function SiteFooter() {
 
               <div className="flex items-center gap-2.5 sm:gap-3 select-none">
                 <Phone className="h-4 w-4 sm:h-4.5 sm:w-4.5 text-[#ffa326] fill-[#ffa326]/10 shrink-0" />
-                <span className="font-medium text-white cursor-default text-xs sm:text-sm">(732) 677-6674</span>
+                <a href="tel:7328778614" className="font-medium text-white hover:text-[#ffa326] transition-colors cursor-pointer text-xs sm:text-sm">
+                  (732) 877-8614
+                </a>
               </div>
 
               <div className="flex items-center gap-2.5 sm:gap-3 select-none">
                 <Mail className="h-4 w-4 sm:h-4.5 sm:w-4.5 text-[#ffa326] shrink-0" />
-                <span className="break-all text-neutral-300 cursor-default text-xs sm:text-sm">kvpropertyinc@gmail.com</span>
+                <a href="mailto:kvpropertyinc@gmail.com" className="break-all text-neutral-300 hover:text-[#ffa326] transition-colors cursor-pointer text-xs sm:text-sm">
+                  kvpropertyinc@gmail.com
+                </a>
               </div>
 
               <div className="flex items-start sm:items-center gap-2.5 sm:gap-3 text-neutral-300 select-none">
@@ -219,8 +224,16 @@ export function SiteFooter() {
         </div>
 
         {/* Copyright Banner */}
-        <div className="mt-10 sm:mt-12 rounded-xl bg-gradient-to-r from-[#ffa326]/10 to-[#cc7e14]/10 border border-[#ffa326]/20 py-3 text-center text-[11px] sm:text-xs font-medium text-neutral-300 px-4 pr-12 sm:px-6 select-none relative z-10 backdrop-blur-md leading-relaxed">
-          © 2026 KV Property Inc. All Rights Reserved. • Licensed &amp; Insured • Financing Available • 24/7 Emergency Service
+        <div className="mt-10 sm:mt-12 rounded-xl bg-gradient-to-r from-[#ffa326]/10 to-[#cc7e14]/10 border border-[#ffa326]/20 py-3 text-center text-[11px] sm:text-xs font-medium text-neutral-300 px-4 pr-12 sm:px-6 relative z-10 backdrop-blur-md leading-relaxed">
+          © 2026 KV Property Inc. All Rights Reserved. • Licensed &amp; Insured • Financing Available • 24/7 Emergency Service. Design By{" "}
+          <a
+            href="https://stellrit.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-[#ffa326] hover:text-[#ffb147] hover:underline font-semibold transition-colors cursor-pointer"
+          >
+            StellR IT LLC
+          </a>
         </div>
 
         {/* Scroll To Top Button */}

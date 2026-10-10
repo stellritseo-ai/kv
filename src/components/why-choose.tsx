@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 
 import { motion } from "framer-motion";
+import { Link } from "@tanstack/react-router";
 import { useTranslation } from "@/context/translation-context";
 import whyUsVideo from "@/assets/whyus.mp4";
 
@@ -245,20 +246,20 @@ export function WhyChooseSection() {
 
             {/* Dual CTA Actions */}
             <div className="mt-8 pt-4 flex flex-row items-center gap-2 xs:gap-3 sm:gap-4 w-full sm:w-auto">
-              <button
-                type="button"
+              <Link
+                to="/free-estimate"
                 className="inline-flex items-center justify-center gap-1.5 sm:gap-2 bg-gradient-to-r from-[#ffa326] to-[#cc7e14] hover:from-[#ffb147] hover:to-[#995906] text-white rounded-full px-3.5 xs:px-5 sm:px-7 py-2.5 sm:py-3 text-[11px] xs:text-xs font-bold uppercase tracking-wider shadow-md hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 cursor-pointer whitespace-nowrap text-center"
               >
                 <span>{t("whychoose.btn.book") || "Get A Free Estimate"}</span>
                 <ArrowRight className="w-3.5 h-3.5 shrink-0" />
-              </button>
-              <button
-                type="button"
+              </Link>
+              <a
+                href="tel:7328778614"
                 className="inline-flex items-center justify-center gap-1.5 sm:gap-2 bg-white hover:bg-neutral-50 text-neutral-900 border border-neutral-300 rounded-full px-3.5 xs:px-5 sm:px-6 py-2.5 sm:py-3 text-[11px] xs:text-xs font-bold uppercase tracking-wider shadow-xs hover:border-[#ffa326] transition-all duration-300 cursor-pointer whitespace-nowrap text-center"
               >
                 <Phone className="w-3.5 h-3.5 text-[#cc7e14] shrink-0" />
-                <span>Call (732) 677-6674</span>
-              </button>
+                <span>Call (732) 877-8614</span>
+              </a>
             </div>
           </div>
         </div>

@@ -2644,7 +2644,7 @@ function DashboardPage() {
 
       {/* ── FOOTER BAR ── */}
       <footer className="bg-[#1c140d] border-t border-neutral-800 text-neutral-400 py-4 text-center text-[10px] font-medium tracking-wide">
-        <span>© 2026 Right Lane Handyman Services, LLC · Internal Admin Portal · Secured Session Design By <a href="https://stellrit.com" target="_blank" rel="noopener noreferrer" className="text-[#ffa326]">StellR IT LLC</a></span>
+        <span>© 2026 KV Property Inc · Internal Admin Portal · Secured Session Design By <a href="https://stellrit.com" target="_blank" rel="noopener noreferrer" className="text-[#ffa326] hover:underline font-semibold">StellR IT LLC</a></span>
       </footer>
 
       {/* ── MODAL: LEAD REVIEW & DETAILS ── */}

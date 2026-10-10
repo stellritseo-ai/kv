@@ -1,5 +1,6 @@
 import heroImage from "@/assets/wel-bg.png";
 import heroVideo from "@/assets/kv-welcome.mp4";
+import { Link } from "@tanstack/react-router";
 import { useTranslation } from "@/context/translation-context";
 import { Phone, ChevronRight, Award, Building2, MapPin } from "lucide-react";
 import { motion } from "framer-motion";
@@ -89,20 +90,20 @@ export function HeroSection() {
             transition={{ duration: 0.8, delay: 0.45, ease: "easeOut" }}
             className="flex flex-row items-center gap-2 xs:gap-3 sm:gap-4 pt-1 sm:pt-2 w-full sm:w-auto"
           >
-            <button
-              type="button"
+            <Link
+              to="/free-estimate"
               className="inline-flex items-center justify-center gap-1 sm:gap-1.5 rounded-full bg-gradient-to-r from-[#ffa326] to-[#cc7e14] hover:from-[#ffb147] hover:to-[#b86d0b] px-3.5 xs:px-5 sm:px-8 py-3 sm:py-4 text-white text-[11px] xs:text-xs sm:text-sm font-bold uppercase tracking-wider hover:scale-[1.03] active:scale-[0.98] transition-all duration-300 shadow-[0_4px_14px_rgba(255,163,38,0.35)] cursor-pointer whitespace-nowrap"
             >
               <span>Get a Free Estimate</span>
               <ChevronRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
-            </button>
-            <button
-              type="button"
+            </Link>
+            <a
+              href="tel:7328778614"
               className="inline-flex items-center justify-center gap-1.5 sm:gap-2 rounded-full border border-white/20 bg-white/10 backdrop-blur-md px-3.5 xs:px-5 sm:px-8 py-3 sm:py-4 text-white text-[11px] xs:text-xs sm:text-sm font-bold uppercase tracking-wider hover:bg-white hover:text-neutral-900 hover:scale-[1.03] active:scale-[0.98] transition-all duration-300 cursor-pointer whitespace-nowrap"
             >
               <Phone className="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-current shrink-0" />
-              <span>Call (732) 677-6674</span>
-            </button>
+              <span>Call (732) 877-8614</span>
+            </a>
           </motion.div>
 
           {/* Premium Trust Pillars Block */}

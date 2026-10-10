@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "@tanstack/react-router";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   MapPin,
@@ -188,21 +189,21 @@ export function ServiceArea() {
 
               {/* Action Buttons (Compact & Sleek) */}
               <div className="flex flex-row items-center gap-2 sm:gap-2.5 select-none pt-1 w-full sm:w-auto">
-                <button
-                  type="button"
+                <Link
+                  to="/free-estimate"
                   className="inline-flex items-center justify-center gap-1.5 bg-gradient-to-r from-[#ffa326] to-[#cc7e14] hover:from-[#ffb147] hover:to-[#995906] text-white rounded-full px-3.5 xs:px-4.5 py-2.5 sm:py-2 text-[10px] xs:text-[11px] font-bold uppercase tracking-wide shadow-sm hover:-translate-y-0.5 hover:shadow-md active:translate-y-0 active:scale-95 transition-all duration-300 cursor-pointer whitespace-nowrap text-center"
                 >
                   <span>{btnText}</span>
                   <ArrowRight className="w-3 h-3 shrink-0" />
-                </button>
+                </Link>
 
-                <button
-                  type="button"
+                <a
+                  href="tel:7328778614"
                   className="inline-flex items-center justify-center gap-1.5 bg-white hover:bg-neutral-50 text-neutral-800 border border-neutral-300 rounded-full px-3 xs:px-4 py-2.5 sm:py-2 text-[10px] xs:text-[11px] font-bold uppercase tracking-wide shadow-2xs hover:border-[#ffa326] transition-all duration-300 cursor-pointer whitespace-nowrap text-center"
                 >
                   <Phone className="w-3 h-3 text-[#cc7e14] shrink-0" />
-                  <span>Call (732) 677-6674</span>
-                </button>
+                  <span>Call (732) 877-8614</span>
+                </a>
               </div>
             </motion.div>
           </div>
@@ -537,20 +538,22 @@ export function ServiceArea() {
                     </div>
 
                     <div className="shrink-0 flex items-center gap-1.5">
-                      <button
-                        type="button"
+                      <a
+                        href="https://maps.google.com/?q=Neptune+NJ"
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className="hidden sm:inline-flex items-center gap-1 text-[10px] font-bold text-neutral-600 hover:text-[#cc7e14] bg-neutral-100 hover:bg-neutral-200/80 px-2.5 py-1.5 rounded-full transition-colors duration-200 cursor-pointer"
                         title="Directions"
                       >
                         <ExternalLink className="w-3 h-3" />
                         <span>Directions</span>
-                      </button>
-                      <button
-                        type="button"
+                      </a>
+                      <Link
+                        to="/free-estimate"
                         className="text-[10px] sm:text-[11px] font-black text-white bg-gradient-to-r from-[#ffa326] to-[#cc7e14] hover:from-[#ffb147] hover:to-[#995906] px-2.5 sm:px-3 py-1.5 rounded-full uppercase tracking-wider shadow-sm whitespace-nowrap transition-transform duration-200 active:scale-95 cursor-pointer"
                       >
                         Free Estimate
-                      </button>
+                      </Link>
                     </div>
                   </div>
                 </div>

@@ -1,4 +1,5 @@
 import { useState, useRef } from "react";
+import { Link } from "@tanstack/react-router";
 import { Phone, Mail, Volume2, VolumeX, ShieldCheck, CheckCircle2 } from "lucide-react";
 import welBg from "@/assets/wel-bg.png";
 import welcomeVideo from "@/assets/welcome.mp4";
@@ -67,23 +68,23 @@ export function WelcomeSection() {
             </div>
 
             <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
-              <ContactCard label="Call Us Directly:" value="(732) 677-6674" />
+              <ContactCard label="Call Us Directly:" value="(732) 877-8614" />
               <ContactCard label="Email Us:" value="kvpropertyinc@gmail.com" isEmail={true} />
             </div>
 
             <div className="mt-7 flex flex-row items-center gap-2 xs:gap-3 sm:gap-4 w-full sm:w-auto">
-              <button
-                type="button"
+              <a
+                href="tel:7328778614"
                 className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-[#32322d] to-[#1e1e1a] hover:from-[#23231f] hover:to-[#121210] px-3.5 xs:px-5 sm:px-7 py-2.5 sm:py-3 text-white text-[11px] xs:text-xs sm:text-sm font-medium hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 shadow-md cursor-pointer text-center whitespace-nowrap"
               >
-                <span>Call (732) 677-6674</span>
-              </button>
-              <button
-                type="button"
+                <span>Call (732) 877-8614</span>
+              </a>
+              <Link
+                to="/about-us"
                 className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-[#ffa326] to-[#cc7e14] hover:from-[#ffb147] hover:to-[#995906] px-3.5 xs:px-5 sm:px-7 py-2.5 sm:py-3 text-white text-[11px] xs:text-xs sm:text-sm font-medium hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 shadow-md cursor-pointer text-center whitespace-nowrap"
               >
                 <span>Learn More About Us</span>
-              </button>
+              </Link>
             </div>
           </motion.div>
 

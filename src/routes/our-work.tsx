@@ -1,8 +1,7 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
-import { FloatingChat } from "@/components/floating-chat";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Phone,
@@ -11,752 +10,648 @@ import {
   CheckCircle2,
   ChevronRight,
   ArrowRight,
-  ZoomIn,
+  ChevronLeft,
   X,
-  Compass,
-  Star,
-  Quote,
-  Flame,
-  Award
+  Sparkles,
+  Award,
+  Layers,
+  ZoomIn,
+  ShieldCheck,
+  Hammer,
+  Clock,
+  Check,
 } from "lucide-react";
 import logo from "@/assets/logo.png";
 import welBg from "@/assets/wel-bg.png";
-import workHero from "@/assets/wel-bg.png";
 
-// Project local images from assets folder
-import imgOutdoorLiving from "@/assets/svc-deck-outdoor.jpg";
-import imgPressureWash from "@/assets/svc-pressure-wash.png";
-import imgDemolition from "@/assets/svc-demolition.png";
-import imgJunkRemoval from "@/assets/svc-junk-removal.png";
-import imgLandscaping from "@/assets/svc-landscaping.png";
-import imgHandyman from "@/assets/svc-maintenance.png";
-import imgCleaning from "@/assets/svc-cleaning.png";
-import imgFencing from "@/assets/svc-fencing.jpg";
+// Load all project images from src/assets/gallery folder
+const galleryModules = import.meta.glob<{ default: string }>(
+  "../assets/gallery/*.{jpg,jpeg,png,webp}",
+  { eager: true }
+);
 
-import { getBreadcrumbSchema } from "@/lib/seo-schema";
+interface GalleryPhoto {
+  id: string;
+  src: string;
+  title: string;
+  category: "all" | "remodeling" | "outdoor" | "custom" | "maintenance";
+  categoryLabel: string;
+}
+
+// Convert all imported modules into structured gallery items
+const ALL_GALLERY_PHOTOS: GalleryPhoto[] = Object.entries(galleryModules).map(
+  ([path, mod], index) => {
+    const filename = path.split("/").pop() || `project-${index + 1}`;
+
+    // Categorize logically based on filename / screenshot index
+    let category: GalleryPhoto["category"] = "remodeling";
+    let categoryLabel = "Remodeling & Interior";
+
+    if (
+      filename.includes("screenshot-4") ||
+      filename.includes("screenshot-7") ||
+      filename.includes("668749688") ||
+      filename.includes("669122480") ||
+      filename.includes("750585942") ||
+      filename.includes("795027866")
+    ) {
+      category = "outdoor";
+      categoryLabel = "Decks & Outdoor Living";
+    } else if (
+      filename.includes("screenshot-1") ||
+      filename.includes("screenshot-3") ||
+      filename.includes("686042203") ||
+      filename.includes("686383646") ||
+      filename.includes("800483021") ||
+      filename.includes("802811143")
+    ) {
+      category = "custom";
+      categoryLabel = "Custom Builds & Framing";
+    } else if (
+      filename.includes("screenshot-5") ||
+      filename.includes("screenshot-8") ||
+      filename.includes("710746339") ||
+      filename.includes("711331235") ||
+      filename.includes("814232836")
+    ) {
+      category = "maintenance";
+      categoryLabel = "Repairs & Maintenance";
+    } else {
+      category = "remodeling";
+      categoryLabel = "Kitchen, Bath & Tile";
+    }
+
+    return {
+      id: `photo-${index + 1}`,
+      src: mod.default,
+      title: `Project Craftsmanship #${index + 1}`,
+      category,
+      categoryLabel,
+    };
+  }
+);
 
 export const Route = createFileRoute("/our-work")({
   head: () => ({
     meta: [
-      { title: "Project Portfolio & Completed Work | Right Lane Handyman Tampa Bay" },
+      {
+        title:
+          "Our Work: Project Portfolio & Craftsmanship | KV Property Inc | Neptune, NJ",
+      },
       {
         name: "description",
         content:
-          "Browse completed handyman repairs, pressure washing, demolition, landscaping & property maintenance projects across Tampa, Clearwater, and Hillsborough & Pinellas Counties.",
+          "Explore completed kitchen remodels, custom bathrooms, outdoor living builds, roofing, and commercial projects by KV Property Inc. in Neptune, NJ and Monmouth & Ocean counties. Call (732) 877-8614.",
       },
-      { property: "og:title", content: "Our Work & Portfolio - Right Lane Handyman Services" },
+      {
+        property: "og:title",
+        content: "Our Work: Craftsmanship You Can See | KV Property Inc.",
+      },
       {
         property: "og:description",
         content:
-          "Browse our featured home repair, hauling, and property maintenance transformations across Tampa Bay.",
+          "Browse real job site transformations by KV Property Inc. 20+ years of quality remodeling, custom construction, and property maintenance in Neptune, NJ.",
       },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: "https://www.rightlanehandymanservicellc.com/our-work" },
+      { property: "og:url", content: "https://www.kvpropertyinc.com/our-work" },
     ],
     links: [
       {
         rel: "canonical",
-        href: "https://www.rightlanehandymanservicellc.com/our-work",
+        href: "https://www.kvpropertyinc.com/our-work",
       },
     ],
   }),
   component: OurWorkPage,
 });
 
-interface GalleryItem {
-  id: number;
-  title: string;
-  desc: string;
-  img: string;
-  category: string;
-}
-
-function OurWorkPage() {
+export function OurWorkPage() {
+  const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
-  const [activeFilter, setActiveFilter] = useState<string>("All");
 
-  const categories = ["All", "Remodeling", "Outdoor Living", "Landscaping", "Construction", "Fencing"];
-
-  const featuredProjects = [
-    {
-      title: "Post Construction Cleaning",
-      subtitle: "Before & After: Complete cleanout after major renovation",
-      desc: "We specialize in thorough post-construction cleaning, removing dust, debris, and construction materials to leave your space move-in ready. From single rooms to entire commercial buildings, we handle it all.",
-      bullets: [
-        "Full-site debris removal",
-        "Dust and particle elimination",
-        "Surface cleaning and sanitization",
-        "Ready for occupancy"
-      ],
-      icon: "🔨"
-    },
-    {
-      title: "Pressure Washing",
-      subtitle: "Before & After: Driveway and pool deck restoration",
-      desc: "Restore the beauty of your property with our professional pressure washing services. We remove years of grime, mold, and stains from driveways, decks, siding, and pool areas.",
-      bullets: [
-        "Driveway and walkway cleaning",
-        "Deck and patio restoration",
-        "Pool deck and surrounding areas",
-        "Commercial building exteriors"
-      ],
-      icon: "💦"
-    },
-    {
-      title: "Demolition",
-      subtitle: "Before & After: Concrete and structure removal",
-      desc: "Safe and efficient demolition is our specialty. Whether you need a small concrete slab removed or an entire structure demolished, our team has the equipment and expertise to get the job done right.",
-      bullets: [
-        "Concrete slab removal",
-        "Interior demolition",
-        "Structural dismantling",
-        "Complete debris hauling"
-      ],
-      icon: "🏗️"
-    },
-    {
-      title: "Junk Removal & Hauling",
-      subtitle: "Before & After: Garage and property cleanout",
-      desc: "We haul what others won't. From old furniture and appliances to heavy debris and mixed materials, our team handles full-site cleanouts with ease.",
-      bullets: [
-        "Residential junk removal",
-        "Commercial cleanouts",
-        "Heavy debris hauling",
-        "Construction waste removal"
-      ],
-      icon: "🚛"
-    },
-    {
-      title: "Landscaping & Property Maintenance",
-      subtitle: "Before & After: Mulching, garden beds, and outdoor lighting",
-      desc: "Enhance your curb appeal with our professional landscaping and property maintenance services. We design, install, and maintain beautiful outdoor spaces.",
-      bullets: [
-        "Mulching and garden bed installation",
-        "Lawn maintenance and mowing",
-        "Outdoor lighting installation",
-        "Fence and gate repair"
-      ],
-      icon: "🌿"
-    },
-    {
-      title: "Handyman & Remodeling",
-      subtitle: "Before & After: Fence repair, drywall, and carpentry",
-      desc: "From sticky doors to complete room renovations, our handyman services cover it all. Our skilled team delivers precision and quality on every project.",
-      bullets: [
-        "Drywall repair and painting",
-        "Custom carpentry",
-        "Fence and gate repair",
-        "Fixture installation",
-        "Full room renovations"
-      ],
-      icon: "🏠"
-    }
+  const categories = [
+    { key: "all", label: `All Projects (${ALL_GALLERY_PHOTOS.length})` },
+    { key: "remodeling", label: "Kitchen, Bath & Tile" },
+    { key: "outdoor", label: "Decks & Outdoor Living" },
+    { key: "custom", label: "Custom Builds & Framing" },
+    { key: "maintenance", label: "Repairs & Maintenance" },
   ];
 
-  const galleryItems: GalleryItem[] = [
-    {
-      id: 0,
-      title: "Outdoor Living Transformation",
-      desc: "Before & After – Complete outdoor space renovation",
-      img: imgOutdoorLiving,
-      category: "Outdoor Living"
-    },
-    {
-      id: 1,
-      title: "Pressure Washing Project",
-      desc: "Driveway and pool deck restoration",
-      img: imgPressureWash,
-      category: "Landscaping"
-    },
-    {
-      id: 2,
-      title: "Demolition Project",
-      desc: "Concrete slab and structure removal",
-      img: imgDemolition,
-      category: "Construction"
-    },
-    {
-      id: 3,
-      title: "Junk Removal Project",
-      desc: "Full garage and property cleanout",
-      img: imgJunkRemoval,
-      category: "Construction"
-    },
-    {
-      id: 4,
-      title: "Landscaping Project",
-      desc: "Mulching, garden beds, and outdoor lighting",
-      img: imgLandscaping,
-      category: "Landscaping"
-    },
-    {
-      id: 5,
-      title: "Handyman Project",
-      desc: "Drywall repair and custom carpentry",
-      img: imgHandyman,
-      category: "Remodeling"
-    },
-    {
-      id: 6,
-      title: "Post Construction Cleaning",
-      desc: "Complete cleanout after renovation",
-      img: imgCleaning,
-      category: "Remodeling"
-    },
-    {
-      id: 7,
-      title: "Fence Repair Project",
-      desc: "Wooden fence gate and post replacement",
-      img: imgFencing,
-      category: "Fencing"
-    }
-  ];
+  const filteredPhotos = useMemo(() => {
+    if (selectedCategory === "all") return ALL_GALLERY_PHOTOS;
+    return ALL_GALLERY_PHOTOS.filter((p) => p.category === selectedCategory);
+  }, [selectedCategory]);
 
-  const highlightsList = [
-    { type: "Post Construction Cleaning", desc: "Full-site cleanup after major renovation", loc: "Clearwater, FL" },
-    { type: "Pressure Washing", desc: "Driveway and pool deck restoration", loc: "Clearwater Beach, FL" },
-    { type: "Demolition", desc: "Concrete slab and structure removal", loc: "Largo, FL" },
-    { type: "Junk Removal & Hauling", desc: "Garage and property cleanout", loc: "Dunedin, FL" },
-    { type: "Landscaping", desc: "Mulching, garden beds, and outdoor lighting", loc: "Safety Harbor, FL" },
-    { type: "Handyman Services", desc: "Drywall repair and custom carpentry", loc: "St. Petersburg, FL" },
-    { type: "Fence Repair", desc: "Wooden fence gate and post replacement", loc: "Pinellas Park, FL" },
-    { type: "Remodeling", desc: "Complete office renovation", loc: "Clearwater, FL" },
-    { type: "Storm Cleanup", desc: "Emergency debris removal after storm", loc: "Tampa, FL" },
-    { type: "Property Maintenance", desc: "Lawn mowing and general upkeep", loc: "Tarpon Springs, FL" }
-  ];
+  const activePhoto =
+    lightboxIndex !== null ? filteredPhotos[lightboxIndex] : null;
 
-  const processSteps = [
-    {
-      step: "Step 1",
-      title: "Free Consultation",
-      desc: "Contact us to discuss your project. We'll listen to your needs, assess the scope of work, and provide a free, no-obligation estimate."
-    },
-    {
-      step: "Step 2",
-      title: "Project Planning",
-      desc: "We develop a detailed plan, including timeline, materials, and cost. We ensure you're informed every step of the way."
-    },
-    {
-      step: "Step 3",
-      title: "Execution",
-      desc: "Our skilled team gets to work with precision and efficiency. We maintain clean job sites and clear communication throughout."
-    },
-    {
-      step: "Step 4",
-      title: "Final Walkthrough",
-      desc: "We walk through the completed project with you to ensure your complete satisfaction. We don't leave until you're happy."
-    }
-  ];
+  const handleNextLightbox = () => {
+    if (lightboxIndex === null) return;
+    setLightboxIndex((prev) =>
+      prev !== null && prev < filteredPhotos.length - 1 ? prev + 1 : 0
+    );
+  };
 
-  const clientReviews = [
-    {
-      quote: "They hauled away our old hot tub and concrete blocks. Very heavy work but the Right Lane crew handled it with ease. Outstanding service!",
-      author: "Michael F.",
-      city: "Largo"
-    },
-    {
-      quote: "Excellent deck pressure washing and sealing. Ronnie was professional, on time, and left our backyard spotless. 5 stars!",
-      author: "Rachel S.",
-      city: "Tarpon Springs"
-    },
-    {
-      quote: "Repaired our wooden fence gates and replaced three rotting posts. Very sturdy work and fair pricing. Will definitely hire Ronnie again.",
-      author: "Nancy P.",
-      city: "Pinellas Park"
-    },
-    {
-      quote: "They installed a gorgeous artificial turf and paved walkway in our courtyard. Flawless execution. I'll never use another handyman company again.",
-      author: "Jared W.",
-      city: "St. Petersburg"
-    },
-    {
-      quote: "The backyard fencing and covered patio upgrade they did for our home was outstanding. Professional, clean, and finished ahead of schedule.",
-      author: "Marcus T.",
-      city: "Clearwater"
-    }
-  ];
+  const handlePrevLightbox = () => {
+    if (lightboxIndex === null) return;
+    setLightboxIndex((prev) =>
+      prev !== null && prev > 0 ? prev - 1 : filteredPhotos.length - 1
+    );
+  };
 
-  const serviceCities = [
-    "Clearwater", "Largo", "St. Petersburg",
-    "Dunedin", "Tarpon Springs", "Safety Harbor",
-    "Palm Harbor", "Pinellas Park", "Seminole",
-    "Belleair", "Belleair Beach", "Bay Pines",
-    "Oldsmar", "Ozona", "Crystal Beach",
-    "Indian Rocks Beach"
-  ];
-
-  const benefitsList = [
-    { title: "25+ Years of Experience", text: "Every job is handled with skill and speed." },
-    { title: "Licensed, Insured & Bonded", text: "Complete peace of mind for your property." },
-    { title: "Residential, Commercial & Industrial", text: "We do it all." },
-    { title: "24/7 Emergency Service", text: "Nights, weekends, and Sundays (emergency only)." },
-    { title: "Upfront Pricing", text: "No surprises, no hidden fees." },
-    { title: "Guaranteed Work", text: "100% satisfaction." },
-    { title: "We Haul What Others Won't", text: "Heavy debris, mixed materials, and full-site cleanouts." },
-    { title: "Locally Owned", text: "Clearwater, FL – We know these communities." }
-  ];
-
-  const filteredGallery = activeFilter === "All"
-    ? galleryItems
-    : galleryItems.filter(item => item.category === activeFilter);
-
-  const breadcrumbSchema = getBreadcrumbSchema([
-    { name: "Home", url: "/" },
-    { name: "Our Work", url: "/our-work" },
-  ]);
+  const structuredSchema = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Home",
+            item: "https://www.kvpropertyinc.com/",
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: "Our Work",
+            item: "https://www.kvpropertyinc.com/our-work",
+          },
+        ],
+      },
+      {
+        "@type": ["HomeAndConstructionBusiness", "GeneralContractor"],
+        "@id": "https://www.kvpropertyinc.com/#business",
+        name: "KV Property Inc.",
+        url: "https://www.kvpropertyinc.com/our-work",
+        telephone: "+1-732-877-8614",
+        email: "kvpropertyinc@gmail.com",
+        priceRange: "$$",
+        address: {
+          "@type": "PostalAddress",
+          addressLocality: "Neptune",
+          addressRegion: "NJ",
+          addressCountry: "US",
+        },
+      },
+    ],
+  };
 
   return (
-    <div className="min-h-screen bg-[#f4f3ef] font-sans">
+    <div className="min-h-screen bg-[#f4f3ef] font-sans text-neutral-900 selection:bg-[#ffa326]/30 selection:text-neutral-950">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredSchema) }}
       />
+
       <SiteHeader />
 
-      {/* ── HERO BANNER ── */}
-      <div className="w-full bg-[#f4f3ef] pt-[5px] pb-[5px] px-[15px]">
-        <section className="relative mx-auto max-w-[1400px] w-full rounded-[10px] overflow-hidden border border-[#eae8e1] shadow-[0_12px_40px_rgb(0,0,0,0.06)] min-h-[380px] md:min-h-[460px] flex items-center justify-center text-center px-6 py-16">
+      {/* ── BREADCRUMB STRIP ── */}
+      <div className="w-full bg-[#f4f3ef] pt-2 pb-1 px-3 sm:px-[15px]">
+        <div className="mx-auto max-w-[1400px] w-full flex items-center justify-between text-xs py-2 px-4 rounded-lg bg-white/70 border border-[#eae6dd] text-neutral-600">
+          <nav className="flex items-center gap-1.5 font-medium" aria-label="Breadcrumb">
+            <Link to="/" className="text-neutral-500 hover:text-[#cc7e14] transition-colors">
+              Home
+            </Link>
+            <ChevronRight className="w-3 h-3 text-neutral-400" />
+            <span className="text-[#b86d0b] font-semibold">Our Work</span>
+          </nav>
+          <div className="hidden sm:flex items-center gap-2 text-[11px] font-semibold uppercase tracking-wider text-[#b86d0b]">
+            <span className="w-2 h-2 rounded-full bg-[#ffa326] animate-pulse" />
+            <span>40+ Real Project Transformations • Neptune, NJ</span>
+          </div>
+        </div>
+      </div>
+
+      {/* ── HERO SECTION (INTRO) ── */}
+      <div className="w-full bg-[#f4f3ef] pt-[5px] pb-[5px] px-2.5 sm:px-[15px]">
+        <section className="relative mx-auto max-w-[1400px] w-full rounded-[10px] overflow-hidden border border-[#eae8e1] shadow-[0_16px_50px_rgba(0,0,0,0.08)] min-h-[480px] sm:min-h-[540px] md:min-h-[580px] flex items-center justify-center text-center px-5 sm:px-10 md:px-14 lg:px-16 py-14 sm:py-18 md:py-20">
+          {/* Background Image with Cinematic Vibe */}
           <motion.div
-            initial={{ scale: 1.05, opacity: 0.95 }}
+            initial={{ scale: 1.06, opacity: 0.9 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 1.8, ease: [0.16, 1, 0.3, 1] }}
             className="absolute inset-0 bg-cover bg-center"
-            style={{ backgroundImage: `url(${workHero})` }}
+            style={{ backgroundImage: `url(${welBg})` }}
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-[#1c140d]/92 via-[#1c140d]/78 to-[#1c140d]/92 z-10" />
 
+          {/* Luxury Dark Gradient Overlay */}
+          <div className="absolute inset-0 bg-gradient-to-b from-[#120b06]/95 via-[#160f08]/88 to-[#120b06]/95 z-10" />
+
+          {/* Warm Ambient Halo Glow */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#ffa326]/15 rounded-full blur-[140px] pointer-events-none z-10" />
+
+          {/* Centered Content Block */}
+          <div className="relative z-20 max-w-4xl mx-auto w-full flex flex-col items-center text-center space-y-5 sm:space-y-6">
+            {/* Top Identity Tag */}
+            <motion.div
+              initial={{ opacity: 0, y: -15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
+              className="inline-flex items-center justify-center gap-2.5 px-4 py-1.5 rounded-full border border-[#ffa326]/35 bg-[#ffa326]/15 backdrop-blur-md text-[#ffc570] text-[11px] sm:text-xs font-bold uppercase tracking-wider shadow-sm select-none"
+            >
+              <span className="flex h-2 w-2 relative">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#ffa326] opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#ffa326]"></span>
+              </span>
+              <span>Our Work: KV Property Inc.</span>
+            </motion.div>
+
+            {/* Headline with exact styling requested */}
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.1, ease: "easeOut" }}
+              className="text-white leading-tight tracking-tight font-serif font-bold drop-shadow-[0_2px_12px_rgba(0,0,0,0.5)] text-center max-w-5xl mx-auto md:whitespace-nowrap"
+              style={{
+                fontSize: "clamp(22px, 3.4vw, 38px)",
+                marginTop: "-15px",
+                marginBottom: "10px",
+              }}
+            >
+              Craftsmanship You Can See.{" "}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#ffa326] via-[#ffc570] to-[#ffa326]">
+                Built To Last.
+              </span>
+            </motion.h1>
+
+            {/* Sub-headline */}
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
+              className="text-base sm:text-lg md:text-xl text-neutral-200 font-light leading-relaxed max-w-3xl mx-auto drop-shadow-[0_1px_4px_rgba(0,0,0,0.4)] text-center"
+            >
+              Every project is an opportunity to improve a space, solve a problem, and create something built to last. Explore our gallery of residential renovations, commercial builds, and property transformations across Neptune, NJ and surrounding communities.
+            </motion.p>
+
+            {/* Trust Badges Strip */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+              className="flex flex-wrap items-center justify-center gap-3 bg-white/10 backdrop-blur-md border border-white/15 rounded-full px-5 py-2 text-white text-xs sm:text-sm select-none"
+            >
+              <div className="flex items-center gap-1.5 text-[#ffa326]">
+                <Check className="w-4 h-4 text-[#ffa326]" />
+                <span className="font-semibold text-white">20+ Years Local Experience</span>
+              </div>
+              <span className="text-white/40">•</span>
+              <span className="text-neutral-300">Monmouth &amp; Ocean Counties</span>
+              <span className="text-white/40">•</span>
+              <span className="text-white font-semibold">Licensed &amp; Insured</span>
+            </motion.div>
+
+            {/* Primary & Secondary CTAs */}
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.4, ease: "easeOut" }}
+              className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 pt-2 w-full sm:w-auto"
+            >
+              <Link
+                to="/free-estimate"
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#ffa326] via-[#ea8d15] to-[#cc7e14] hover:from-[#ffb147] hover:to-[#b86d0b] px-7 sm:px-9 py-3.5 sm:py-4 text-white text-xs sm:text-sm font-bold uppercase tracking-wider hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 shadow-[0_4px_18px_rgba(255,163,38,0.38)] cursor-pointer text-center"
+              >
+                <span>Request a Free Estimate</span>
+                <ArrowRight className="w-4 h-4 shrink-0" />
+              </Link>
+              <a
+                href="tel:7328778614"
+                className="inline-flex items-center justify-center gap-2 rounded-full border border-white/25 bg-white/10 backdrop-blur-md hover:bg-white hover:text-neutral-950 px-7 sm:px-9 py-3.5 sm:py-4 text-white text-xs sm:text-sm font-bold uppercase tracking-wider hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 shadow-md cursor-pointer text-center"
+              >
+                <Phone className="w-4 h-4 shrink-0 fill-current text-[#ffa326]" />
+                <span>Call (732) 877-8614</span>
+              </a>
+            </motion.div>
+          </div>
+        </section>
+      </div>
+
+      {/* ── PROJECT PORTFOLIO GALLERY (PURE IMAGES — STRICTLY NO TEXT ON FRONT OF IMAGE) ── */}
+      <div className="w-full bg-[#f4f3ef] pt-[10px] pb-[10px] px-2.5 sm:px-[15px]">
+        <section className="mx-auto max-w-[1400px] w-full rounded-[10px] bg-white border border-[#eae8e1] shadow-[0_12px_45px_rgba(0,0,0,0.04)] px-4 sm:px-8 md:px-12 py-12 sm:py-16 text-center relative overflow-hidden">
+          {/* Subtle Ambient Illumination */}
+          <div className="absolute -top-32 -left-32 w-96 h-96 bg-[#ffa326]/10 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute -bottom-32 -right-32 w-96 h-96 bg-[#cc7e14]/10 rounded-full blur-3xl pointer-events-none" />
+
+          {/* Section Header */}
           <motion.div
-            initial={{ opacity: 0, y: 25 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: [0.25, 1, 0.5, 1] }}
-            className="relative z-20 max-w-4xl mx-auto flex flex-col items-center"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+            className="max-w-3xl mx-auto mb-10"
           >
-            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/20 bg-white/10 backdrop-blur-md text-white text-xs font-semibold uppercase tracking-wider mb-6 shadow-sm">
-              Our Work
+            <span className="inline-flex items-center gap-2 bg-[#ffa326]/12 border border-[#ffa326]/30 text-[#b86d0b] rounded-full px-5 py-1.5 text-[11px] font-extrabold uppercase tracking-wider mb-4 shadow-sm">
+              <Layers className="w-3.5 h-3.5" />
+              <span>Real Jobsite Gallery</span>
             </span>
-            <h1 className="text-[28px] sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight capitalize tracking-tight drop-shadow-md">
-              Our Completed Work &amp; Projects in Tampa Bay, FL
-            </h1>
-            <p className="mt-4 text-sm sm:text-base text-neutral-300 font-light leading-relaxed max-w-2xl">
-              At Right Lane Handyman Services, LLC, we take pride in delivering exceptional results for every client. Browse through our portfolio to see the quality and craftsmanship we bring to every job site across Tampa, Clearwater, and Pinellas &amp; Hillsborough Counties.
+
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-neutral-950 tracking-tight font-serif">
+              Our Completed Projects
+            </h2>
+
+            <p className="mt-4 text-neutral-600 text-sm sm:text-base leading-relaxed">
+              Explore actual project photos from residential and commercial properties throughout Neptune, Asbury Park, Spring Lake, Belmar, and surrounding Jersey Shore communities.
             </p>
           </motion.div>
-        </section>
-      </div>
 
-      {/* ── FEATURED PROJECTS SECTION ── */}
-      <div className="w-full bg-[#f4f3ef] pt-[10px] pb-[10px] px-[15px]">
-        <section
-          className="mx-auto max-w-[1400px] w-full rounded-[10px] bg-[#fcfbf8] border border-[#eae8e1] shadow-[0_12px_40px_rgb(0,0,0,0.03)] px-4 py-16 sm:px-8 md:px-12 lg:px-16 text-left"
-          style={{ backgroundImage: `url(${welBg})`, backgroundSize: "cover", backgroundPosition: "center" }}
-        >
-          <div className="max-w-3xl mx-auto text-center mb-16">
-            <span className="inline-flex items-center bg-[#ffa326]/10 border border-[#ffa326]/20 text-[#cc7e14] rounded-full px-5 py-1.5 text-[11px] font-extrabold uppercase tracking-wider mb-4">
-              Featured Work
-            </span>
-            <h2 className="text-3xl font-extrabold text-neutral-900 tracking-tight" style={{ fontFamily: "Georgia, serif" }}>
-              Our Featured Projects
-            </h2>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            {featuredProjects.map((project, idx) => (
-              <motion.div
-                key={project.title}
-                initial={{ opacity: 0, y: 25 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 0.6, delay: idx * 0.08 }}
-                className="bg-white border border-neutral-200/50 rounded-2xl p-6 sm:p-8 shadow-sm hover:shadow-md hover:border-[#ffa326]/20 transition-all duration-300 flex flex-col justify-between"
-              >
-                <div className="space-y-4">
-                  <div className="flex items-center gap-3">
-                    <span className="text-3xl select-none">{project.icon}</span>
-                    <h3 className="text-base sm:text-lg font-bold text-neutral-900 tracking-wide">
-                      {project.title}
-                    </h3>
-                  </div>
-                  
-                  <span className="text-xs font-bold text-[#cc7e14] block">
-                    {project.subtitle}
-                  </span>
-                  
-                  <p className="text-xs sm:text-sm text-neutral-600 font-light leading-relaxed">
-                    {project.desc}
-                  </p>
-
-                  <div className="border-t border-neutral-100 pt-4 space-y-2">
-                    <span className="text-xs font-extrabold text-neutral-800 uppercase tracking-widest block">Project Highlights:</span>
-                    <ul className="grid grid-cols-1 gap-1.5">
-                      {project.bullets.map((bullet) => (
-                        <li key={bullet} className="flex items-center gap-2 text-xs text-neutral-600 font-light">
-                          <CheckCircle2 className="w-3.5 h-3.5 text-[#cc7e14] shrink-0" />
-                          <span>{bullet}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </section>
-      </div>
-
-      {/* ── PROJECT GALLERY SECTION (WITH LIGHTBOX) ── */}
-      <div className="w-full bg-[#f4f3ef] pt-[10px] pb-[10px] px-[15px]">
-        <section className="mx-auto max-w-[1400px] w-full rounded-[10px] bg-[#f8f8f8] border border-[#eae8e1] shadow-sm px-4 py-20 sm:px-8 md:px-12 lg:px-16 text-center">
-          <div className="max-w-3xl mx-auto mb-10">
-            <span className="inline-flex items-center bg-[#ffa326]/10 border border-[#ffa326]/20 text-[#cc7e14] rounded-full px-5 py-1.5 text-[11px] font-extrabold uppercase tracking-wider mb-4">
-              Gallery
-            </span>
-            <h2 className="text-3xl font-extrabold text-neutral-900 tracking-tight" style={{ fontFamily: "Georgia, serif" }}>
-              Project Gallery
-            </h2>
-          </div>
-
-          {/* Filter Categories */}
-          <div className="flex flex-wrap justify-center gap-2 mb-12 max-w-4xl mx-auto">
+          {/* Category Filter Tabs */}
+          <div className="flex flex-wrap items-center justify-center gap-2 max-w-4xl mx-auto mb-10">
             {categories.map((cat) => (
               <button
-                key={cat}
-                onClick={() => setActiveFilter(cat)}
-                className={`px-5 py-2.5 rounded-full text-xs font-semibold tracking-wide border transition-all duration-200 cursor-pointer ${
-                  activeFilter === cat
-                    ? "bg-[#cc7e14] border-[#cc7e14] text-white shadow-md scale-[1.02]"
-                    : "bg-white border-neutral-200 hover:border-[#ffa326] text-neutral-800 hover:bg-neutral-50"
+                key={cat.key}
+                onClick={() => setSelectedCategory(cat.key)}
+                className={`px-4 py-2 rounded-full text-xs font-semibold tracking-wide transition-all duration-200 cursor-pointer ${
+                  selectedCategory === cat.key
+                    ? "bg-[#ffa326] text-white shadow-md scale-105"
+                    : "bg-[#f8f7f4] text-neutral-700 border border-neutral-200 hover:border-[#ffa326]/40 hover:bg-[#ffa326]/5"
                 }`}
               >
-                {cat}
+                {cat.label}
               </button>
             ))}
           </div>
 
-          {/* Gallery Grid */}
-          <motion.div layout className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4 max-w-6xl mx-auto text-left">
-            <AnimatePresence mode="popLayout">
-              {filteredGallery.map((item) => (
+          {/* Gallery Grid: STRICTLY NO TEXT ON FRONT OF IMAGE */}
+          <motion.div
+            layout
+            className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-5 text-left"
+          >
+            <AnimatePresence>
+              {filteredPhotos.map((photo, index) => (
                 <motion.div
+                  key={photo.id}
                   layout
-                  key={item.id}
-                  initial={{ opacity: 0, scale: 0.95 }}
+                  initial={{ opacity: 0, scale: 0.96 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.95 }}
-                  transition={{ duration: 0.3 }}
-                  onClick={() => setLightboxIndex(item.id)}
-                  className="group relative cursor-pointer overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-xs hover:shadow-lg transition-all duration-300"
+                  transition={{ duration: 0.4, delay: (index % 12) * 0.04 }}
+                  className="group bg-[#fcfbf9] rounded-2xl border border-neutral-200/90 overflow-hidden shadow-xs hover:shadow-xl hover:border-[#ffa326]/50 hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between"
                 >
-                  <div className="relative aspect-[4/3] overflow-hidden bg-neutral-100">
+                  {/* PURE IMAGE CONTAINER: STRICTLY NO TEXT ON FRONT OF IMAGE */}
+                  <div
+                    onClick={() => setLightboxIndex(index)}
+                    className="relative w-full aspect-[4/3] overflow-hidden bg-neutral-100 cursor-pointer select-none"
+                    title="Click to view full photo"
+                  >
                     <img
-                      src={item.img}
-                      alt={item.title}
-                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      src={photo.src}
+                      alt={photo.title}
                       loading="lazy"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
-                    <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                      <span className="h-10 w-10 rounded-full bg-white/90 flex items-center justify-center text-neutral-900 shadow-md transform scale-90 group-hover:scale-100 transition-transform duration-300">
-                        <ZoomIn className="w-5 h-5" />
-                      </span>
+                    {/* Visual Hover Cue: only subtle border and zoom cursor, ZERO text on front of image */}
+                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/15 transition-colors duration-300 flex items-center justify-center">
+                      <div className="w-10 h-10 rounded-full bg-white/90 text-neutral-900 flex items-center justify-center opacity-0 group-hover:opacity-100 scale-75 group-hover:scale-100 transition-all duration-300 shadow-md">
+                        <ZoomIn className="w-5 h-5 text-[#cc7e14]" />
+                      </div>
                     </div>
                   </div>
-                  <div className="p-5">
-                    <span className="text-[9px] font-bold text-[#cc7e14] bg-[#ffa326]/10 border border-[#ffa326]/20 px-2 py-0.5 rounded-full uppercase tracking-wider">
-                      {item.category}
-                    </span>
-                    <h3 className="text-sm font-extrabold text-neutral-900 mt-3 group-hover:text-[#cc7e14] transition-colors line-clamp-1">
-                      {item.title}
-                    </h3>
-                    <p className="text-xs text-neutral-500 font-light mt-1 line-clamp-1">
-                      {item.desc}
-                    </p>
+
+                  {/* Clean Metadata Container: PLACED EXCLUSIVELY BELOW THE IMAGE */}
+                  <div className="p-3.5 sm:p-4 bg-white border-t border-neutral-200/70 flex items-center justify-between">
+                    <div>
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-[#b86d0b] block">
+                        {photo.categoryLabel}
+                      </span>
+                      <h4 className="text-xs sm:text-sm font-semibold text-neutral-900 mt-0.5 truncate max-w-[190px]">
+                        {photo.title}
+                      </h4>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => setLightboxIndex(index)}
+                      className="text-neutral-400 group-hover:text-[#b86d0b] transition-colors p-1"
+                      aria-label="View photo"
+                    >
+                      <ArrowRight className="w-4 h-4" />
+                    </button>
                   </div>
                 </motion.div>
               ))}
             </AnimatePresence>
           </motion.div>
-
-          {/* Lightbox Modal */}
-          <AnimatePresence>
-            {lightboxIndex !== null && (
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-md flex flex-col items-center justify-center p-4"
-              >
-                <button
-                  onClick={() => setLightboxIndex(null)}
-                  className="absolute top-6 right-6 h-11 w-11 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors cursor-pointer border border-white/10"
-                >
-                  <X className="w-6 h-6" />
-                </button>
-                <div className="max-w-4xl w-full flex flex-col items-center">
-                  <motion.img
-                    initial={{ scale: 0.95 }}
-                    animate={{ scale: 1 }}
-                    exit={{ scale: 0.95 }}
-                    src={galleryItems[lightboxIndex].img}
-                    alt={galleryItems[lightboxIndex].title}
-                    className="max-h-[70vh] w-auto object-contain rounded-xl border border-white/10 shadow-2xl"
-                  />
-                  <div className="mt-6 text-center text-white space-y-1">
-                    <span className="text-xs font-bold text-[#ffa326] uppercase tracking-wider bg-[#ffa326]/10 border border-[#ffa326]/20 px-3 py-1 rounded-full">
-                      {galleryItems[lightboxIndex].category}
-                    </span>
-                    <h3 className="text-lg font-bold pt-2">{galleryItems[lightboxIndex].title}</h3>
-                    <p className="text-sm text-neutral-400 font-light">{galleryItems[lightboxIndex].desc}</p>
-                  </div>
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
         </section>
       </div>
 
-      {/* ── PROJECT HIGHLIGHTS COMPARATIVE TABLE ── */}
-      <div className="w-full bg-[#f4f3ef] pt-[10px] pb-[10px] px-[15px]">
-        <section className="mx-auto max-w-[1400px] w-full rounded-[10px] bg-white border border-[#eae8e1] shadow-sm px-6 py-20 md:px-12 lg:px-16 text-center">
-          <div className="max-w-3xl mx-auto mb-12">
-            <span className="inline-flex items-center bg-[#ffa326]/10 border border-[#ffa326]/20 text-[#cc7e14] rounded-full px-5 py-1.5 text-[11px] font-extrabold uppercase tracking-wider mb-4">
-              Highlights
-            </span>
-            <h2 className="text-3xl font-extrabold text-neutral-900 tracking-tight" style={{ fontFamily: "Georgia, serif" }}>
-              Project Highlights by Category
-            </h2>
-          </div>
-
-          <div className="max-w-5xl mx-auto overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-xs">
-            <div className="overflow-x-auto">
-              <table className="w-full border-collapse text-left text-sm">
-                <thead>
-                  <tr className="bg-[#f4f3ef] border-b border-neutral-200 text-neutral-900 font-bold">
-                    <th className="px-6 py-4">Project Type</th>
-                    <th className="px-6 py-4">Description</th>
-                    <th className="px-6 py-4">Location</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-neutral-100">
-                  {highlightsList.map((row, idx) => (
-                    <tr key={idx} className="hover:bg-neutral-50/50 transition-colors">
-                      <td className="px-6 py-4 font-bold text-neutral-950">{row.type}</td>
-                      <td className="px-6 py-4 text-neutral-600 font-light">{row.desc}</td>
-                      <td className="px-6 py-4 font-semibold text-neutral-700">{row.loc}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </section>
-      </div>
-
-      {/* ── OUR PROCESS (TIMELINE) ── */}
-      <div className="w-full bg-[#f4f3ef] pt-[10px] pb-[10px] px-[15px]">
-        <section className="mx-auto max-w-[1400px] w-full rounded-[10px] bg-[#f1e8db] border border-[#eae8e1] shadow-[0_12px_40px_rgb(0,0,0,0.04)] px-6 py-20 md:px-12 lg:px-16 text-center">
-          <div className="max-w-3xl mx-auto mb-16">
-            <span className="inline-flex items-center bg-white/60 border border-neutral-900/10 text-neutral-800 rounded-full px-5 py-1.5 text-[11px] font-extrabold uppercase tracking-wider mb-4 shadow-sm">
-              Our Process
-            </span>
-            <h2 className="text-3xl font-extrabold text-neutral-950 tracking-tight" style={{ fontFamily: "Georgia, serif" }}>
-              How We Work With You
-            </h2>
-            <p className="mt-4 text-neutral-700 text-sm md:text-base leading-relaxed">
-              We complete every project with care, precision, and complete transparency.
-            </p>
-          </div>
-
-          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4 max-w-6xl mx-auto relative">
-            {processSteps.map((step, idx) => (
-              <motion.div
-                key={step.step}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: idx * 0.1 }}
-                className="bg-white rounded-2xl border border-neutral-200/50 p-6 flex flex-col justify-start text-left shadow-xs hover:shadow-md transition-shadow relative"
-              >
-                <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#ffa326]/10 text-[#cc7e14] mb-4 border border-[#ffa326]/20 text-xs font-bold font-mono">
-                  {idx + 1}
-                </div>
-                <span className="text-[10px] font-bold text-[#cc7e14] uppercase tracking-wider block mb-1">
-                  {step.step}
-                </span>
-                <h3 className="text-sm sm:text-base font-extrabold text-neutral-900 tracking-wide mb-2">
-                  {step.title}
-                </h3>
-                <p className="text-xs text-neutral-600 leading-relaxed font-light">
-                  {step.desc}
-                </p>
-              </motion.div>
-            ))}
-          </div>
-        </section>
-      </div>
-
-      {/* ── CLIENT REVIEWS ABOUT WORK ── */}
-      <div className="w-full bg-[#f4f3ef] pt-[10px] pb-[10px] px-[15px]">
-        <section className="mx-auto max-w-[1400px] w-full rounded-[10px] bg-[#fbfaf7] border border-[#eae8e1] shadow-[0_12px_40px_rgb(0,0,0,0.03)] px-6 py-20 md:px-12 lg:px-16 text-center">
-          <div className="max-w-3xl mx-auto mb-16">
-            <span className="inline-flex items-center bg-[#ffa326]/10 border border-[#ffa326]/20 text-[#cc7e14] rounded-full px-5 py-1.5 text-[11px] font-extrabold uppercase tracking-wider mb-4">
-              Customer Feedback
-            </span>
-            <h2 className="text-3xl font-extrabold text-neutral-900 tracking-tight" style={{ fontFamily: "Georgia, serif" }}>
-              What Our Clients Say About Our Work
-            </h2>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto text-left">
-            {clientReviews.map((rev, idx) => (
-              <motion.div
-                key={rev.author}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: idx * 0.08 }}
-                className="bg-white rounded-2xl border border-neutral-200/50 p-6 shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between"
-              >
-                <div>
-                  <div className="flex gap-1 mb-4 text-[#ffa326]">
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="w-4 h-4 fill-current" />
-                    ))}
-                  </div>
-                  <p className="text-xs sm:text-sm text-neutral-700 italic leading-relaxed font-light mb-6">
-                    "{rev.quote}"
-                  </p>
-                </div>
-                <div className="border-t border-neutral-100 pt-4 flex items-center justify-between">
-                  <span className="text-xs font-bold text-neutral-900">{rev.author}</span>
-                  <span className="text-[10px] font-bold text-[#cc7e14] bg-[#ffa326]/10 border border-[#ffa326]/20 px-2 py-0.5 rounded-full uppercase tracking-wider">
-                    {rev.city}
-                  </span>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </section>
-      </div>
-
-      {/* ── SERVICE AREAS GRID ── */}
-      <div className="w-full bg-[#f4f3ef] pt-[10px] pb-[10px] px-[15px]">
-        <section className="mx-auto max-w-[1400px] w-full rounded-[10px] bg-[#f1e8db] border border-[#eae8e1] shadow-[0_12px_40px_rgb(0,0,0,0.04)] px-6 py-20 md:px-12 lg:px-16 text-center">
-          <div className="max-w-3xl mx-auto mb-12">
-            <span className="inline-flex items-center bg-white/60 border border-neutral-900/10 text-neutral-800 rounded-full px-5 py-1.5 text-[11px] font-extrabold uppercase tracking-wider mb-4 shadow-sm">
-              Our Coverage
-            </span>
-            <h2 className="text-3xl font-extrabold text-neutral-955 tracking-tight" style={{ fontFamily: "Georgia, serif" }}>
-              Service Areas
-            </h2>
-            <p className="mt-3 text-neutral-750 text-xs sm:text-sm font-light">
-              We proudly serve residential, commercial, and industrial clients across all of Pinellas County.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 max-w-4xl mx-auto">
-            {serviceCities.map((city) => (
-              <div
-                key={city}
-                className="bg-white/80 backdrop-blur-xs rounded-full border border-neutral-200/50 py-3 px-5 text-neutral-900 text-xs sm:text-sm font-semibold shadow-xs"
-              >
-                {city}
+      {/* ── CLIENT PEACE OF MIND STRIP ── */}
+      <div className="w-full bg-[#f4f3ef] pt-[10px] pb-[10px] px-2.5 sm:px-[15px]">
+        <section className="mx-auto max-w-[1400px] w-full rounded-[10px] bg-[#f1e8db] border border-[#eae8e1] shadow-[0_12px_40px_rgb(0,0,0,0.04)] px-5 py-10 sm:px-10 sm:py-14 text-center">
+          <div className="max-w-4xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 text-left">
+            <div className="flex items-start gap-4">
+              <div className="w-12 h-12 rounded-xl bg-[#ffa326]/15 border border-[#ffa326]/30 text-[#cc7e14] flex items-center justify-center shrink-0">
+                <Award className="w-6 h-6" />
               </div>
-            ))}
+              <div>
+                <h3 className="text-lg sm:text-xl font-bold font-serif text-neutral-900 leading-snug">
+                  "The 25+ years of experience shows in every detail."
+                </h3>
+                <p className="text-xs sm:text-sm text-neutral-700 mt-1">
+                  — Verified Review, The Carter Family (Full Home Remodeling / Kitchen &amp; Bath)
+                </p>
+              </div>
+            </div>
+            <Link
+              to="/reviews"
+              className="inline-flex items-center gap-2 whitespace-nowrap rounded-full bg-white hover:bg-neutral-50 border border-neutral-300 px-6 py-3 text-neutral-900 text-xs font-bold uppercase tracking-wider transition-all shadow-xs cursor-pointer"
+            >
+              <span>Read Client Reviews</span>
+              <ArrowRight className="w-3.5 h-3.5 text-[#cc7e14]" />
+            </Link>
           </div>
         </section>
       </div>
 
-      {/* ── BENEFITS SECTION ── */}
-      <div className="w-full bg-[#f4f3ef] pt-[10px] pb-[10px] px-[15px]">
-        <section className="mx-auto max-w-[1400px] w-full rounded-[10px] bg-white border border-[#eae8e1] shadow-sm px-6 py-20 md:px-12 lg:px-16 text-center">
-          <div className="max-w-3xl mx-auto mb-16">
-            <span className="inline-flex items-center bg-[#ffa326]/10 border border-[#ffa326]/20 text-[#cc7e14] rounded-full px-5 py-1.5 text-[11px] font-extrabold uppercase tracking-wider mb-4">
-              Why Us
-            </span>
-            <h2 className="text-3xl font-extrabold text-neutral-900 tracking-tight" style={{ fontFamily: "Georgia, serif" }}>
-              Why Choose Right Lane Handyman Services?
-            </h2>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
-            {benefitsList.map((benefit, idx) => (
-              <motion.div
-                key={benefit.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: idx * 0.08 }}
-                className="bg-[#fcfbf8] border border-neutral-200/50 rounded-2xl p-6 flex flex-col justify-between text-left shadow-xs hover:shadow-md transition-shadow"
-              >
-                <div>
-                  <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#ffa326]/10 text-[#cc7e14] mb-4 border border-[#ffa326]/20">
-                    <CheckCircle2 className="w-4 h-4" />
-                  </div>
-                  <h3 className="text-sm font-bold text-neutral-900 tracking-wide mb-2">{benefit.title}</h3>
-                  <p className="text-xs text-neutral-600 leading-relaxed font-light">{benefit.text}</p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </section>
-      </div>
-
-      {/* ── PREMIUM CALL TO ACTION ── */}
-      <div className="w-full bg-[#f4f3ef] pt-[10px] pb-[15px] px-[15px]">
+      {/* ── READY TO START YOUR PROJECT? (CLOSING CTA) ── */}
+      <div className="w-full bg-[#f4f3ef] pt-[10px] pb-[15px] px-2.5 sm:px-[15px]">
         <section
-          className="mx-auto max-w-[1400px] w-full rounded-[10px] bg-[#1c140d] text-white px-6 py-20 md:px-12 lg:px-16 text-center border border-neutral-800 shadow-[0_20px_50px_rgba(0,0,0,0.15)] relative overflow-hidden"
+          className="mx-auto max-w-[1400px] w-full rounded-[10px] bg-gradient-to-b from-[#18120c] via-[#150f0a] to-[#0f0a06] text-white px-5 py-14 sm:px-10 sm:py-20 md:px-14 md:py-24 text-center border border-neutral-800 shadow-[0_24px_60px_rgba(0,0,0,0.22)] relative overflow-hidden"
           style={{
-            backgroundImage: "linear-gradient(to bottom, rgba(28,20,13,0.96), rgba(28,20,13,0.98)), url(/src/assets/wel-bg.png)",
+            backgroundImage: `linear-gradient(to bottom, rgba(24,18,12,0.96), rgba(15,10,6,0.98)), url(${welBg})`,
             backgroundSize: "cover",
             backgroundPosition: "center",
           }}
         >
+          {/* Ambient Gold Glow */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#ffa326]/10 rounded-full blur-[140px] pointer-events-none" />
+
           <motion.div
             initial={{ opacity: 0, scale: 0.98, y: 20 }}
             whileInView={{ opacity: 1, scale: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
+            viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className="max-w-4xl mx-auto flex flex-col items-center"
+            className="max-w-4xl mx-auto flex flex-col items-center relative z-10"
           >
-            <img src={logo} alt="Right Lane Logo" className="h-14 w-auto object-contain mb-8 filter brightness-110" />
+            {/* Logo */}
+            <Link to="/" className="mb-6 cursor-pointer">
+              <img
+                src={logo}
+                alt="KV Property Inc Logo"
+                className="h-16 sm:h-20 w-auto object-contain filter brightness-110 drop-shadow-md hover:scale-105 transition-transform"
+              />
+            </Link>
 
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-extrabold text-white tracking-tight leading-tight mb-5">
+            {/* Tagline Badge */}
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#ffa326]/30 bg-[#ffa326]/10 text-[#ffc570] text-xs font-bold uppercase tracking-wider mb-4">
+              <span>Craftsmanship • Proven Results</span>
+            </div>
+
+            {/* Headline */}
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight mb-5 font-serif">
               Ready to Start Your Project?
             </h2>
 
-            <p className="text-sm md:text-base text-neutral-300 leading-relaxed font-light mb-10 max-w-3xl">
-              Don't let home repairs or project cleanups pile up. From drywall patching and custom carpentry to property maintenance and heavy debris hauling, our licensed, insured, and bonded crew is here to help get your property back in the right lane.
+            {/* Subtitle */}
+            <p className="text-sm sm:text-base md:text-lg text-neutral-300 leading-relaxed font-light mb-10 max-w-2xl">
+              From design consultation to the final walkthrough, KV Property Inc. delivers quality craftsmanship you can trust.
             </p>
 
-            <div className="bg-white/5 border border-white/10 backdrop-blur-md rounded-2xl p-8 w-full max-w-3xl mb-10 text-left">
-              <h3 className="text-lg font-bold text-white mb-5 text-center sm:text-left tracking-wide font-sans">
-                Right Lane Handyman Services, LLC
-              </h3>
+            {/* Dedicated Contact Showcase Box (No License Number as requested) */}
+            <div className="bg-white/5 border border-white/10 backdrop-blur-md rounded-2xl p-6 sm:p-8 w-full max-w-2xl mb-10 text-left shadow-2xl">
+              <div className="flex items-center justify-between pb-4 mb-5 border-b border-white/10 flex-wrap gap-2">
+                <h3 className="text-base sm:text-lg font-bold text-white tracking-wide">
+                  Contact Us Today:
+                </h3>
+                <span className="text-xs font-semibold text-[#ffa326] bg-[#ffa326]/10 px-3 py-1 rounded-full border border-[#ffa326]/20">
+                  Licensed &amp; Insured
+                </span>
+              </div>
 
-              <div className="grid sm:grid-cols-3 gap-5 text-[14px] font-light">
-                <a href="tel:7276420201" className="flex items-center gap-2.5 hover:text-[#ffa326] transition-colors">
-                  <Phone className="w-4 h-4 text-[#ffa326] shrink-0" />
-                  <span>(727) 642-0201</span>
+              <div className="grid sm:grid-cols-2 gap-4 sm:gap-5 text-sm sm:text-[15px] font-light">
+                <a
+                  href="tel:7328778614"
+                  className="flex items-center gap-3 text-neutral-200 hover:text-[#ffa326] transition-colors p-2.5 rounded-xl hover:bg-white/5 border border-transparent hover:border-white/10"
+                >
+                  <div className="w-9 h-9 rounded-full bg-[#ffa326]/20 flex items-center justify-center shrink-0">
+                    <Phone className="w-4 h-4 text-[#ffa326]" />
+                  </div>
+                  <div>
+                    <div className="text-[10px] uppercase tracking-wider text-neutral-400 font-bold">Phone</div>
+                    <div className="font-semibold text-white">(732) 877-8614</div>
+                  </div>
                 </a>
-                <a href="mailto:rightlanehandymanservice@yahoo.com" className="flex items-center gap-2.5 hover:text-[#ffa326] transition-colors">
-                  <Mail className="w-4 h-4 text-[#ffa326] shrink-0" />
-                  <span className="truncate">rightlanehandymanservice@yahoo.com</span>
+
+                <a
+                  href="mailto:kvpropertyinc@gmail.com"
+                  className="flex items-center gap-3 text-neutral-200 hover:text-[#ffa326] transition-colors p-2.5 rounded-xl hover:bg-white/5 border border-transparent hover:border-white/10"
+                >
+                  <div className="w-9 h-9 rounded-full bg-[#ffa326]/20 flex items-center justify-center shrink-0">
+                    <Mail className="w-4 h-4 text-[#ffa326]" />
+                  </div>
+                  <div>
+                    <div className="text-[10px] uppercase tracking-wider text-neutral-400 font-bold">Email</div>
+                    <div className="font-semibold text-white">kvpropertyinc@gmail.com</div>
+                  </div>
                 </a>
-                <div className="flex items-center gap-2.5">
-                  <MapPin className="w-4 h-4 text-[#ffa326] shrink-0" />
-                  <span>Clearwater, FL 33756</span>
+
+                <div className="flex items-center gap-3 text-neutral-200 p-2.5 rounded-xl col-span-1 sm:col-span-2">
+                  <div className="w-9 h-9 rounded-full bg-[#ffa326]/20 flex items-center justify-center shrink-0">
+                    <MapPin className="w-4 h-4 text-[#ffa326]" />
+                  </div>
+                  <div>
+                    <div className="text-[10px] uppercase tracking-wider text-neutral-400 font-bold">Service Area</div>
+                    <div className="font-semibold text-white">Neptune, NJ &amp; Surrounding Communities (25-mile radius)</div>
+                  </div>
                 </div>
               </div>
             </div>
 
-            <p className="text-xs font-semibold uppercase tracking-widest text-[#ffa326] mt-4 select-none italic font-serif">
-              "Let us get your property back in the right lane."
-            </p>
+            {/* Buttons */}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center w-full sm:w-auto">
+              <Link
+                to="/free-estimate"
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#ffa326] via-[#ea8d15] to-[#cc7e14] hover:from-[#ffb147] hover:to-[#b86d0b] px-8 py-4 text-white text-xs sm:text-sm font-bold tracking-wider uppercase transition-all duration-300 shadow-[0_6px_25px_rgba(255,163,38,0.4)] hover:scale-[1.03] active:scale-[0.98] cursor-pointer"
+              >
+                <span>Request Your Free Estimate</span>
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+              <a
+                href="tel:7328778614"
+                className="inline-flex items-center justify-center gap-2 rounded-full border border-white/30 bg-white/10 hover:bg-white hover:text-neutral-900 px-8 py-4 text-white text-xs sm:text-sm font-bold tracking-wider uppercase transition-all duration-300 shadow-md hover:scale-[1.03] active:scale-[0.98] cursor-pointer"
+              >
+                <Phone className="w-4 h-4 fill-current text-[#ffa326]" />
+                <span>Call Now: (732) 877-8614</span>
+              </a>
+            </div>
           </motion.div>
         </section>
       </div>
 
+      {/* ── FULLSCREEN LIGHTBOX (PURE IMAGE — STRICTLY NO TEXT OVER IMAGE) ── */}
+      <AnimatePresence>
+        {activePhoto && lightboxIndex !== null && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 bg-black/95 backdrop-blur-md flex flex-col items-center justify-between p-4 sm:p-6"
+          >
+            {/* Top Bar with counter and close */}
+            <div className="w-full max-w-6xl flex items-center justify-between text-white py-2">
+              <span className="text-xs sm:text-sm font-medium text-neutral-400">
+                Photo {lightboxIndex + 1} of {filteredPhotos.length}
+              </span>
+              <button
+                type="button"
+                onClick={() => setLightboxIndex(null)}
+                className="p-2 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors cursor-pointer"
+                aria-label="Close photo viewer"
+              >
+                <X className="w-6 h-6" />
+              </button>
+            </div>
+
+            {/* Center Area: Pure Unobscured Image */}
+            <div className="relative flex-1 w-full max-w-6xl flex items-center justify-center my-auto">
+              {/* Prev Button */}
+              <button
+                type="button"
+                onClick={handlePrevLightbox}
+                className="absolute left-2 sm:left-4 z-20 p-3 rounded-full bg-black/60 hover:bg-black/80 text-white border border-white/20 transition-all cursor-pointer"
+                aria-label="Previous photo"
+              >
+                <ChevronLeft className="w-6 h-6" />
+              </button>
+
+              {/* The Image — Completely Clean, Zero Overlay */}
+              <div className="max-h-[75vh] max-w-full flex items-center justify-center">
+                <img
+                  src={activePhoto.src}
+                  alt={activePhoto.title}
+                  className="max-h-[75vh] max-w-full object-contain rounded-lg shadow-2xl"
+                />
+              </div>
+
+              {/* Next Button */}
+              <button
+                type="button"
+                onClick={handleNextLightbox}
+                className="absolute right-2 sm:right-4 z-20 p-3 rounded-full bg-black/60 hover:bg-black/80 text-white border border-white/20 transition-all cursor-pointer"
+                aria-label="Next photo"
+              >
+                <ChevronRight className="w-6 h-6" />
+              </button>
+            </div>
+
+            {/* Bottom Panel — Text and Category placed BELOW the image */}
+            <div className="w-full max-w-2xl text-center py-3 text-white">
+              <span className="text-xs font-bold uppercase tracking-wider text-[#ffa326] block">
+                {activePhoto.categoryLabel}
+              </span>
+              <h3 className="text-sm sm:text-base font-semibold text-white mt-1">
+                {activePhoto.title}
+              </h3>
+              <p className="text-xs text-neutral-400 mt-1">
+                KV Property Inc. • Neptune, NJ &amp; Monmouth/Ocean Counties
+              </p>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       <SiteFooter />
-      <FloatingChat />
     </div>
   );
 }

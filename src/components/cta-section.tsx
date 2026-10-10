@@ -158,7 +158,7 @@ export function CTASection() {
               <div className="space-y-3 select-none">
                 {/* Phone Card */}
                 <a
-                  href="tel:7326776674"
+                  href="tel:7328778614"
                   className="group flex items-center justify-between p-3.5 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 hover:border-[#ffa326]/40 transition-all duration-300 shadow-sm"
                 >
                   <div className="flex items-center gap-3.5 min-w-0">
@@ -170,7 +170,7 @@ export function CTASection() {
                         Direct Phone Hotline
                       </span>
                       <span className="text-sm sm:text-base font-extrabold text-white group-hover:text-[#ffa326] transition-colors block">
-                        (732) 677-6674
+                        (732) 877-8614
                       </span>
                     </div>
                   </div>

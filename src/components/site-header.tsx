@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useLocation } from "@tanstack/react-router";
+import { useLocation, Link } from "@tanstack/react-router";
 import {
   Phone,
   ChevronDown,
@@ -28,66 +28,66 @@ import { useTranslation } from "@/context/translation-context";
 
 const navItems = [
   { key: "nav.home", to: "/", label: "Home" },
-  { key: "nav.about", to: "/about-us", label: "About" },
+  { key: "nav.about", to: "/about-us", label: "About Us" },
   { key: "nav.services", to: "/services", label: "Services" },
   { key: "nav.work", to: "/our-work", label: "Our Work" },
   { key: "nav.reviews", to: "/reviews", label: "Reviews" },
-  { key: "nav.financing", to: "/", hash: "financing", label: "Financing" },
+  { key: "nav.financing", to: "/financing", label: "Financing" },
   { key: "nav.contact", to: "/contact-us", label: "Contact" },
 ] as const;
 
 const servicesSubMenu = [
   {
     label: "Kitchen Remodeling",
-    to: "/services",
+    to: "/kitchen-remodeling",
     icon: Sparkles,
     desc: "Designed around the way you live",
   },
   {
     label: "Bathroom Remodeling",
-    to: "/services",
+    to: "/bathroom-remodeling",
     icon: Droplets,
     desc: "Quality materials & thoughtful design",
   },
   {
     label: "General Contracting",
-    to: "/services",
+    to: "/general-contracting",
     icon: Hammer,
     desc: "Complete construction management",
   },
   {
     label: "Deck & Outdoor Living",
-    to: "/services",
+    to: "/deck-outdoor-living",
     icon: Fence,
     desc: "Comfort, entertaining & living",
   },
   {
     label: "Pools & Outdoor Spaces",
-    to: "/services",
+    to: "/pools-outdoor-spaces",
     icon: Leaf,
     desc: "Functional & attractive outdoor spaces",
   },
   {
     label: "Home Additions",
-    to: "/services",
+    to: "/home-additions",
     icon: Home,
     desc: "Expand your living space",
   },
   {
     label: "Interior & Exterior Painting",
-    to: "/services",
+    to: "/interior-exterior-painting",
     icon: Paintbrush,
     desc: "Refresh & protect your property",
   },
   {
     label: "Flooring",
-    to: "/services",
+    to: "/flooring",
     icon: Landmark,
     desc: "Beautiful, durable flooring",
   },
   {
     label: "Handyman Services",
-    to: "/services",
+    to: "/handyman-services",
     icon: Wrench,
     desc: "Reliable repairs & property needs",
   },
@@ -99,13 +99,13 @@ const servicesSubMenu = [
   },
   {
     label: "Custom Builds",
-    to: "/services",
+    to: "/custom-builds",
     icon: Factory,
     desc: "Bring your ideas to life",
   },
   {
     label: "Commercial Improvements",
-    to: "/services",
+    to: "/commercial-improvements",
     icon: Building2,
     desc: "Commercial construction & repairs",
   },
@@ -120,18 +120,16 @@ export function SiteHeader() {
   const [servicesOpen, setServicesOpen] = useState(false);
 
   const getActiveItem = () => {
-    if (typeof window !== "undefined" && window.location.hash === "#financing") {
-      return "nav.financing";
-    }
     if (currentPath === "/") return "nav.home";
     if (currentPath.startsWith("/about-us")) return "nav.about";
     if (
       currentPath.startsWith("/services") ||
-      currentPath.startsWith("/property-maintenance")
+      servicesSubMenu.some((sub) => currentPath.startsWith(sub.to))
     )
       return "nav.services";
     if (currentPath.startsWith("/our-work")) return "nav.work";
     if (currentPath.startsWith("/reviews")) return "nav.reviews";
+    if (currentPath.startsWith("/financing")) return "nav.financing";
     if (currentPath.startsWith("/contact-us")) return "nav.contact";
     if (currentPath.startsWith("/free-estimate")) return "nav.estimate";
     return "";
@@ -181,8 +179,9 @@ export function SiteHeader() {
         >
           <div className="relative flex items-center justify-between w-full">
             {/* Logo */}
-            <div
-              className="flex items-center gap-3 group shrink-0 select-none py-0.5 cursor-default"
+            <Link
+              to="/"
+              className="flex items-center gap-3 group shrink-0 select-none py-0.5 cursor-pointer"
               aria-label="KV Property Inc Home"
             >
               <img
@@ -193,7 +192,7 @@ export function SiteHeader() {
                   : "h-[64px] xs:h-[68px] sm:h-15 md:h-16 lg:h-[72px]"
                   }`}
               />
-            </div>
+            </Link>
 
             {/* Desktop Navigation Items */}
             <nav className="hidden lg:flex items-center gap-1 xl:gap-1.5 ml-auto mr-5 xl:mr-6">
@@ -235,12 +234,13 @@ export function SiteHeader() {
                                 12 Services
                               </span>
                             </div>
-                            <span
-                              className="text-[12px] font-bold text-[#cc7e14] hover:text-[#b86d0b] flex items-center gap-1 transition-colors cursor-default select-none"
+                            <Link
+                              to="/services"
+                              className="text-[12px] font-bold text-[#cc7e14] hover:text-[#b86d0b] flex items-center gap-1 transition-colors select-none cursor-pointer"
                             >
                               <span>View All Services</span>
                               <ArrowRight className="w-3.5 h-3.5" />
-                            </span>
+                            </Link>
                           </div>
 
                           {/* 2-Column Services Grid */}
@@ -248,9 +248,10 @@ export function SiteHeader() {
                             {servicesSubMenu.map((sub) => {
                               const SubIcon = sub.icon;
                               return (
-                                <div
+                                <Link
                                   key={sub.label}
-                                  className="group/sub flex items-start gap-3 p-2.5 rounded-xl hover:bg-gradient-to-r hover:from-[#ffa326]/10 hover:to-transparent border border-transparent hover:border-[#ffa326]/20 transition-all duration-200 text-left select-none cursor-default"
+                                  to={sub.to}
+                                  className="group/sub flex items-start gap-3 p-2.5 rounded-xl hover:bg-gradient-to-r hover:from-[#ffa326]/10 hover:to-transparent border border-transparent hover:border-[#ffa326]/20 transition-all duration-200 text-left select-none cursor-pointer"
                                 >
                                   <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#ffa326]/10 text-[#cc7e14] group-hover/sub:bg-[#ffa326] group-hover/sub:text-white group-hover/sub:scale-105 transition-all duration-300 shrink-0 shadow-xs">
                                     <SubIcon className="h-4.5 w-4.5" />
@@ -263,7 +264,7 @@ export function SiteHeader() {
                                       {sub.desc}
                                     </span>
                                   </div>
-                                </div>
+                                </Link>
                               );
                             })}
                           </div>
@@ -276,18 +277,20 @@ export function SiteHeader() {
                                 <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
                               </span>
                               <span className="font-medium">24/7 Emergency Service:</span>
-                              <span
-                                className="font-bold text-white hover:text-[#ffa326] transition-colors select-none cursor-default"
+                              <a
+                                href="tel:7328778614"
+                                className="font-bold text-white hover:text-[#ffa326] transition-colors select-none cursor-pointer"
                               >
-                                (732) 677-6674
-                              </span>
+                                (732) 877-8614
+                              </a>
                             </div>
-                            <span
-                              className="text-[11px] font-bold uppercase tracking-wider text-[#ffa326] hover:text-[#ffc570] flex items-center gap-1 transition-colors select-none cursor-default"
+                            <Link
+                              to="/free-estimate"
+                              className="text-[11px] font-bold uppercase tracking-wider text-[#ffa326] hover:text-[#ffc570] flex items-center gap-1 transition-colors select-none cursor-pointer"
                             >
                               <span>Free Estimate</span>
                               <ArrowRight className="w-3 h-3" />
-                            </span>
+                            </Link>
                           </div>
                         </div>
                       </div>
@@ -297,24 +300,16 @@ export function SiteHeader() {
 
                 // Standard Nav Links
                 return (
-                  <button
-                    type="button"
+                  <Link
                     key={item.key}
-                    onClick={() => {
-                      if ("hash" in item && item.hash) {
-                        const el = document.getElementById(item.hash);
-                        if (el) {
-                          el.scrollIntoView({ behavior: "smooth" });
-                        }
-                      }
-                    }}
+                    to={item.to}
                     className={`relative px-3 xl:px-3.5 py-2 rounded-full text-[13.5px] xl:text-[14px] font-semibold tracking-[-0.01em] transition-all duration-200 select-none cursor-pointer ${isActive
                       ? "bg-[#ffa326]/12 text-[#b86d0b] border border-[#ffa326]/35 shadow-[0_2px_8px_rgba(255,163,38,0.12)]"
                       : "text-neutral-700 hover:text-neutral-950 hover:bg-neutral-900/[0.04] border border-transparent"
                       }`}
                   >
                     {t(item.key) || item.label}
-                  </button>
+                  </Link>
                 );
               })}
             </nav>
@@ -322,8 +317,8 @@ export function SiteHeader() {
             {/* Desktop Premium CTA Action Group */}
             <div className="hidden lg:flex items-center gap-2.5 xl:gap-3">
               {/* Primary Free Estimate Button */}
-              <button
-                type="button"
+              <Link
+                to="/free-estimate"
                 className={`relative group overflow-hidden rounded-full px-5 xl:px-6 py-2.5 text-xs sm:text-[13px] font-bold uppercase tracking-wider transition-all duration-300 shadow-[0_4px_16px_rgba(255,163,38,0.28)] hover:shadow-[0_6px_22px_rgba(255,163,38,0.45)] hover:scale-[1.02] active:scale-[0.98] select-none flex items-center gap-1.5 cursor-pointer ${activeItem === "nav.estimate"
                   ? "bg-[#cc7e14] text-white ring-2 ring-[#ffa326] ring-offset-2"
                   : "bg-gradient-to-r from-[#ffa326] via-[#ea8d15] to-[#cc7e14] text-white"
@@ -332,11 +327,11 @@ export function SiteHeader() {
                 <span className="absolute inset-0 w-1/2 h-full bg-white/20 skew-x-12 -translate-x-full group-hover:translate-x-[350%] transition-transform duration-1000 ease-out pointer-events-none" />
                 <span>Free Estimate</span>
                 <ArrowRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-0.5" />
-              </button>
+              </Link>
 
               {/* Direct Call Button with Live Dot */}
-              <button
-                type="button"
+              <a
+                href="tel:7328778614"
                 className="group flex items-center gap-2 rounded-full bg-neutral-900 hover:bg-neutral-800 border border-neutral-700/80 text-white px-4 xl:px-5 py-2.5 text-xs sm:text-[13px] font-bold tracking-wide shadow-[0_3px_12px_rgba(0,0,0,0.10)] hover:shadow-[0_6px_18px_rgba(0,0,0,0.18)] hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 select-none cursor-pointer"
               >
                 <span className="relative flex h-2 w-2 mr-0.5">
@@ -344,19 +339,19 @@ export function SiteHeader() {
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-[#ffa326]"></span>
                 </span>
                 <Phone className="h-3.5 w-3.5 text-[#ffa326] fill-[#ffa326]/20 transition-transform duration-300 group-hover:scale-110" />
-                <span>(732) 677-6674</span>
-              </button>
+                <span>(732) 877-8614</span>
+              </a>
             </div>
 
             {/* Mobile Controls */}
             <div className="lg:hidden flex items-center gap-2 sm:gap-2.5">
-              <button
-                type="button"
+              <a
+                href="tel:7328778614"
                 className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-r from-[#ffa326] to-[#cc7e14] text-white shadow-md transition-all duration-200 hover:scale-105 active:scale-95 cursor-pointer"
                 aria-label="Call KV Property Inc"
               >
                 <Phone className="h-4 w-4 fill-white text-white" />
-              </button>
+              </a>
 
               {/* Animated Hamburger Button */}
               <button
@@ -399,11 +394,13 @@ export function SiteHeader() {
             >
               {/* Drawer Header */}
               <div className="flex items-center justify-between px-6 py-4 border-b border-[#eae6dd] bg-white">
-                <img
-                  src={logo}
-                  alt="KV Property Inc"
-                  className="h-16 w-auto object-contain"
-                />
+                <Link to="/" onClick={closeMenu}>
+                  <img
+                    src={logo}
+                    alt="KV Property Inc"
+                    className="h-16 w-auto object-contain cursor-pointer"
+                  />
+                </Link>
                 <button
                   onClick={closeMenu}
                   aria-label="Close menu"
@@ -474,13 +471,14 @@ export function SiteHeader() {
                                       animate={{ opacity: 1, y: 0 }}
                                       transition={{ delay: subIdx * 0.02 }}
                                     >
-                                      <div
+                                      <Link
+                                        to={sub.to}
                                         onClick={closeMenu}
                                         className="flex items-center gap-2.5 px-3 py-2 text-[12.5px] font-semibold text-neutral-700 hover:text-[#cc7e14] hover:bg-[#ffa326]/8 rounded-lg transition-all duration-150 text-left select-none cursor-pointer"
                                       >
                                         <SubIcon className="h-3.5 w-3.5 text-[#cc7e14] shrink-0" />
                                         <span>{sub.label}</span>
-                                      </div>
+                                      </Link>
                                     </motion.div>
                                   );
                                 })}
@@ -505,19 +503,9 @@ export function SiteHeader() {
                         ease: "easeOut",
                       }}
                     >
-                      <button
-                        type="button"
-                        onClick={() => {
-                          closeMenu();
-                          if ("hash" in item && item.hash) {
-                            setTimeout(() => {
-                              const el = document.getElementById(item.hash);
-                              if (el) {
-                                el.scrollIntoView({ behavior: "smooth" });
-                              }
-                            }, 120);
-                          }
-                        }}
+                      <Link
+                        to={item.to}
+                        onClick={closeMenu}
                         className={`flex items-center gap-3 w-full px-4 py-3 rounded-xl font-semibold text-[15px] transition-all duration-200 cursor-pointer select-none ${isActive
                           ? "bg-[#ffa326]/12 text-[#cc7e14]"
                           : "text-neutral-800 hover:bg-[#ffa326]/8 hover:text-[#cc7e14]"
@@ -528,7 +516,7 @@ export function SiteHeader() {
                             }`}
                         />
                         {t(item.key) || item.label}
-                      </button>
+                      </Link>
                     </motion.div>
                   );
                 })}
@@ -542,9 +530,9 @@ export function SiteHeader() {
                 </div>
                 <div className="flex items-center gap-2 text-xs text-neutral-700">
                   <Mail className="h-3.5 w-3.5 text-[#cc7e14] shrink-0" />
-                  <span className="text-neutral-700 select-none cursor-default">
+                  <a href="mailto:kvpropertyinc@gmail.com" className="text-neutral-700 hover:text-[#cc7e14] transition-colors">
                     kvpropertyinc@gmail.com
-                  </span>
+                  </a>
                 </div>
                 <div className="flex items-center gap-2 text-xs text-emerald-700 font-medium">
                   <Clock className="h-3.5 w-3.5 text-emerald-600 shrink-0" />
@@ -554,22 +542,22 @@ export function SiteHeader() {
 
               {/* Bottom Sticky Action Buttons */}
               <div className="p-4 border-t border-[#eae6dd] bg-white space-y-2.5">
-                <button
-                  type="button"
+                <Link
+                  to="/free-estimate"
                   onClick={closeMenu}
                   className="flex items-center justify-center gap-2 w-full rounded-xl py-3.5 text-[13px] font-bold tracking-wide uppercase transition-all duration-200 shadow-md hover:shadow-lg bg-gradient-to-r from-[#ffa326] via-[#ea8d15] to-[#cc7e14] text-white hover:brightness-105 active:scale-[0.98] cursor-pointer"
                 >
                   <span>Request A Free Estimate</span>
                   <ArrowRight className="h-3.5 w-3.5" />
-                </button>
-                <button
-                  type="button"
+                </Link>
+                <a
+                  href="tel:7328778614"
                   onClick={closeMenu}
                   className="flex items-center justify-center gap-2.5 w-full rounded-xl bg-neutral-900 hover:bg-neutral-800 py-3.5 text-white text-[13px] font-bold tracking-wide shadow-sm hover:shadow-md active:scale-[0.98] transition-all duration-200 cursor-pointer"
                 >
                   <Phone className="h-3.5 w-3.5 text-[#ffa326] fill-[#ffa326]/30" />
-                  <span>Call (732) 677-6674</span>
-                </button>
+                  <span>Call (732) 877-8614</span>
+                </a>
               </div>
             </motion.div>
           </>

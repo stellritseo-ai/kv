@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Link } from "@tanstack/react-router";
 import {
   MessageSquare,
   FileSpreadsheet,
@@ -221,20 +222,20 @@ export function Process() {
             </div>
 
             <div className="flex flex-row items-center justify-center gap-2 xs:gap-3 shrink-0 w-full md:w-auto">
-              <button
-                type="button"
+              <a
+                href="tel:7328778614"
                 className="inline-flex items-center justify-center gap-1.5 sm:gap-2 bg-white/10 hover:bg-white/20 text-white border border-white/20 rounded-full px-3.5 xs:px-5 py-2.5 text-[11px] xs:text-xs font-bold transition-all duration-300 shadow-sm cursor-pointer whitespace-nowrap text-center"
               >
                 <Phone className="w-3.5 h-3.5 text-amber-400 shrink-0" />
-                <span>Call (732) 677-6674</span>
-              </button>
-              <button
-                type="button"
+                <span>Call (732) 877-8614</span>
+              </a>
+              <Link
+                to="/free-estimate"
                 className="inline-flex items-center justify-center gap-1.5 sm:gap-2 bg-gradient-to-r from-[#ffa326] to-[#cc7e14] hover:from-[#ffb147] hover:to-[#995906] text-white rounded-full px-3.5 xs:px-6 py-2.5 text-[11px] xs:text-xs font-bold transition-all duration-300 shadow-md hover:scale-[1.02] cursor-pointer whitespace-nowrap text-center"
               >
                 <span>Get Free Estimate</span>
                 <ArrowRight className="w-3.5 h-3.5 shrink-0" />
-              </button>
+              </Link>
             </div>
           </motion.div>
         </div>

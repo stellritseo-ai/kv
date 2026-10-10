@@ -1,9 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
-import { FloatingChat } from "@/components/floating-chat";
-import { getReviews } from "@/lib/leads-store";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Star,
@@ -14,43 +12,52 @@ import {
   Award,
   ThumbsUp,
   MessageSquare,
-  FileText,
-  Share2,
+  Sparkles,
+  Hammer,
+  Wrench,
+  Clock,
+  ShieldCheck,
+  ArrowRight,
+  ChevronRight,
   ExternalLink,
-  Filter,
-  Users
+  Quote,
+  HeartHandshake,
+  Check,
+  Send,
+  X,
 } from "lucide-react";
 import logo from "@/assets/logo.png";
 import welBg from "@/assets/wel-bg.png";
-import reviewsHero from "@/assets/wel-bg.png";
+import statsJobsite from "@/assets/stats-cleanup.png";
 import bbbBadge from "@/assets/bbb-badge.png";
 import yelpBadge from "@/assets/yelp-badge.png";
 import homeAdvisorBadge from "@/assets/homeadvisor-badge.png";
 
-import { getBreadcrumbSchema } from "@/lib/seo-schema";
-
 export const Route = createFileRoute("/reviews")({
   head: () => ({
     meta: [
-      { title: "Client Reviews & Ratings | Right Lane Handyman Services Tampa Bay" },
+      { title: "Reviews & Client Testimonials | KV Property Inc | Neptune, NJ" },
       {
         name: "description",
         content:
-          "Read verified customer reviews for Right Lane Handyman Services LLC. 4.9/5 stars for home repairs, pressure washing, junk removal & cleaning across Tampa Bay.",
+          "Read verified client reviews for KV Property Inc. 20+ years of quality remodeling, construction, and property maintenance in Neptune, NJ and Monmouth & Ocean counties. Call (732) 877-8614.",
       },
-      { property: "og:title", content: "Client Reviews - Right Lane Handyman Services, LLC" },
+      {
+        property: "og:title",
+        content: "Reviews: Trusted by Homeowners & Businesses Alike | KV Property Inc.",
+      },
       {
         property: "og:description",
         content:
-          "What our clients say about Ronnie Lane and the Right Lane team across Hillsborough and Pinellas Counties.",
+          "Quality work, professional service. Results that last. Hear from homeowners and business owners across Neptune, NJ who trusted KV Property Inc.",
       },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: "https://www.rightlanehandymanservicellc.com/reviews" },
+      { property: "og:url", content: "https://www.kvpropertyinc.com/reviews" },
     ],
     links: [
       {
         rel: "canonical",
-        href: "https://www.rightlanehandymanservicellc.com/reviews",
+        href: "https://www.kvpropertyinc.com/reviews",
       },
     ],
   }),
@@ -58,740 +65,916 @@ export const Route = createFileRoute("/reviews")({
 });
 
 interface ReviewItem {
-  id: number;
+  id: string;
   author: string;
-  role: string;
-  city: string;
-  title: string;
+  role?: string;
+  location?: string;
   quote: string;
-  category: string;
+  service: string;
+  category: "all" | "remodeling" | "bathroom" | "roofing" | "custom" | "commercial";
   rating: number;
+  initials: string;
+  avatarColor: string;
 }
 
-const DEFAULT_REVIEWS: ReviewItem[] = [
-  {
-    id: 1,
-    author: "Sandra K.",
-    role: "Homeowner",
-    city: "Safety Harbor",
-    title: "Outstanding service from start to finish",
-    quote: "The crew was courteous, efficient, and clearly knew what they were doing. Highly recommend.",
-    category: "Handyman & Repairs",
-    rating: 5
-  },
-  {
-    id: 2,
-    author: "Diana L.",
-    role: "Homeowner",
-    city: "Dunedin",
-    title: "Best remodeling contractor in Clearwater",
-    quote: "They wired, painted, and finished our entire office renovation — on time, on budget, and zero issues.",
-    category: "Remodeling",
-    rating: 5
-  },
-  {
-    id: 3,
-    author: "Priya S.",
-    role: "Homeowner",
-    city: "Largo",
-    title: "Truly 24/7 service",
-    quote: "Called them for emergency cleanup and debris removal after the storm — they arrived within 45 minutes and worked tirelessly.",
-    category: "Storm & Emergency Cleanup",
-    rating: 5
-  },
-  {
-    id: 4,
-    author: "Jared W.",
-    role: "Homeowner",
-    city: "St. Petersburg",
-    title: "Flawless execution. I'll never use another handyman company again",
-    quote: "They installed a gorgeous artificial turf and paved walkway in our courtyard.",
-    category: "Remodeling",
-    rating: 5
-  },
-  {
-    id: 5,
-    author: "Michael F.",
-    role: "Homeowner",
-    city: "Largo",
-    title: "They hauled away our old hot tub and concrete blocks",
-    quote: "Very heavy work but the Right Lane crew handled it with ease. Outstanding service!",
-    category: "Junk Removal & Hauling",
-    rating: 5
-  },
-  {
-    id: 6,
-    author: "Rachel S.",
-    role: "Homeowner",
-    city: "Tarpon Springs",
-    title: "Excellent deck pressure washing and sealing",
-    quote: "Ronnie was professional, on time, and left our backyard spotless. 5 stars!",
-    category: "Pressure Washing",
-    rating: 5
-  },
-  {
-    id: 7,
-    author: "Robert T.",
-    role: "Homeowner",
-    city: "Tampa",
-    title: "Cleaned up our commercial property after storm damage",
-    quote: "Cleared fallen branches, loose gravel, and trash. Excellent communication throughout.",
-    category: "Storm & Emergency Cleanup",
-    rating: 5
-  },
-  {
-    id: 8,
-    author: "Jason B.",
-    role: "Homeowner",
-    city: "Clearwater",
-    title: "Super responsive handyman service",
-    quote: "They fixed our sticky doors, hung some heavy shelving, and replaced three light fixtures in one afternoon.",
-    category: "Handyman & Repairs",
-    rating: 5
-  },
-  {
-    id: 9,
-    author: "Nancy P.",
-    role: "Homeowner",
-    city: "Pinellas Park",
-    title: "Repaired our wooden fence gates and replaced three rotting posts",
-    quote: "Very sturdy work and fair pricing. Will definitely hire Ronnie again.",
-    category: "Handyman & Repairs",
-    rating: 5
-  },
-  {
-    id: 10,
-    author: "Thomas H.",
-    role: "Homeowner",
-    city: "Safety Harbor",
-    title: "Had our front yard mulched and garden beds bordered",
-    quote: "Right Lane did a beautiful job. Our curb appeal has never looked better!",
-    category: "Landscaping & Property Maintenance",
-    rating: 5
-  },
-  {
-    id: 11,
-    author: "Sarah W.",
-    role: "Homeowner",
-    city: "Dunedin",
-    title: "Fast debris removal after clearing out our garage",
-    quote: "They took care of everything from old furniture to broken appliances. Excellent service.",
-    category: "Junk Removal & Hauling",
-    rating: 5
-  },
-  {
-    id: 12,
-    author: "Mark A.",
-    role: "Homeowner",
-    city: "St. Petersburg",
-    title: "Right Lane repaired our drywall after a plumbing leak",
-    quote: "They did the patching, texturing, and painting flawlessly. You can't even see where the hole was.",
-    category: "Drywall & Painting",
-    rating: 5
-  },
-  {
-    id: 13,
-    author: "Linda K.",
-    role: "Homeowner",
-    city: "Clearwater Beach",
-    title: "Professional pressure washing for our entire driveway and pool deck",
-    quote: "It looks brand new again. Highly recommend Right Lane!",
-    category: "Pressure Washing",
-    rating: 5
-  },
-  {
-    id: 14,
-    author: "Gary D.",
-    role: "Homeowner",
-    city: "Largo",
-    title: "Ronnie hauled away two truckloads of old deck lumber and yard waste in less than an hour",
-    quote: "Great prices and prompt service in Largo.",
-    category: "Junk Removal & Hauling",
-    rating: 5
-  },
-  {
-    id: 15,
-    author: "Tony B.",
-    role: "Homeowner",
-    city: "Tarpon Springs",
-    title: "Pressure washing and concrete demolition was smooth",
-    quote: "The team was incredibly knowledgeable. They left the site spotless.",
-    category: "Pressure Washing",
-    rating: 5
-  },
-  {
-    id: 16,
-    author: "Rosa F.",
-    role: "Homeowner",
-    city: "Pinellas Park",
-    title: "Hired them for a complete drywall repair and painting of a 1970s bungalow",
-    quote: "They passed every inspection. Excellent team.",
-    category: "Drywall & Painting",
-    rating: 5
-  },
-  {
-    id: 17,
-    author: "Kenji M.",
-    role: "Homeowner",
-    city: "Clearwater Beach",
-    title: "Mulching, landscaping, and property maintenance was seamless",
-    quote: "They set up Lutron outdoor lighting and fixed all our deck issues.",
-    category: "Landscaping & Property Maintenance",
-    rating: 5
-  },
-  {
-    id: 18,
-    author: "Marcus T.",
-    role: "Homeowner",
-    city: "Clearwater",
-    title: "The backyard fencing and covered patio upgrade they did for our home was outstanding",
-    quote: "Professional, clean, and finished ahead of schedule.",
-    category: "Remodeling",
-    rating: 5
-  }
-];
+export function ReviewsPage() {
+  const [selectedCategory, setSelectedCategory] = useState<string>("all");
+  const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
+  const [reviewSubmitted, setReviewSubmitted] = useState(false);
+  const [newReview, setNewReview] = useState({
+    name: "",
+    service: "",
+    rating: 5,
+    comment: "",
+  });
 
-function ReviewsPage() {
-  const [activeCategory, setActiveCategory] = useState<string>("All");
-  const [reviews, setReviews] = useState<ReviewItem[]>(DEFAULT_REVIEWS);
-
-  useEffect(() => {
-    let active = true;
-    const fetchDbReviews = async () => {
-      try {
-        const data = await getReviews();
-        if (active && data && data.length > 0) {
-          const getCategoryFromText = (title: string, text: string): string => {
-            const content = `${title} ${text}`.toLowerCase();
-            if (content.includes("junk") || content.includes("haul") || content.includes("debris") || content.includes("waste")) {
-              return "Junk Removal & Hauling";
-            }
-            if (content.includes("pressure") || content.includes("wash") || content.includes("power")) {
-              return "Pressure Washing";
-            }
-            if (content.includes("storm") || content.includes("emergency") || content.includes("flood") || content.includes("hurricane")) {
-              return "Storm & Emergency Cleanup";
-            }
-            if (content.includes("paint") || content.includes("drywall") || content.includes("wall") || content.includes("texture")) {
-              return "Drywall & Painting";
-            }
-            if (content.includes("landscap") || content.includes("mulch") || content.includes("garden") || content.includes("lawn") || content.includes("mow")) {
-              return "Landscaping & Property Maintenance";
-            }
-            if (content.includes("remodel") || content.includes("renovat") || content.includes("construction") || content.includes("build")) {
-              return "Remodeling";
-            }
-            return "Handyman & Repairs";
-          };
-
-          const mapped = data.map((r: any) => ({
-            id: r.id || r._id,
-            author: r.author || "Anonymous",
-            role: r.role || "Verified Client",
-            city: r.location || "Clearwater",
-            title: r.title || "Excellent Service",
-            quote: r.text || "",
-            category: r.category || getCategoryFromText(r.title || "", r.text || ""),
-            rating: r.rating || 5
-          }));
-          setReviews(mapped);
-        }
-      } catch (err) {
-        console.error("Error loading db reviews:", err);
-      }
-    };
-    fetchDbReviews();
-    return () => {
-      active = false;
-    };
-  }, []);
+  const reviews: ReviewItem[] = [
+    {
+      id: "carter",
+      author: "The Carter Family",
+      role: "Homeowner",
+      location: "Neptune, NJ",
+      quote:
+        "KV Property Inc. exceeded our expectations at our house! From custom cabinets to granite countertops, and tile shower with niche, the craftsmanship and communication were on point. The 25+ years of experience shows in every detail.",
+      service: "Full Home Remodeling / Kitchen & Bath",
+      category: "remodeling",
+      rating: 5,
+      initials: "CF",
+      avatarColor: "#B45309",
+    },
+    {
+      id: "melissa-brian",
+      author: "Melissa & Brian P.",
+      role: "Homeowner",
+      location: "Asbury Park, NJ",
+      quote:
+        "The transformation of our master bathroom in our Asbury Park home is stunning! KV Property Inc. handled everything from plumbing and electrical to tiling and fixtures. They were licensed, insured, and very professional. Highly recommended.",
+      service: "Bathroom Remodeling",
+      category: "bathroom",
+      rating: 5,
+      initials: "MB",
+      avatarColor: "#0F766E",
+    },
+    {
+      id: "david-m",
+      author: "David M.",
+      role: "Property Owner",
+      location: "Neptune Area",
+      quote:
+        "I can't say enough about the service I received. They repaired my roof, installed new gutters and downspouts, and fixed drywall damage. They provided clear estimates, showed up on time, and the quality of work was exceptional. They are my go-to for property maintenance.",
+      service: "Roofing & Property Maintenance",
+      category: "roofing",
+      rating: 5,
+      initials: "DM",
+      avatarColor: "#1D4ED8",
+    },
+    {
+      id: "jessica-l",
+      author: "Jessica L.",
+      role: "Homeowner",
+      location: "Wall Township, NJ",
+      quote:
+        "I had a great experience with KV Property Inc. for my kitchen remodel. They were professional, tidy, and finished the project on schedule. The new countertops and cabinets look fantastic.",
+      service: "Kitchen Remodeling",
+      category: "remodeling",
+      rating: 5,
+      initials: "JL",
+      avatarColor: "#BE185D",
+    },
+    {
+      id: "garcia",
+      author: "The Garcia Family",
+      role: "Homeowner",
+      location: "Spring Lake, NJ",
+      quote:
+        "We are thrilled with our new pool area! The team at KV Property Inc. transformed our backyard into an oasis. Their attention to detail and quality of workmanship is unmatched.",
+      service: "Pool Construction / Custom Builds",
+      category: "custom",
+      rating: 5,
+      initials: "GF",
+      avatarColor: "#047857",
+    },
+    {
+      id: "mark-r",
+      author: "Mark R.",
+      role: "Local Business Owner",
+      location: "Red Bank, NJ",
+      quote:
+        "As a local business owner, I rely on KV Property Inc. for all my commercial maintenance needs. They are reliable, responsive, and always do a fantastic job. It's a relief to have a contractor I can trust.",
+      service: "Commercial Property Maintenance",
+      category: "commercial",
+      rating: 5,
+      initials: "MR",
+      avatarColor: "#7C3AED",
+    },
+  ];
 
   const categories = [
-    "All",
-    "Junk Removal & Hauling",
-    "Pressure Washing",
-    "Storm & Emergency Cleanup",
-    "Handyman & Repairs",
-    "Drywall & Painting",
-    "Landscaping & Property Maintenance",
-    "Remodeling"
+    { key: "all", label: "All Reviews (6)" },
+    { key: "remodeling", label: "Kitchen & Remodeling" },
+    { key: "bathroom", label: "Bathroom" },
+    { key: "roofing", label: "Roofing & Maintenance" },
+    { key: "custom", label: "Pools & Custom Builds" },
+    { key: "commercial", label: "Commercial" },
   ];
 
-  const recentReviewsGlance = [
-    { name: "Michael F.", location: "Largo", service: "Junk Removal & Hauling", rating: "★★★★★" },
-    { name: "Rachel S.", location: "Tarpon Springs", service: "Pressure Washing", rating: "★★★★★" },
-    { name: "Robert T.", location: "Tampa", service: "Storm Cleanup", rating: "★★★★★" },
-    { name: "Jason B.", location: "Clearwater", service: "Handyman Services", rating: "★★★★★" },
-    { name: "Nancy P.", location: "Pinellas Park", service: "Fence Repair", rating: "★★★★★" },
-    { name: "Thomas H.", location: "Safety Harbor", service: "Landscaping", rating: "★★★★★" },
-    { name: "Sarah W.", location: "Dunedin", service: "Debris Removal", rating: "★★★★★" },
-    { name: "Mark A.", location: "St. Petersburg", service: "Drywall Repair", rating: "★★★★★" },
-    { name: "Linda K.", location: "Clearwater Beach", service: "Pressure Washing", rating: "★★★★★" },
-    { name: "Gary D.", location: "Largo", service: "Hauling", rating: "★★★★★" },
-    { name: "Sandra K.", location: "Safety Harbor", service: "General Service", rating: "★★★★★" },
-    { name: "Tony B.", location: "Tarpon Springs", service: "Pressure Washing / Demolition", rating: "★★★★★" },
-    { name: "Rosa F.", location: "Pinellas Park", service: "Drywall & Painting", rating: "★★★★★" },
-    { name: "Kenji M.", location: "Clearwater Beach", service: "Landscaping", rating: "★★★★★" },
-    { name: "Diana L.", location: "Dunedin", service: "Remodeling", rating: "★★★★★" },
-    { name: "Jared W.", location: "St. Petersburg", service: "Turf & Paving", rating: "★★★★★" },
-    { name: "Priya S.", location: "Largo", service: "Emergency Cleanup", rating: "★★★★★" },
-    { name: "Marcus T.", location: "Clearwater", service: "Fencing & Patio", rating: "★★★★★" }
+  const filteredReviews =
+    selectedCategory === "all"
+      ? reviews
+      : reviews.filter((r) => r.category === selectedCategory);
+
+  const whyChoosePillars = [
+    {
+      title: "Transparent Communication",
+      desc: "We keep you informed from consultation to final walkthrough.",
+      icon: MessageSquare,
+      badge: "No Surprises",
+    },
+    {
+      title: "Meticulous Attention to Detail",
+      desc: "We treat your property like our own, ensuring every tile, shingle, and fixture is perfectly placed.",
+      icon: Sparkles,
+      badge: "Master Craftsmanship",
+    },
+    {
+      title: "Versatile Expertise",
+      desc: "From handyman services to full-scale commercial builds, we have the skills to handle it all.",
+      icon: Hammer,
+      badge: "Comprehensive Trades",
+    },
+    {
+      title: "Reliability",
+      desc: "We show up when we say we will and stick to the timeline.",
+      icon: Clock,
+      badge: "Punctual Delivery",
+    },
   ];
 
-  const whatClientsLove = [
-    { reason: "Professionalism", text: "Courteous, efficient, and clearly knew what they were doing." },
-    { reason: "Speed & Reliability", text: "Arrived within 45 minutes and worked tirelessly." },
-    { reason: "Quality Workmanship", text: "Flawless execution. You can't even see where the hole was." },
-    { reason: "Fair Pricing", text: "Great prices and prompt service." },
-    { reason: "Communication", text: "Excellent communication throughout." },
-    { reason: "Cleanliness", text: "Left the site spotless." }
-  ];
+  const handleReviewSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setReviewSubmitted(true);
+    setTimeout(() => {
+      setIsReviewModalOpen(false);
+      setReviewSubmitted(false);
+      setNewReview({ name: "", service: "", rating: 5, comment: "" });
+    }, 2000);
+  };
 
-  const whyChooseItems = [
-    "25+ Years of Experience – Every job is handled with skill and speed.",
-    "Licensed, Insured & Bonded – Complete peace of mind for your property.",
-    "Residential, Commercial & Industrial – We do it all.",
-    "24/7 Emergency Service – Nights, weekends, and Sundays (emergency only).",
-    "Upfront Pricing – No surprises, no hidden fees.",
-    "Guaranteed Work – 100% satisfaction.",
-    "We Haul What Others Won't – Heavy debris, mixed materials, and full-site cleanouts.",
-    "Locally Owned – Clearwater, FL – We know these communities."
-  ];
-
-  const filteredReviews = activeCategory === "All"
-    ? reviews
-    : reviews.filter(r => r.category === activeCategory);
-
-  const breadcrumbSchema = getBreadcrumbSchema([
-    { name: "Home", url: "/" },
-    { name: "Reviews", url: "/reviews" },
-  ]);
+  const structuredSchema = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Home",
+            item: "https://www.kvpropertyinc.com/",
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: "Reviews",
+            item: "https://www.kvpropertyinc.com/reviews",
+          },
+        ],
+      },
+      {
+        "@type": ["HomeAndConstructionBusiness", "GeneralContractor"],
+        "@id": "https://www.kvpropertyinc.com/#business",
+        name: "KV Property Inc.",
+        url: "https://www.kvpropertyinc.com/reviews",
+        telephone: "+1-732-877-8614",
+        email: "kvpropertyinc@gmail.com",
+        priceRange: "$$",
+        address: {
+          "@type": "PostalAddress",
+          addressLocality: "Neptune",
+          addressRegion: "NJ",
+          addressCountry: "US",
+        },
+        aggregateRating: {
+          "@type": "AggregateRating",
+          ratingValue: "5.0",
+          bestRating: "5",
+          worstRating: "1",
+          ratingCount: "6",
+          reviewCount: "6",
+        },
+        review: reviews.map((r) => ({
+          "@type": "Review",
+          author: {
+            "@type": "Person",
+            name: r.author,
+          },
+          reviewRating: {
+            "@type": "Rating",
+            ratingValue: r.rating.toString(),
+            bestRating: "5",
+          },
+          reviewBody: r.quote,
+        })),
+      },
+    ],
+  };
 
   return (
-    <div className="min-h-screen bg-[#f4f3ef] font-sans">
+    <div className="min-h-screen bg-[#f4f3ef] font-sans text-neutral-900 selection:bg-[#ffa326]/30 selection:text-neutral-950">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredSchema) }}
       />
+
       <SiteHeader />
 
-      {/* ── HERO SECTION ── */}
-      <div className="w-full bg-[#f4f3ef] pt-[5px] pb-[5px] px-[15px]">
-        <section className="relative mx-auto max-w-[1400px] w-full rounded-[10px] overflow-hidden border border-[#eae8e1] shadow-[0_12px_40px_rgb(0,0,0,0.06)] min-h-[380px] md:min-h-[460px] flex items-center justify-center text-center px-6 py-16">
+      {/* ── BREADCRUMB STRIP ── */}
+      <div className="w-full bg-[#f4f3ef] pt-2 pb-1 px-3 sm:px-[15px]">
+        <div className="mx-auto max-w-[1400px] w-full flex items-center justify-between text-xs py-2 px-4 rounded-lg bg-white/70 border border-[#eae6dd] text-neutral-600">
+          <nav className="flex items-center gap-1.5 font-medium" aria-label="Breadcrumb">
+            <Link to="/" className="text-neutral-500 hover:text-[#cc7e14] transition-colors">
+              Home
+            </Link>
+            <ChevronRight className="w-3 h-3 text-neutral-400" />
+            <span className="text-[#b86d0b] font-semibold">Reviews</span>
+          </nav>
+          <div className="hidden sm:flex items-center gap-2 text-[11px] font-semibold uppercase tracking-wider text-[#b86d0b]">
+            <span className="w-2 h-2 rounded-full bg-[#ffa326] animate-pulse" />
+            <span>Trusted by Homeowners &amp; Businesses Alike</span>
+          </div>
+        </div>
+      </div>
+
+      {/* ── HERO SECTION (INTRO) ── */}
+      <div className="w-full bg-[#f4f3ef] pt-[5px] pb-[5px] px-2.5 sm:px-[15px]">
+        <section className="relative mx-auto max-w-[1400px] w-full rounded-[10px] overflow-hidden border border-[#eae8e1] shadow-[0_16px_50px_rgba(0,0,0,0.08)] min-h-[480px] sm:min-h-[540px] md:min-h-[580px] flex items-center justify-center text-center px-5 sm:px-10 md:px-14 lg:px-16 py-14 sm:py-18 md:py-20">
+          {/* Background Image with Cinematic Vibe */}
           <motion.div
-            initial={{ scale: 1.05, opacity: 0.95 }}
+            initial={{ scale: 1.06, opacity: 0.9 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 1.8, ease: [0.16, 1, 0.3, 1] }}
             className="absolute inset-0 bg-cover bg-center"
-            style={{ backgroundImage: `url(${reviewsHero})` }}
+            style={{ backgroundImage: `url(${welBg})` }}
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-[#1c140d]/92 via-[#1c140d]/78 to-[#1c140d]/92 z-10" />
 
-          <motion.div
-            initial={{ opacity: 0, y: 25 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: [0.25, 1, 0.5, 1] }}
-            className="relative z-20 max-w-4xl mx-auto flex flex-col items-center"
-          >
-            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/20 bg-white/10 backdrop-blur-md text-white text-xs font-semibold uppercase tracking-wider mb-6 shadow-sm">
-              Client Reviews
-            </span>
-            <h1 className="text-[28px] sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight capitalize tracking-tight drop-shadow-md">
-              Customer Reviews &amp; Testimonials – Tampa Bay, FL
-            </h1>
-            <p className="mt-6 text-sm sm:text-base text-neutral-300 font-light leading-relaxed max-w-2xl">
-              Trust is earned one job at a time. For over 25 years, we've been serving the Tampa, Clearwater, and Pinellas &amp; Hillsborough County communities with honesty, reliability, and exceptional workmanship. Read what our clients have to say about Ronnie and the Right Lane team.
-            </p>
-          </motion.div>
+          {/* Luxury Dark Gradient Overlay */}
+          <div className="absolute inset-0 bg-gradient-to-b from-[#120b06]/95 via-[#160f08]/88 to-[#120b06]/95 z-10" />
+
+          {/* Warm Ambient Halo Glow */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#ffa326]/15 rounded-full blur-[140px] pointer-events-none z-10" />
+
+          {/* Centered Content Block */}
+          <div className="relative z-20 max-w-4xl mx-auto w-full flex flex-col items-center text-center space-y-5 sm:space-y-6">
+            {/* Top Identity Tag */}
+            <motion.div
+              initial={{ opacity: 0, y: -15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
+              className="inline-flex items-center justify-center gap-2.5 px-4 py-1.5 rounded-full border border-[#ffa326]/35 bg-[#ffa326]/15 backdrop-blur-md text-[#ffc570] text-[11px] sm:text-xs font-bold uppercase tracking-wider shadow-sm select-none"
+            >
+              <span className="flex h-2 w-2 relative">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#ffa326] opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#ffa326]"></span>
+              </span>
+              <span>Reviews: Trusted by Homeowners &amp; Businesses Alike</span>
+            </motion.div>
+
+            {/* Headline */}
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.1, ease: "easeOut" }}
+              className="text-white leading-[1.16] tracking-tight font-serif font-bold drop-shadow-[0_2px_12px_rgba(0,0,0,0.5)] text-center max-w-4xl"
+              style={{
+                fontSize: "clamp(32px, 5vw, 50px)",
+                marginTop: "-15px",
+                marginBottom: "10px",
+              }}
+            >
+              What Our Clients{" "}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#ffa326] via-[#ffc570] to-[#ffa326]">
+                Say
+              </span>
+            </motion.h1>
+
+            {/* Sub-headline */}
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
+              className="text-base sm:text-lg md:text-xl text-neutral-200 font-light leading-relaxed max-w-3xl mx-auto drop-shadow-[0_1px_4px_rgba(0,0,0,0.4)] text-center"
+            >
+              Quality work, professional service. Results that last. Your project could be our next success story.
+            </motion.p>
+
+            {/* Star Rating Trust Badge */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+              className="flex flex-wrap items-center justify-center gap-3 bg-white/10 backdrop-blur-md border border-white/15 rounded-full px-5 py-2 text-white text-xs sm:text-sm select-none"
+            >
+              <div className="flex gap-1 text-[#ffa326]">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="w-4 h-4 fill-[#ffa326]" />
+                ))}
+              </div>
+              <span className="font-bold text-white">5.0 Star Rating</span>
+              <span className="text-white/40">•</span>
+              <span className="text-neutral-300">Verified Homeowner &amp; Commercial Client Reviews</span>
+            </motion.div>
+
+            {/* CTAs */}
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.4, ease: "easeOut" }}
+              className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 pt-2 w-full sm:w-auto"
+            >
+              <button
+                type="button"
+                onClick={() => {
+                  const el = document.getElementById("leave-review");
+                  if (el) {
+                    el.scrollIntoView({ behavior: "smooth" });
+                  } else {
+                    setIsReviewModalOpen(true);
+                  }
+                }}
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#ffa326] via-[#ea8d15] to-[#cc7e14] hover:from-[#ffb147] hover:to-[#b86d0b] px-7 sm:px-9 py-3.5 sm:py-4 text-white text-xs sm:text-sm font-bold uppercase tracking-wider hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 shadow-[0_4px_18px_rgba(255,163,38,0.38)] cursor-pointer text-center"
+              >
+                <span>Leave Us a Review</span>
+                <Star className="w-4 h-4 fill-white shrink-0" />
+              </button>
+              <Link
+                to="/free-estimate"
+                className="inline-flex items-center justify-center gap-2 rounded-full border border-white/25 bg-white/10 backdrop-blur-md hover:bg-white hover:text-neutral-950 px-7 sm:px-9 py-3.5 sm:py-4 text-white text-xs sm:text-sm font-bold uppercase tracking-wider hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 shadow-md cursor-pointer text-center"
+              >
+                <span>Get a Free Estimate</span>
+                <ArrowRight className="w-4 h-4 shrink-0" />
+              </Link>
+            </motion.div>
+          </div>
         </section>
       </div>
 
-      {/* ── RATINGS OVERVIEW CARD ── */}
-      <div className="w-full bg-[#f4f3ef] pt-[10px] pb-[10px] px-[15px]">
-        <section className="mx-auto max-w-[1400px] w-full rounded-[10px] bg-white border border-[#eae8e1] shadow-sm py-12 px-6 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="max-w-xl mx-auto flex flex-col items-center"
-          >
-            <span className="text-sm font-bold text-neutral-500 uppercase tracking-widest">Overall Rating</span>
-            <div className="flex gap-1.5 mt-3 text-[#ffa326]">
-              {[...Array(5)].map((_, i) => (
-                <Star key={i} className="w-8 h-8 fill-current" />
-              ))}
-            </div>
-            <h2 className="mt-4 text-2xl sm:text-3xl font-extrabold text-neutral-900">
-              4.9 out of 5 Stars
-            </h2>
-            <p className="text-sm text-neutral-600 font-light mt-1.5">
-              Based on 50+ Verified Reviews from Homeowners & Commercial Clients
-            </p>
-          </motion.div>
-        </section>
-      </div>
-
-      {/* ── BY SERVICE TYPE & REVIEWS GRID ── */}
-      <div className="w-full bg-[#f4f3ef] pt-[10px] pb-[10px] px-[15px]">
+      {/* ── BUILDING TRUST, ONE PROJECT AT A TIME ── */}
+      <div className="w-full bg-[#f4f3ef] pt-[10px] pb-[10px] px-2.5 sm:px-[15px]">
         <section
-          className="mx-auto max-w-[1400px] w-full rounded-[10px] bg-[#fcfbf8] border border-[#eae8e1] shadow-[0_12px_40px_rgb(0,0,0,0.03)] px-4 py-16 sm:px-8 md:px-12 lg:px-16"
+          className="mx-auto max-w-[1400px] w-full rounded-[10px] bg-[#fcfbf8] border border-[#eae8e1] shadow-[0_12px_40px_rgb(0,0,0,0.03)] px-5 py-12 sm:px-10 sm:py-16 md:px-14 md:py-20"
           style={{ backgroundImage: `url(${welBg})`, backgroundSize: "cover", backgroundPosition: "center" }}
         >
-          <div className="text-center max-w-2xl mx-auto mb-10">
-            <span className="inline-flex items-center bg-[#ffa326]/10 border border-[#ffa326]/20 text-[#cc7e14] rounded-full px-5 py-1.5 text-[11px] font-extrabold uppercase tracking-wider mb-4">
-              Filter by Service
-            </span>
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-neutral-900 tracking-tight" style={{ fontFamily: "Georgia, serif" }}>
-              Explore Reviews By Project Category
-            </h2>
+          <div className="grid gap-10 lg:grid-cols-[1.3fr_1fr] lg:gap-16 items-center">
+            {/* Story Text */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+              className="space-y-6 text-left"
+            >
+              <div className="inline-flex items-center gap-2 bg-[#ffa326]/12 border border-[#ffa326]/30 text-[#b86d0b] rounded-full px-4 py-1.5 text-[11px] font-extrabold uppercase tracking-wider">
+                <HeartHandshake className="w-3.5 h-3.5" />
+                <span>Our Reputation</span>
+              </div>
+
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-neutral-950 tracking-tight leading-tight font-serif">
+                Building Trust,{" "}
+                <span className="bg-gradient-to-r from-[#ffa326] to-[#cc7e14] bg-clip-text text-transparent">
+                  One Project at a Time
+                </span>
+              </h2>
+
+              <p className="text-base sm:text-lg text-neutral-800 leading-relaxed font-normal">
+                At KV Property Inc., we believe that our reputation is built on the satisfaction of our clients. With over 20 years of experience serving Neptune, NJ, and the surrounding communities, we have had the privilege of transforming homes and commercial spaces with precision and care.
+              </p>
+
+              <p className="text-sm sm:text-base text-neutral-700 leading-relaxed font-normal">
+                From complex kitchen remodels to routine property maintenance, our team is dedicated to delivering results that exceed expectations. But don't just take our word for it—hear from the homeowners and business owners who have trusted us with their most valuable investments.
+              </p>
+
+              {/* Trust Pillars */}
+              <div className="grid grid-cols-2 gap-3 sm:gap-4 pt-2">
+                <div className="bg-white/90 border border-neutral-200/80 rounded-xl p-4 shadow-xs">
+                  <div className="text-2xl sm:text-3xl font-extrabold text-[#cc7e14] font-serif">5.0 / 5</div>
+                  <div className="text-xs font-bold text-neutral-900 mt-1">Client Satisfaction</div>
+                  <div className="text-[11px] text-neutral-500">Uncompromising standard</div>
+                </div>
+                <div className="bg-white/90 border border-neutral-200/80 rounded-xl p-4 shadow-xs">
+                  <div className="text-2xl sm:text-3xl font-extrabold text-neutral-900 font-serif">20+ Yrs</div>
+                  <div className="text-xs font-bold text-neutral-900 mt-1">Local Craftsmanship</div>
+                  <div className="text-[11px] text-neutral-500">Neptune, NJ &amp; Jersey Shore</div>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Visual Callout Card */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.96 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+              className="relative w-full max-w-[460px] mx-auto"
+            >
+              <div className="absolute top-3 left-3 right-[-6px] bottom-[-6px] sm:right-[-10px] sm:bottom-[-10px] border-2 border-[#ffa326]/30 rounded-3xl z-0 pointer-events-none" />
+              <div className="relative z-10 w-full rounded-2xl overflow-hidden shadow-2xl border border-neutral-200/80 bg-white">
+                <img
+                  src={statsJobsite}
+                  alt="KV Property Inc verified projects"
+                  className="w-full h-[360px] sm:h-[400px] object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-neutral-950/85 via-neutral-950/20 to-transparent" />
+                <div className="absolute bottom-5 left-5 right-5 text-left text-white">
+                  <div className="flex gap-1 text-[#ffa326] mb-2">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} className="w-4 h-4 fill-[#ffa326]" />
+                    ))}
+                  </div>
+                  <h4 className="text-base font-bold font-serif leading-snug">
+                    "The 25+ years of experience shows in every detail."
+                  </h4>
+                  <p className="text-xs text-neutral-300 mt-1">
+                    — Verified Homeowner Review, Full Home Remodeling
+                  </p>
+                </div>
+              </div>
+            </motion.div>
           </div>
+        </section>
+      </div>
+
+      {/* ── REAL STORIES, REAL RESULTS (CURATED REVIEWS GRID) ── */}
+      <div className="w-full bg-[#f4f3ef] pt-[10px] pb-[10px] px-2.5 sm:px-[15px]">
+        <section className="mx-auto max-w-[1400px] w-full rounded-[10px] bg-gradient-to-b from-[#fbfaf8] via-white to-[#f7f5ee] border border-[#eae8e1] shadow-[0_12px_45px_rgba(0,0,0,0.04)] px-5 py-12 sm:px-10 sm:py-16 md:px-14 md:py-20 text-center relative overflow-hidden">
+          {/* Subtle Ambient Glow */}
+          <div className="absolute -top-32 -left-32 w-96 h-96 bg-[#ffa326]/10 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute -bottom-32 -right-32 w-96 h-96 bg-[#cc7e14]/10 rounded-full blur-3xl pointer-events-none" />
+
+          {/* Section Header */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+            className="max-w-3xl mx-auto mb-10"
+          >
+            <span className="inline-flex items-center gap-2 bg-[#ffa326]/12 border border-[#ffa326]/30 text-[#b86d0b] rounded-full px-5 py-1.5 text-[11px] font-extrabold uppercase tracking-wider mb-4 shadow-sm">
+              <Star className="w-3.5 h-3.5 fill-[#ffa326]" />
+              <span>Client Testimonials</span>
+            </span>
+
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-neutral-950 tracking-tight font-serif">
+              Real Stories, Real Results
+            </h2>
+
+            <p className="mt-4 text-neutral-700 text-sm sm:text-base leading-relaxed">
+              Curated reviews from homeowners and commercial property managers who chose KV Property Inc. for their remodeling, repairs, and builds:
+            </p>
+          </motion.div>
 
           {/* Category Filter Tabs */}
-          <div className="flex flex-wrap justify-center gap-2 mb-12 max-w-5xl mx-auto">
+          <div className="flex flex-wrap items-center justify-center gap-2 max-w-4xl mx-auto mb-10">
             {categories.map((cat) => (
               <button
-                key={cat}
-                onClick={() => setActiveCategory(cat)}
-                className={`px-5 py-2.5 rounded-full text-xs font-semibold tracking-wide border transition-all duration-200 cursor-pointer ${
-                  activeCategory === cat
-                    ? "bg-[#cc7e14] border-[#cc7e14] text-white shadow-md scale-[1.02]"
-                    : "bg-white border-neutral-200 hover:border-[#ffa326] text-neutral-800 hover:bg-neutral-50"
+                key={cat.key}
+                onClick={() => setSelectedCategory(cat.key)}
+                className={`px-4 py-2 rounded-full text-xs font-semibold tracking-wide transition-all duration-200 cursor-pointer ${
+                  selectedCategory === cat.key
+                    ? "bg-[#ffa326] text-white shadow-md scale-105"
+                    : "bg-white text-neutral-700 border border-neutral-200 hover:border-[#ffa326]/40 hover:bg-[#ffa326]/5"
                 }`}
               >
-                {cat}
+                {cat.label}
               </button>
             ))}
           </div>
 
-          {/* Reviews Grid */}
-          <div className="relative min-h-[300px]">
-            <motion.div
-              layout
-              className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 max-w-6xl mx-auto"
-            >
-              <AnimatePresence mode="popLayout">
-                {filteredReviews.map((test) => (
-                  <motion.div
-                    layout
-                    key={test.id}
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.95 }}
-                    transition={{ duration: 0.4 }}
-                    className="bg-white rounded-2xl border border-neutral-200/50 p-6 shadow-sm hover:shadow-md hover:border-[#ffa326]/20 transition-all duration-300 flex flex-col justify-between text-left group"
-                  >
-                    <div>
-                      <div className="flex gap-1 mb-3">
-                        {[...Array(test.rating)].map((_, i) => (
-                          <Star key={i} className="w-4 h-4 fill-[#ffa326] text-[#ffa326]" />
+          {/* 6 Curated Reviews Grid */}
+          <motion.div layout className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto text-left">
+            <AnimatePresence>
+              {filteredReviews.map((rev, idx) => (
+                <motion.div
+                  key={rev.id}
+                  layout
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  transition={{ duration: 0.5, delay: idx * 0.06 }}
+                  className="group relative bg-white/95 backdrop-blur-md rounded-2xl border border-neutral-200/80 p-7 shadow-sm hover:shadow-xl hover:border-[#ffa326]/50 hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between overflow-hidden"
+                >
+                  {/* Amber accent top highlight on hover */}
+                  <div className="absolute inset-x-0 top-0 h-[3px] bg-gradient-to-r from-transparent via-[#ffa326] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+                  {/* Watermark Quote Icon */}
+                  <Quote className="absolute top-4 right-5 w-10 h-10 text-neutral-100 group-hover:text-[#ffa326]/15 transition-colors rotate-180 pointer-events-none" />
+
+                  <div>
+                    {/* Stars + Verified Badge */}
+                    <div className="flex items-center justify-between mb-4">
+                      <div className="flex gap-1 text-[#ffa326]">
+                        {[...Array(rev.rating)].map((_, i) => (
+                          <Star key={i} className="w-4 h-4 fill-[#ffa326]" />
                         ))}
                       </div>
-                      <h3 className="text-sm font-bold text-neutral-900 mb-2 font-sans line-clamp-2">
-                        "{test.title}"
-                      </h3>
-                      <p className="text-xs sm:text-sm text-neutral-700 italic leading-relaxed font-light mb-6">
-                        "{test.quote}"
-                      </p>
-                    </div>
-                    <div className="border-t border-neutral-100 pt-4 flex items-center justify-between">
-                      <div className="flex flex-col">
-                        <span className="text-xs font-bold text-neutral-900">{test.author}</span>
-                        <span className="text-[10px] text-neutral-500 font-semibold">{test.role}</span>
-                      </div>
-                      <span className="text-[9px] font-bold text-[#cc7e14] bg-[#ffa326]/10 border border-[#ffa326]/20 px-2 py-0.5 rounded-full uppercase tracking-wider">
-                        {test.city}
+                      <span className="text-[10px] font-bold text-emerald-800 bg-emerald-50 border border-emerald-200 px-2.5 py-0.5 rounded-full flex items-center gap-1">
+                        <Check className="w-3 h-3 text-emerald-600" />
+                        <span>Verified Project</span>
                       </span>
                     </div>
-                  </motion.div>
-                ))}
-              </AnimatePresence>
-            </motion.div>
 
-            {filteredReviews.length === 0 && (
-              <div className="text-center py-16 text-neutral-500 font-light text-sm">
-                No reviews found in this category.
-              </div>
-            )}
-          </div>
+                    {/* Service Tag */}
+                    <span className="inline-block text-[11px] font-bold uppercase tracking-wider text-[#b86d0b] bg-[#ffa326]/10 px-2.5 py-0.5 rounded-md mb-3">
+                      {rev.service}
+                    </span>
+
+                    {/* Review Quote Body */}
+                    <p className="text-sm text-neutral-750 leading-relaxed font-light text-neutral-700 italic mb-6">
+                      "{rev.quote}"
+                    </p>
+                  </div>
+
+                  {/* Author Information Footer */}
+                  <div className="pt-4 border-t border-neutral-100 flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <div
+                        className="w-10 h-10 rounded-full flex items-center justify-center text-white text-xs font-bold shadow-xs select-none"
+                        style={{ backgroundColor: rev.avatarColor }}
+                      >
+                        {rev.initials}
+                      </div>
+                      <div>
+                        <h4 className="text-sm font-bold text-neutral-900 leading-snug">
+                          {rev.author}
+                        </h4>
+                        <p className="text-[11px] text-neutral-500 font-normal">
+                          {rev.location ? `${rev.role} • ${rev.location}` : rev.role || "Verified Client"}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </AnimatePresence>
+          </motion.div>
         </section>
       </div>
 
-      {/* ── WHAT CLIENTS LOVE MOST (COMPARATIVE GRID) ── */}
-      <div className="w-full bg-[#f4f3ef] pt-[10px] pb-[10px] px-[15px]">
-        <section className="mx-auto max-w-[1400px] w-full rounded-[10px] bg-[#f1e8db] border border-[#eae8e1] shadow-[0_12px_40px_rgb(0,0,0,0.04)] px-6 py-20 md:px-12 lg:px-16 text-center">
+      {/* ── WHY OUR CLIENTS KEEP COMING BACK SECTION ── */}
+      <div className="w-full bg-[#f4f3ef] pt-[10px] pb-[10px] px-2.5 sm:px-[15px]">
+        <section className="mx-auto max-w-[1400px] w-full rounded-[10px] bg-[#f1e8db] border border-[#eae8e1] shadow-[0_12px_40px_rgb(0,0,0,0.04)] px-5 py-12 sm:px-10 sm:py-16 md:px-14 md:py-20 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="max-w-3xl mx-auto mb-14"
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+            className="max-w-3xl mx-auto mb-12 sm:mb-16"
           >
-            <span className="inline-flex items-center bg-white/60 border border-neutral-900/10 text-neutral-800 rounded-full px-5 py-1.5 text-[11px] font-extrabold uppercase tracking-wider mb-4 shadow-sm">
-              Our Standouts
+            <span className="inline-flex items-center gap-2 bg-white/70 border border-neutral-900/10 text-neutral-800 rounded-full px-5 py-1.5 text-[11px] font-extrabold uppercase tracking-wider mb-4 shadow-sm">
+              <Award className="w-3.5 h-3.5 text-[#cc7e14]" />
+              <span>The KV Commitment</span>
             </span>
-            <h2 className="text-3xl md:text-4xl font-extrabold text-neutral-950 tracking-tight" style={{ fontFamily: "Georgia, serif" }}>
-              What Our Clients Love Most
+
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-neutral-950 tracking-tight font-serif">
+              Why Our Clients Keep Coming Back
             </h2>
-            <p className="mt-4 text-neutral-700 text-sm md:text-base leading-relaxed">
-              We focus on the small details that make a massive difference. Here is what our Pinellas County customers consistently highlight in their reviews.
+
+            <p className="mt-4 text-neutral-700 text-sm sm:text-base leading-relaxed">
+              We don't just complete projects; we build lasting relationships. Here is what you can expect when you work with KV Property Inc.:
             </p>
           </motion.div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
-            {whatClientsLove.map((love, idx) => (
-              <motion.div
-                key={love.reason}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: idx * 0.08 }}
-                className="bg-white/80 backdrop-blur-md rounded-2xl border border-neutral-200/50 p-6 shadow-sm flex flex-col justify-start text-left"
-              >
-                <div className="flex items-center gap-3 mb-3">
-                  <span className="grid h-8 w-8 place-items-center rounded-full bg-[#ffa326]/10 text-[#cc7e14]">
-                    <ThumbsUp className="w-4 h-4" />
-                  </span>
-                  <h3 className="text-sm font-extrabold text-neutral-900 tracking-wide">{love.reason}</h3>
-                </div>
-                <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed font-light">
-                  {love.text}
-                </p>
-              </motion.div>
-            ))}
-          </div>
-        </section>
-      </div>
-
-      {/* ── VERIFIED PLATFORMS & LEAVE A REVIEW SECTION ── */}
-      <div className="w-full bg-[#f4f3ef] pt-[10px] pb-[10px] px-[15px]">
-        <section className="mx-auto max-w-[1400px] w-full rounded-[10px] bg-white border border-[#eae8e1] shadow-sm px-6 py-16 md:px-12 lg:px-16 text-center">
-          <div className="grid gap-12 lg:grid-cols-2 lg:gap-20 items-center max-w-6xl mx-auto">
-            
-            {/* Left: Verified platforms with badges */}
-            <div className="text-left space-y-6">
-              <span className="inline-flex items-center bg-[#ffa326]/10 border border-[#ffa326]/20 text-[#cc7e14] rounded-full px-5 py-1.5 text-[11px] font-extrabold uppercase tracking-wider">
-                Trusted & Verified
-              </span>
-              <h2 className="text-2xl sm:text-3xl font-extrabold text-neutral-900 tracking-tight" style={{ fontFamily: "Georgia, serif" }}>
-                Verified on Leading Platforms
-              </h2>
-              <p className="text-neutral-600 text-sm md:text-base leading-relaxed font-light">
-                We're proud to be recognized and reviewed on leading industry platforms. Our credentials and ratings are audited, giving you full confidence in our operations.
-              </p>
-
-              {/* Grid of Badges */}
-              <div className="grid grid-cols-2 gap-4 sm:gap-6 pt-4 max-w-md">
-                <div className="flex flex-col items-center justify-center p-4 bg-[#f4f3ef]/55 border border-neutral-200/50 rounded-2xl shadow-xs">
-                  <img src={bbbBadge} alt="BBB Accredited" className="h-10 w-auto object-contain select-none" />
-                  <span className="text-[10px] font-bold text-neutral-500 mt-2">BBB Accredited</span>
-                </div>
-                <div className="flex flex-col items-center justify-center p-4 bg-[#f4f3ef]/55 border border-neutral-200/50 rounded-2xl shadow-xs">
-                  <img src={yelpBadge} alt="Yelp Verified" className="h-10 w-auto object-contain select-none" />
-                  <span className="text-[10px] font-bold text-neutral-500 mt-2">Yelp Rated 5 Stars</span>
-                </div>
-                <div className="flex flex-col items-center justify-center p-4 bg-[#f4f3ef]/55 border border-neutral-200/50 rounded-2xl shadow-xs">
-                  <img src={homeAdvisorBadge} alt="HomeAdvisor Approved" className="h-10 w-auto object-contain select-none" />
-                  <span className="text-[10px] font-bold text-neutral-500 mt-2">HomeAdvisor Approved</span>
-                </div>
-                <div className="flex flex-col items-center justify-center p-4 bg-[#f4f3ef]/55 border border-neutral-200/50 rounded-2xl shadow-xs">
-                  <div className="flex text-[#ffa326] gap-0.5">
-                    {[...Array(5)].map((_, i) => <Star key={i} className="w-3.5 h-3.5 fill-current" />)}
+          {/* 4 Pillars Grid */}
+          <div className="grid sm:grid-cols-2 gap-6 max-w-5xl mx-auto text-left">
+            {whyChoosePillars.map((pillar, idx) => {
+              const PillarIcon = pillar.icon;
+              return (
+                <motion.div
+                  key={pillar.title}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-60px" }}
+                  transition={{ duration: 0.6, delay: idx * 0.1, ease: "easeOut" }}
+                  className="bg-white/90 backdrop-blur-md rounded-2xl border border-neutral-200/60 p-6 sm:p-7 shadow-sm hover:shadow-md hover:border-[#ffa326]/40 transition-all duration-300 flex items-start gap-4"
+                >
+                  <div className="w-12 h-12 rounded-xl bg-[#ffa326]/12 border border-[#ffa326]/20 text-[#cc7e14] flex items-center justify-center shrink-0">
+                    <PillarIcon className="w-6 h-6" />
                   </div>
-                  <span className="text-[10px] font-bold text-neutral-500 mt-2.5">Google Verified</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Right: Leave Us a Review Card */}
-            <div className="bg-gradient-to-br from-[#1c140d] to-[#2b2015] text-white rounded-2xl p-8 text-left shadow-xl border border-neutral-800">
-              <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#ffa326]/10 border border-[#ffa326]/20 text-[#ffa326] mb-5">
-                <Share2 className="h-5 w-5" />
-              </div>
-              <h3 className="text-lg font-bold tracking-wide mb-2 capitalize">Share Your Experience</h3>
-              <p className="text-sm text-neutral-300 font-light leading-relaxed mb-6">
-                Have you worked with Right Lane Handyman Services, LLC? We'd love to hear about your experience. Your feedback helps us improve and helps other homeowners make informed decisions.
-              </p>
-
-              <div className="grid grid-cols-2 gap-3.5">
-                <a
-                  href="#"
-                  className="flex items-center justify-between p-3.5 rounded-xl border border-white/15 bg-white/5 hover:bg-white hover:text-neutral-900 transition-all duration-200 text-xs font-semibold"
-                >
-                  <span>Google Review</span>
-                  <ExternalLink className="w-3.5 h-3.5 shrink-0" />
-                </a>
-                <a
-                  href="#"
-                  className="flex items-center justify-between p-3.5 rounded-xl border border-white/15 bg-white/5 hover:bg-white hover:text-neutral-900 transition-all duration-200 text-xs font-semibold"
-                >
-                  <span>Yelp Review</span>
-                  <ExternalLink className="w-3.5 h-3.5 shrink-0" />
-                </a>
-                <a
-                  href="#"
-                  className="flex items-center justify-between p-3.5 rounded-xl border border-white/15 bg-white/5 hover:bg-white hover:text-neutral-900 transition-all duration-200 text-xs font-semibold"
-                >
-                  <span>Facebook</span>
-                  <ExternalLink className="w-3.5 h-3.5 shrink-0" />
-                </a>
-                <a
-                  href="#"
-                  className="flex items-center justify-between p-3.5 rounded-xl border border-white/15 bg-white/5 hover:bg-white hover:text-neutral-900 transition-all duration-200 text-xs font-semibold"
-                >
-                  <span>HomeAdvisor</span>
-                  <ExternalLink className="w-3.5 h-3.5 shrink-0" />
-                </a>
-              </div>
-            </div>
-
+                  <div>
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-[#b86d0b] block mb-1">
+                      {pillar.badge}
+                    </span>
+                    <h3 className="text-base sm:text-lg font-bold text-neutral-900 mb-1.5 font-serif">
+                      {pillar.title}
+                    </h3>
+                    <p className="text-xs sm:text-sm text-neutral-700 leading-relaxed font-normal">
+                      {pillar.desc}
+                    </p>
+                  </div>
+                </motion.div>
+              );
+            })}
           </div>
         </section>
       </div>
 
-      {/* ── RECENT REVIEWS AT A GLANCE (COMPARATIVE TABLE) ── */}
-      <div className="w-full bg-[#f4f3ef] pt-[10px] pb-[10px] px-[15px]">
-        <section className="mx-auto max-w-[1400px] w-full rounded-[10px] bg-[#fbfaf7] border border-[#eae8e1] shadow-[0_12px_40px_rgb(0,0,0,0.03)] px-6 py-20 md:px-12 lg:px-16 text-center">
-          <div className="max-w-3xl mx-auto mb-12">
-            <span className="inline-flex items-center bg-[#ffa326]/10 border border-[#ffa326]/20 text-[#cc7e14] rounded-full px-5 py-1.5 text-[11px] font-extrabold uppercase tracking-wider mb-4">
-              At A Glance
+      {/* ── SHARE YOUR EXPERIENCE SECTION ── */}
+      <div id="leave-review" className="w-full bg-[#f4f3ef] pt-[10px] pb-[10px] px-2.5 sm:px-[15px]">
+        <section className="mx-auto max-w-[1400px] w-full rounded-[10px] bg-white border border-[#eae8e1] shadow-[0_12px_40px_rgb(0,0,0,0.03)] px-5 py-12 sm:px-10 sm:py-16 md:px-14 md:py-20 text-center relative overflow-hidden">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+            className="max-w-3xl mx-auto"
+          >
+            <span className="inline-flex items-center gap-2 bg-[#ffa326]/12 border border-[#ffa326]/30 text-[#b86d0b] rounded-full px-5 py-1.5 text-[11px] font-extrabold uppercase tracking-wider mb-4 shadow-sm">
+              <MessageSquare className="w-3.5 h-3.5" />
+              <span>We Value Your Feedback</span>
             </span>
-            <h2 className="text-3xl font-extrabold text-neutral-900 tracking-tight" style={{ fontFamily: "Georgia, serif" }}>
-              Recent Reviews at a Glance
+
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-neutral-950 tracking-tight font-serif">
+              Share Your Experience
             </h2>
-            <p className="mt-3 text-neutral-600 text-sm font-light">
-              An overview of our most recent customer ratings and project categories across Pinellas County.
+
+            <p className="mt-4 text-neutral-600 text-sm sm:text-base md:text-lg leading-relaxed max-w-2xl mx-auto font-light">
+              Have we recently completed a project for you? We would love to hear about your experience! Your feedback helps us continue to improve and helps other homeowners and business owners in Neptune, NJ, and beyond make informed decisions.
             </p>
-          </div>
 
-          {/* Table Container */}
-          <div className="max-w-5xl mx-auto overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-xs">
-            <div className="overflow-x-auto">
-              <table className="w-full border-collapse text-left text-sm">
-                <thead>
-                  <tr className="bg-[#f4f3ef] border-b border-neutral-200 text-neutral-900 font-bold">
-                    <th className="px-6 py-4">Client</th>
-                    <th className="px-6 py-4">Location</th>
-                    <th className="px-6 py-4">Service</th>
-                    <th className="px-6 py-4 text-center">Rating</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-neutral-100">
-                  {recentReviewsGlance.map((row, idx) => (
-                    <tr key={idx} className="hover:bg-neutral-50/50 transition-colors">
-                      <td className="px-6 py-3.5 font-bold text-neutral-950">{row.name}</td>
-                      <td className="px-6 py-3.5 text-neutral-600 font-light">{row.location}</td>
-                      <td className="px-6 py-3.5 font-medium text-neutral-700">{row.service}</td>
-                      <td className="px-6 py-3.5 text-center text-amber-500 font-black tracking-wider text-base select-none">{row.rating}</td>
-                    </tr>
+            {/* Direct Google Review Action Card */}
+            <div className="mt-8 pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
+              <a
+                href="https://search.google.com/local/writereview"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-3 rounded-full bg-neutral-900 hover:bg-neutral-800 text-white px-8 py-4 text-xs sm:text-sm font-bold uppercase tracking-wider transition-all duration-300 shadow-md hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
+              >
+                <div className="flex gap-1 text-[#ffa326]">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className="w-4 h-4 fill-[#ffa326]" />
                   ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </section>
-      </div>
-
-      {/* ── WHY CHOOSE RIGHT LANE ── */}
-      <div className="w-full bg-[#f4f3ef] pt-[10px] pb-[10px] px-[15px]">
-        <section className="mx-auto max-w-[1400px] w-full rounded-[10px] bg-[#f1e8db] border border-[#eae8e1] shadow-[0_12px_40px_rgb(0,0,0,0.04)] px-6 py-20 md:px-12 lg:px-16">
-          <div className="grid gap-12 lg:grid-cols-2 lg:gap-20 items-center max-w-6xl mx-auto">
-            
-            {/* Left */}
-            <div className="text-left space-y-6">
-              <span className="inline-flex items-center bg-white/60 border border-neutral-900/10 text-neutral-800 rounded-full px-5 py-1.5 text-[11px] font-extrabold uppercase tracking-wider mb-2 shadow-sm">
-                Our Guarantee
-              </span>
-              <h2 className="text-3xl font-extrabold text-neutral-950 tracking-tight" style={{ fontFamily: "Georgia, serif" }}>
-                Why Choose Right Lane Handyman Services?
-              </h2>
-              <p className="text-neutral-700 text-sm md:text-base leading-relaxed font-light">
-                Over a quarter-century of working in Pinellas County has shaped how we approach customer service. From clear, upfront pricing to guaranteed quality work, we make the process smooth and stress-free.
-              </p>
-            </div>
-
-            {/* Right List */}
-            <div className="grid gap-4 text-left">
-              {whyChooseItems.map((item, idx) => (
-                <div key={idx} className="flex gap-3 items-start bg-white/70 backdrop-blur-xs p-4 rounded-xl border border-neutral-200/50">
-                  <span className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-[#ffa326]/10 text-[#cc7e14] border border-[#ffa326]/20 select-none">
-                    <CheckCircle2 className="w-3.5 h-3.5" />
-                  </span>
-                  <span className="text-neutral-800 text-xs sm:text-sm font-semibold">{item}</span>
                 </div>
-              ))}
-            </div>
+                <span>Leave Us a Review on Google</span>
+                <ExternalLink className="w-4 h-4 text-neutral-400" />
+              </a>
 
-          </div>
+              <button
+                type="button"
+                onClick={() => setIsReviewModalOpen(true)}
+                className="inline-flex items-center justify-center gap-2 rounded-full border border-neutral-300 bg-neutral-50 hover:bg-[#ffa326]/10 hover:border-[#ffa326]/40 text-neutral-800 px-7 py-4 text-xs sm:text-sm font-bold uppercase tracking-wider transition-all duration-300 cursor-pointer"
+              >
+                <span>Write A Direct Feedback</span>
+                <Send className="w-4 h-4 text-[#cc7e14]" />
+              </button>
+            </div>
+          </motion.div>
         </section>
       </div>
 
-      {/* ── PREMIUM CALL TO ACTION ── */}
-      <div className="w-full bg-[#f4f3ef] pt-[10px] pb-[15px] px-[15px]">
+      {/* ── READY TO WRITE YOUR OWN SUCCESS STORY? (CLOSING CTA) ── */}
+      <div className="w-full bg-[#f4f3ef] pt-[10px] pb-[15px] px-2.5 sm:px-[15px]">
         <section
-          className="mx-auto max-w-[1400px] w-full rounded-[10px] bg-[#1c140d] text-white px-6 py-20 md:px-12 lg:px-16 text-center border border-neutral-800 shadow-[0_20px_50px_rgba(0,0,0,0.15)] relative overflow-hidden"
+          className="mx-auto max-w-[1400px] w-full rounded-[10px] bg-gradient-to-b from-[#18120c] via-[#150f0a] to-[#0f0a06] text-white px-5 py-14 sm:px-10 sm:py-20 md:px-14 md:py-24 text-center border border-neutral-800 shadow-[0_24px_60px_rgba(0,0,0,0.22)] relative overflow-hidden"
           style={{
-            backgroundImage: "linear-gradient(to bottom, rgba(28,20,13,0.96), rgba(28,20,13,0.98)), url(/src/assets/wel-bg.png)",
+            backgroundImage: `linear-gradient(to bottom, rgba(24,18,12,0.96), rgba(15,10,6,0.98)), url(${welBg})`,
             backgroundSize: "cover",
             backgroundPosition: "center",
           }}
         >
+          {/* Ambient Gold Glow */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#ffa326]/10 rounded-full blur-[140px] pointer-events-none" />
+
           <motion.div
             initial={{ opacity: 0, scale: 0.98, y: 20 }}
             whileInView={{ opacity: 1, scale: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
+            viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className="max-w-4xl mx-auto flex flex-col items-center"
+            className="max-w-4xl mx-auto flex flex-col items-center relative z-10"
           >
-            <img src={logo} alt="Right Lane Logo" className="h-14 w-auto object-contain mb-8 filter brightness-110" />
+            {/* Logo */}
+            <Link to="/" className="mb-6 cursor-pointer">
+              <img
+                src={logo}
+                alt="KV Property Inc Logo"
+                className="h-16 sm:h-20 w-auto object-contain filter brightness-110 drop-shadow-md hover:scale-105 transition-transform"
+              />
+            </Link>
 
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-extrabold text-white tracking-tight leading-tight mb-5">
-              Ready to Experience the Right Lane Difference?
+            {/* Tagline Badge */}
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#ffa326]/30 bg-[#ffa326]/10 text-[#ffc570] text-xs font-bold uppercase tracking-wider mb-4">
+              <span>Built With Purpose. Crafted To Last.</span>
+            </div>
+
+            {/* Headline */}
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight mb-5 font-serif">
+              Ready to Write Your Own Success Story?
             </h2>
 
-            <p className="text-sm md:text-base text-neutral-300 leading-relaxed font-light mb-10 max-w-3xl">
-              Join our growing list of satisfied customers. Contact us today for a free, no-obligation estimate and find out why we're Clearwater's top rated handyman service.
+            {/* Subtitle */}
+            <p className="text-sm sm:text-base md:text-lg text-neutral-300 leading-relaxed font-light mb-10 max-w-2xl">
+              Join the hundreds of satisfied clients who have trusted KV Property Inc. with their residential and commercial projects.
             </p>
 
-            <div className="bg-white/5 border border-white/10 backdrop-blur-md rounded-2xl p-8 w-full max-w-3xl mb-10 text-left">
-              <h3 className="text-lg font-bold text-white mb-5 text-center sm:text-left tracking-wide">
-                Right Lane Handyman Services, LLC
-              </h3>
+            {/* Dedicated Contact Showcase Box (No License Number as requested) */}
+            <div className="bg-white/5 border border-white/10 backdrop-blur-md rounded-2xl p-6 sm:p-8 w-full max-w-2xl mb-10 text-left shadow-2xl">
+              <div className="flex items-center justify-between pb-4 mb-5 border-b border-white/10 flex-wrap gap-2">
+                <h3 className="text-base sm:text-lg font-bold text-white tracking-wide">
+                  Contact Us Today:
+                </h3>
+                <span className="text-xs font-semibold text-[#ffa326] bg-[#ffa326]/10 px-3 py-1 rounded-full border border-[#ffa326]/20">
+                  Licensed &amp; Insured
+                </span>
+              </div>
 
-              <div className="grid sm:grid-cols-2 gap-5 text-[15px] font-light">
-                <a href="tel:7276420201" className="flex items-center gap-3.5 hover:text-[#ffa326] transition-colors">
-                  <Phone className="w-5 h-5 text-[#ffa326] shrink-0" />
-                  <span>Phone: (727) 642-0201</span>
+              <div className="grid sm:grid-cols-2 gap-4 sm:gap-5 text-sm sm:text-[15px] font-light">
+                <a
+                  href="tel:7328778614"
+                  className="flex items-center gap-3 text-neutral-200 hover:text-[#ffa326] transition-colors p-2.5 rounded-xl hover:bg-white/5 border border-transparent hover:border-white/10"
+                >
+                  <div className="w-9 h-9 rounded-full bg-[#ffa326]/20 flex items-center justify-center shrink-0">
+                    <Phone className="w-4 h-4 text-[#ffa326]" />
+                  </div>
+                  <div>
+                    <div className="text-[10px] uppercase tracking-wider text-neutral-400 font-bold">Phone</div>
+                    <div className="font-semibold text-white">(732) 877-8614</div>
+                  </div>
                 </a>
-                <a href="mailto:rightlanehandymanservice@yahoo.com" className="flex items-center gap-3.5 hover:text-[#ffa326] transition-colors">
-                  <Mail className="w-5 h-5 text-[#ffa326] shrink-0" />
-                  <span>Email: rightlanehandymanservice@yahoo.com</span>
+
+                <a
+                  href="mailto:kvpropertyinc@gmail.com"
+                  className="flex items-center gap-3 text-neutral-200 hover:text-[#ffa326] transition-colors p-2.5 rounded-xl hover:bg-white/5 border border-transparent hover:border-white/10"
+                >
+                  <div className="w-9 h-9 rounded-full bg-[#ffa326]/20 flex items-center justify-center shrink-0">
+                    <Mail className="w-4 h-4 text-[#ffa326]" />
+                  </div>
+                  <div>
+                    <div className="text-[10px] uppercase tracking-wider text-neutral-400 font-bold">Email</div>
+                    <div className="font-semibold text-white">kvpropertyinc@gmail.com</div>
+                  </div>
                 </a>
-                <div className="flex flex-row items-center gap-3.5 col-span-1 sm:col-span-2">
-                  <MapPin className="w-5 h-5 text-[#ffa326] shrink-0" />
-                  <span>Serving Clearwater, FL, and all of Pinellas County</span>
+
+                <div className="flex items-center gap-3 text-neutral-200 p-2.5 rounded-xl col-span-1 sm:col-span-2">
+                  <div className="w-9 h-9 rounded-full bg-[#ffa326]/20 flex items-center justify-center shrink-0">
+                    <MapPin className="w-4 h-4 text-[#ffa326]" />
+                  </div>
+                  <div>
+                    <div className="text-[10px] uppercase tracking-wider text-neutral-400 font-bold">Service Area</div>
+                    <div className="font-semibold text-white">Neptune, NJ &amp; Surrounding Communities (25-mile radius)</div>
+                  </div>
                 </div>
               </div>
             </div>
 
-            <div className="flex flex-wrap gap-4 justify-center">
-              <a
-                href="tel:7276420201"
-                className="rounded-full bg-[#ffa326] hover:bg-[#ffa326]/90 px-8 py-3.5 text-white text-[14px] font-bold tracking-wider uppercase transition-all duration-300 shadow-lg hover:scale-[1.03]"
-              >
-                Call Ronnie Now
-              </a>
+            {/* Buttons */}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center w-full sm:w-auto">
               <Link
-                to="/contact-us"
-                className="rounded-full border border-white/30 bg-white/10 hover:bg-white hover:text-neutral-900 px-8 py-3.5 text-white text-[14px] font-bold tracking-wider uppercase transition-all duration-300 shadow-lg hover:scale-[1.03]"
+                to="/free-estimate"
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#ffa326] via-[#ea8d15] to-[#cc7e14] hover:from-[#ffb147] hover:to-[#b86d0b] px-8 py-4 text-white text-xs sm:text-sm font-bold tracking-wider uppercase transition-all duration-300 shadow-[0_6px_25px_rgba(255,163,38,0.4)] hover:scale-[1.03] active:scale-[0.98] cursor-pointer"
               >
-                Request Your Free Estimate Today!
+                <span>Request Your Free Estimate</span>
+                <ArrowRight className="w-4 h-4" />
               </Link>
+              <a
+                href="tel:7328778614"
+                className="inline-flex items-center justify-center gap-2 rounded-full border border-white/30 bg-white/10 hover:bg-white hover:text-neutral-900 px-8 py-4 text-white text-xs sm:text-sm font-bold tracking-wider uppercase transition-all duration-300 shadow-md hover:scale-[1.03] active:scale-[0.98] cursor-pointer"
+              >
+                <Phone className="w-4 h-4 fill-current text-[#ffa326]" />
+                <span>Call Now: (732) 877-8614</span>
+              </a>
+            </div>
+
+            {/* Trust Badges */}
+            <div className="mt-12 pt-8 border-t border-white/10 flex flex-wrap items-center justify-center gap-5 filter brightness-95 opacity-90">
+              <img src={bbbBadge} alt="BBB Accredited" className="h-8 w-auto object-contain" />
+              <img src={yelpBadge} alt="Yelp Reviews" className="h-8 w-auto object-contain" />
+              <img src={homeAdvisorBadge} alt="HomeAdvisor Screened & Approved" className="h-8 w-auto object-contain" />
             </div>
           </motion.div>
         </section>
       </div>
 
+      {/* ── WRITE REVIEW MODAL ── */}
+      <AnimatePresence>
+        {isReviewModalOpen && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center px-4 bg-black/60 backdrop-blur-xs">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 15 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 15 }}
+              className="bg-white rounded-2xl p-6 sm:p-8 max-w-lg w-full shadow-2xl border border-neutral-200 relative text-left"
+            >
+              <button
+                type="button"
+                onClick={() => setIsReviewModalOpen(false)}
+                className="absolute top-4 right-4 p-2 text-neutral-400 hover:text-neutral-700 rounded-full hover:bg-neutral-100 transition-colors"
+                aria-label="Close review dialog"
+              >
+                <X className="w-5 h-5" />
+              </button>
+
+              <h3 className="text-xl font-bold font-serif text-neutral-900 mb-2">
+                Leave a Review for KV Property Inc.
+              </h3>
+              <p className="text-xs text-neutral-500 mb-6">
+                Tell us about your project in Neptune, NJ or surrounding towns.
+              </p>
+
+              {reviewSubmitted ? (
+                <div className="text-center py-8 space-y-3">
+                  <div className="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto">
+                    <CheckCircle2 className="w-6 h-6" />
+                  </div>
+                  <h4 className="text-lg font-bold text-neutral-900">Thank You!</h4>
+                  <p className="text-xs text-neutral-600">Your review has been received and appreciated.</p>
+                </div>
+              ) : (
+                <form onSubmit={handleReviewSubmit} className="space-y-4">
+                  <div>
+                    <label className="block text-xs font-semibold text-neutral-700 mb-1">
+                      Your Name
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      value={newReview.name}
+                      onChange={(e) => setNewReview({ ...newReview, name: e.target.value })}
+                      placeholder="e.g. John & Sarah M."
+                      className="w-full px-3.5 py-2.5 rounded-xl border border-neutral-300 text-sm focus:outline-hidden focus:border-[#ffa326] focus:ring-1 focus:ring-[#ffa326]"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-semibold text-neutral-700 mb-1">
+                      Project / Service Completed
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      value={newReview.service}
+                      onChange={(e) => setNewReview({ ...newReview, service: e.target.value })}
+                      placeholder="e.g. Kitchen Remodeling, Deck Build, Handyman"
+                      className="w-full px-3.5 py-2.5 rounded-xl border border-neutral-300 text-sm focus:outline-hidden focus:border-[#ffa326] focus:ring-1 focus:ring-[#ffa326]"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-semibold text-neutral-700 mb-1">
+                      Rating
+                    </label>
+                    <div className="flex gap-1.5">
+                      {[1, 2, 3, 4, 5].map((star) => (
+                        <button
+                          type="button"
+                          key={star}
+                          onClick={() => setNewReview({ ...newReview, rating: star })}
+                          className="p-1 cursor-pointer"
+                        >
+                          <Star
+                            className={`w-6 h-6 ${
+                              star <= newReview.rating ? "text-[#ffa326] fill-[#ffa326]" : "text-neutral-300"
+                            }`}
+                          />
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-semibold text-neutral-700 mb-1">
+                      Your Review
+                    </label>
+                    <textarea
+                      required
+                      rows={4}
+                      value={newReview.comment}
+                      onChange={(e) => setNewReview({ ...newReview, comment: e.target.value })}
+                      placeholder="Describe the craftsmanship, communication, and overall experience..."
+                      className="w-full px-3.5 py-2.5 rounded-xl border border-neutral-300 text-sm focus:outline-hidden focus:border-[#ffa326] focus:ring-1 focus:ring-[#ffa326]"
+                    />
+                  </div>
+
+                  <div className="pt-2 flex justify-end gap-3">
+                    <button
+                      type="button"
+                      onClick={() => setIsReviewModalOpen(false)}
+                      className="px-5 py-2.5 rounded-xl border border-neutral-300 text-neutral-700 text-xs font-semibold hover:bg-neutral-100"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      type="submit"
+                      className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-[#ffa326] to-[#cc7e14] text-white text-xs font-bold uppercase tracking-wider shadow-md hover:brightness-105"
+                    >
+                      Submit Review
+                    </button>
+                  </div>
+                </form>
+              )}
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+
       <SiteFooter />
-      <FloatingChat />
     </div>
   );
 }
