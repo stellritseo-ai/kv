@@ -9,6 +9,18 @@ export const Route = createFileRoute("/bathroom-remodeling")({
       { name: "description", content: bathroomRemodelingData.metaDescription },
       { property: "og:title", content: bathroomRemodelingData.metaTitle },
       { property: "og:description", content: bathroomRemodelingData.metaDescription },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: `https://www.kvpropertyinc.com/${bathroomRemodelingData.slug}` },
+      { property: "og:site_name", content: "KV Property Inc." },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: bathroomRemodelingData.metaTitle },
+      { name: "twitter:description", content: bathroomRemodelingData.metaDescription },
+    ],
+    links: [
+      {
+        rel: "canonical",
+        href: `https://www.kvpropertyinc.com/${bathroomRemodelingData.slug}`,
+      },
     ],
   }),
   component: BathroomRemodelingPage,

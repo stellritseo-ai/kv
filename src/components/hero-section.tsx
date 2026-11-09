@@ -98,11 +98,11 @@ export function HeroSection() {
               <ChevronRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
             </Link>
             <a
-              href="tel:7328778614"
+              href="tel:7326776674"
               className="inline-flex items-center justify-center gap-1.5 sm:gap-2 rounded-full border border-white/20 bg-white/10 backdrop-blur-md px-3.5 xs:px-5 sm:px-8 py-3 sm:py-4 text-white text-[11px] xs:text-xs sm:text-sm font-bold uppercase tracking-wider hover:bg-white hover:text-neutral-900 hover:scale-[1.03] active:scale-[0.98] transition-all duration-300 cursor-pointer whitespace-nowrap"
             >
               <Phone className="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-current shrink-0" />
-              <span>Call (732) 877-8614</span>
+              <span>Call (732) 677-6674</span>
             </a>
           </motion.div>
 

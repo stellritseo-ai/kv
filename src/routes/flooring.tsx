@@ -9,6 +9,18 @@ export const Route = createFileRoute("/flooring")({
       { name: "description", content: flooringData.metaDescription },
       { property: "og:title", content: flooringData.metaTitle },
       { property: "og:description", content: flooringData.metaDescription },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: `https://www.kvpropertyinc.com/${flooringData.slug}` },
+      { property: "og:site_name", content: "KV Property Inc." },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: flooringData.metaTitle },
+      { name: "twitter:description", content: flooringData.metaDescription },
+    ],
+    links: [
+      {
+        rel: "canonical",
+        href: `https://www.kvpropertyinc.com/${flooringData.slug}`,
+      },
     ],
   }),
   component: FlooringPage,

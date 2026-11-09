@@ -3,5 +3,4 @@ Allow: /
 Disallow: /dashboard
 Disallow: /login
 
-Sitemap: https://www.rightlanehandymanservicellc.com/sitemap.xml
-
+Sitemap: https://www.kvpropertyinc.com/sitemap.xml

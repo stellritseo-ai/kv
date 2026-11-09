@@ -9,8 +9,8 @@ import logo from "@/assets/logo.png";
 export const Route = createFileRoute("/login")({
   head: () => ({
     meta: [
-      { title: "Ronnie's Office — Portal Access" },
-      { name: "description", content: "Authenticate to access Right Lane Handyman Services, LLC business console." }
+      { title: "KV Property Inc. — Portal Access" },
+      { name: "description", content: "Authenticate to access KV Property Inc. business console." }
     ],
   }),
   component: LoginPage,
@@ -102,9 +102,9 @@ function LoginPage() {
       >
         {/* Logo and Branding */}
         <div className="flex flex-col items-center gap-2 mb-8">
-          <img src={logo} alt="Right Lane Logo" className="h-12 w-auto opacity-90 object-contain mb-2 select-none" />
-          <h2 className="text-xs font-extrabold uppercase tracking-[0.25em] text-[#ffa326] select-none">Ronnie's Office</h2>
-          <h1 className="text-2xl font-bold font-serif text-neutral-900 tracking-tight mt-1">Right Lane Admin Portal</h1>
+          <img src={logo} alt="KV Property Logo" className="h-12 w-auto opacity-90 object-contain mb-2 select-none" />
+          <h2 className="text-xs font-extrabold uppercase tracking-[0.25em] text-[#ffa326] select-none">Admin Portal</h2>
+          <h1 className="text-2xl font-bold font-serif text-neutral-900 tracking-tight mt-1">KV Property Inc. Portal</h1>
           <p className="text-[11px] text-neutral-500 font-light max-w-xs mt-1">
             Access secure management controls, analytics, lead logs, and real-time chat.
           </p>
@@ -174,7 +174,7 @@ function LoginPage() {
               </span>
             ) : (
               <>
-                <span>Enter Ronnie's Office</span>
+                <span>Enter Admin Office</span>
                 <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-1 transition-transform" />
               </>
             )}
@@ -184,7 +184,7 @@ function LoginPage() {
 
       {/* Footer bar */}
       <div className="absolute bottom-6 text-center text-[9px] text-neutral-500 font-medium tracking-wide">
-        © 2026 Right Lane Handyman Services, LLC · Admin Authentication Portal
+        © 2026 KV Property Inc. · Admin Authentication Portal
       </div>
     </div>
   );

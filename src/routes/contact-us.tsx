@@ -41,7 +41,7 @@ export const Route = createFileRoute("/contact-us")({
       {
         name: "description",
         content:
-          "Contact KV Property Inc. in Neptune, NJ. Speak directly with our project team for residential & commercial remodeling, construction, and property maintenance. Call (732) 877-8614 for a free estimate.",
+          "Contact KV Property Inc. in Neptune, NJ. Speak directly with our project team for residential & commercial remodeling, construction, and property maintenance. Call (732) 677-6674 for a free estimate.",
       },
       {
         property: "og:title",
@@ -54,6 +54,14 @@ export const Route = createFileRoute("/contact-us")({
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://www.kvpropertyinc.com/contact-us" },
+      { property: "og:site_name", content: "KV Property Inc." },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Contact KV Property Inc | Remodeling & Construction in Neptune, NJ" },
+      {
+        name: "twitter:description",
+        content:
+          "Speak directly with our project team. Call (732) 677-6674 for residential & commercial remodeling and construction estimates in Neptune, NJ.",
+      },
     ],
     links: [
       {
@@ -213,7 +221,7 @@ export function ContactUsPage() {
         "@id": "https://www.kvpropertyinc.com/#business",
         name: "KV Property Inc.",
         url: "https://www.kvpropertyinc.com/contact-us",
-        telephone: "+1-732-877-8614",
+        telephone: "+1-732-677-6674",
         email: "kvpropertyinc@gmail.com",
         priceRange: "$$",
         address: {
@@ -347,7 +355,7 @@ export function ContactUsPage() {
             >
               <div className="flex items-center gap-1.5 text-[#ffa326]">
                 <Check className="w-4 h-4 text-[#ffa326]" />
-                <span className="font-semibold text-white">Call or Text (732) 877-8614</span>
+                <span className="font-semibold text-white">Call or Text (732) 677-6674</span>
               </div>
               <span className="text-white/40">•</span>
               <span className="text-neutral-300">24-Hour Response Guarantee</span>
@@ -376,11 +384,11 @@ export function ContactUsPage() {
                 <ArrowRight className="w-4 h-4 shrink-0" />
               </button>
               <a
-                href="tel:7328778614"
+                href="tel:7326776674"
                 className="inline-flex items-center justify-center gap-2 rounded-full border border-white/25 bg-white/10 backdrop-blur-md hover:bg-white hover:text-neutral-950 px-7 sm:px-9 py-3.5 sm:py-4 text-white text-xs sm:text-sm font-bold uppercase tracking-wider hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 shadow-md cursor-pointer text-center"
               >
                 <Phone className="w-4 h-4 shrink-0 fill-current text-[#ffa326]" />
-                <span>Call (732) 877-8614</span>
+                <span>Call (732) 677-6674</span>
               </a>
             </motion.div>
           </div>
@@ -502,7 +510,7 @@ export function ContactUsPage() {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto text-left">
             {/* Phone Card */}
             <motion.a
-              href="tel:7328778614"
+              href="tel:7326776674"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -517,7 +525,7 @@ export function ContactUsPage() {
                   Phone
                 </h3>
                 <div className="text-xl sm:text-2xl font-extrabold text-[#b86d0b] font-serif mb-1">
-                  (732) 877-8614
+                  (732) 677-6674
                 </div>
                 <p className="text-xs text-neutral-600">
                   Call or Text Available
@@ -701,11 +709,11 @@ export function ContactUsPage() {
                 </p>
                 <div className="pt-4">
                   <a
-                    href="tel:7328778614"
+                    href="tel:7326776674"
                     className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#b86d0b] hover:text-[#995906]"
                   >
                     <Phone className="w-4 h-4" />
-                    <span>Need immediate help? Call (732) 877-8614</span>
+                    <span>Need immediate help? Call (732) 677-6674</span>
                   </a>
                 </div>
               </div>
@@ -959,11 +967,11 @@ export function ContactUsPage() {
             {/* Direct Contact Action Box */}
             <div className="mt-8 pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
               <a
-                href="tel:7328778614"
+                href="tel:7326776674"
                 className="inline-flex items-center justify-center gap-3 rounded-full bg-neutral-900 hover:bg-neutral-800 text-white px-8 py-4 text-xs sm:text-sm font-bold uppercase tracking-wider transition-all duration-300 shadow-md hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
               >
                 <Phone className="w-4 h-4 text-[#ffa326]" />
-                <span>Call or Text: (732) 877-8614</span>
+                <span>Call or Text: (732) 677-6674</span>
               </a>
 
               <a
@@ -1047,7 +1055,7 @@ export function ContactUsPage() {
 
               <div className="grid sm:grid-cols-2 gap-4 sm:gap-5 text-sm sm:text-[15px] font-light">
                 <a
-                  href="tel:7328778614"
+                  href="tel:7326776674"
                   className="flex items-center gap-3 text-neutral-200 hover:text-[#ffa326] transition-colors p-2.5 rounded-xl hover:bg-white/5 border border-transparent hover:border-white/10"
                 >
                   <div className="w-9 h-9 rounded-full bg-[#ffa326]/20 flex items-center justify-center shrink-0">
@@ -1055,7 +1063,7 @@ export function ContactUsPage() {
                   </div>
                   <div>
                     <div className="text-[10px] uppercase tracking-wider text-neutral-400 font-bold">Phone</div>
-                    <div className="font-semibold text-white">(732) 877-8614</div>
+                    <div className="font-semibold text-white">(732) 677-6674</div>
                   </div>
                 </a>
 
@@ -1087,11 +1095,11 @@ export function ContactUsPage() {
             {/* Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center w-full sm:w-auto">
               <a
-                href="tel:7328778614"
+                href="tel:7326776674"
                 className="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#ffa326] via-[#ea8d15] to-[#cc7e14] hover:from-[#ffb147] hover:to-[#b86d0b] px-8 py-4 text-white text-xs sm:text-sm font-bold tracking-wider uppercase transition-all duration-300 shadow-[0_6px_25px_rgba(255,163,38,0.4)] hover:scale-[1.03] active:scale-[0.98] cursor-pointer"
               >
                 <Phone className="w-4 h-4 fill-current text-white" />
-                <span>Call Now: (732) 877-8614</span>
+                <span>Call Now: (732) 677-6674</span>
               </a>
               <button
                 type="button"

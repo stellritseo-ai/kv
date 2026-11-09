@@ -9,6 +9,18 @@ export const Route = createFileRoute("/deck-outdoor-living")({
       { name: "description", content: deckOutdoorLivingData.metaDescription },
       { property: "og:title", content: deckOutdoorLivingData.metaTitle },
       { property: "og:description", content: deckOutdoorLivingData.metaDescription },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: `https://www.kvpropertyinc.com/${deckOutdoorLivingData.slug}` },
+      { property: "og:site_name", content: "KV Property Inc." },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: deckOutdoorLivingData.metaTitle },
+      { name: "twitter:description", content: deckOutdoorLivingData.metaDescription },
+    ],
+    links: [
+      {
+        rel: "canonical",
+        href: `https://www.kvpropertyinc.com/${deckOutdoorLivingData.slug}`,
+      },
     ],
   }),
   component: DeckOutdoorLivingPage,

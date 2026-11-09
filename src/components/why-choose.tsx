@@ -254,11 +254,11 @@ export function WhyChooseSection() {
                 <ArrowRight className="w-3.5 h-3.5 shrink-0" />
               </Link>
               <a
-                href="tel:7328778614"
+                href="tel:7326776674"
                 className="inline-flex items-center justify-center gap-1.5 sm:gap-2 bg-white hover:bg-neutral-50 text-neutral-900 border border-neutral-300 rounded-full px-3.5 xs:px-5 sm:px-6 py-2.5 sm:py-3 text-[11px] xs:text-xs font-bold uppercase tracking-wider shadow-xs hover:border-[#ffa326] transition-all duration-300 cursor-pointer whitespace-nowrap text-center"
               >
                 <Phone className="w-3.5 h-3.5 text-[#cc7e14] shrink-0" />
-                <span>Call (732) 877-8614</span>
+                <span>Call (732) 677-6674</span>
               </a>
             </div>
           </div>

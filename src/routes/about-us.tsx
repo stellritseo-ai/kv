@@ -45,7 +45,7 @@ export const Route = createFileRoute("/about-us")({
       {
         name: "description",
         content:
-          "20+ Years of Craftsmanship. A Legacy of Trust. Learn about KV Property Inc., your premier residential and commercial remodeling contractor in Neptune, NJ. Fully Licensed & Insured. Call (732) 877-8614.",
+          "20+ Years of Craftsmanship. A Legacy of Trust. Learn about KV Property Inc., your premier residential and commercial remodeling contractor in Neptune, NJ. Fully Licensed & Insured. Call (732) 677-6674.",
       },
       { property: "og:title", content: "About Us: KV Property Inc. | Built With Purpose. Crafted To Last." },
       {
@@ -55,6 +55,14 @@ export const Route = createFileRoute("/about-us")({
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://www.kvpropertyinc.com/about-us" },
+      { property: "og:site_name", content: "KV Property Inc." },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "About Us | KV Property Inc | Remodeling & Construction in Neptune, NJ" },
+      {
+        name: "twitter:description",
+        content:
+          "20+ years of craftsmanship. Premier residential and commercial remodeling contractor in Neptune, NJ. Fully licensed & insured. Call (732) 677-6674.",
+      },
     ],
     links: [
       {
@@ -242,7 +250,7 @@ export function AboutUsPage() {
         "@id": "https://www.kvpropertyinc.com/#business",
         "name": "KV Property Inc.",
         "url": "https://www.kvpropertyinc.com/about-us",
-        "telephone": "+1-732-877-8614",
+        "telephone": "+1-732-677-6674",
         "email": "kvpropertyinc@gmail.com",
         "priceRange": "$$",
         "description":
@@ -388,11 +396,11 @@ export function AboutUsPage() {
                 <ArrowRight className="w-4 h-4 shrink-0 transition-transform group-hover:translate-x-1" />
               </Link>
               <a
-                href="tel:7328778614"
+                href="tel:7326776674"
                 className="inline-flex items-center justify-center gap-2.5 rounded-full border border-white/25 bg-white/10 backdrop-blur-md hover:bg-white hover:text-neutral-950 px-7 sm:px-9 py-3.5 sm:py-4 text-white text-xs sm:text-sm font-bold uppercase tracking-wider hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 shadow-md cursor-pointer text-center"
               >
                 <Phone className="w-4 h-4 fill-current text-[#ffa326] shrink-0" />
-                <span>Call (732) 877-8614</span>
+                <span>Call (732) 677-6674</span>
               </a>
             </motion.div>
           </div>
@@ -1068,7 +1076,7 @@ export function AboutUsPage() {
 
               <div className="grid sm:grid-cols-2 gap-4 sm:gap-5 text-sm sm:text-[15px] font-light">
                 <a
-                  href="tel:7328778614"
+                  href="tel:7326776674"
                   className="flex items-center gap-3 text-neutral-200 hover:text-[#ffa326] transition-colors p-2.5 rounded-xl hover:bg-white/5 border border-transparent hover:border-white/10"
                 >
                   <div className="w-9 h-9 rounded-full bg-[#ffa326]/20 flex items-center justify-center shrink-0">
@@ -1076,7 +1084,7 @@ export function AboutUsPage() {
                   </div>
                   <div>
                     <div className="text-[10px] uppercase tracking-wider text-neutral-400 font-bold">Phone</div>
-                    <div className="font-semibold text-white">(732) 877-8614</div>
+                    <div className="font-semibold text-white">(732) 677-6674</div>
                   </div>
                 </a>
 
@@ -1115,11 +1123,11 @@ export function AboutUsPage() {
                 <ArrowRight className="w-4 h-4" />
               </Link>
               <a
-                href="tel:7328778614"
+                href="tel:7326776674"
                 className="inline-flex items-center justify-center gap-2 rounded-full border border-white/30 bg-white/10 hover:bg-white hover:text-neutral-900 px-8 py-4 text-white text-xs sm:text-sm font-bold tracking-wider uppercase transition-all duration-300 shadow-md hover:scale-[1.03] active:scale-[0.98] cursor-pointer"
               >
                 <Phone className="w-4 h-4 fill-current text-[#ffa326]" />
-                <span>Call Now: (732) 877-8614</span>
+                <span>Call Now: (732) 677-6674</span>
               </a>
             </div>
 

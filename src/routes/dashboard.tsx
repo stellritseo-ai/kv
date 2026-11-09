@@ -107,8 +107,8 @@ const formatChatTime = (timestamp: string) => {
 export const Route = createFileRoute("/dashboard")({
   head: () => ({
     meta: [
-      { title: "Ronnie's Office — Right Lane Handyman Services, LLC Admin Portal" },
-      { name: "description", content: "Internal business management console for Right Lane Handyman Services, LLC." }
+      { title: "Dashboard — KV Property Inc. Admin Portal" },
+      { name: "description", content: "Internal business management console for KV Property Inc." }
     ],
   }),
   component: DashboardPage,
@@ -982,13 +982,13 @@ function DashboardPage() {
 
   // Settings mock state
   const [settings, setSettings] = useState({
-    adminEmail: "rightlanehandymanservice@yahoo.com",
-    officePhone: "(727) 642-0201",
-    autoSmsTemplate: "Hi {Name}, thank you for contacting Right Lane Handyman Services, LLC! Right Lane Handyman will contact you during the {Time} to discuss your {Type} project.",
+    adminEmail: "kvpropertyinc@gmail.com",
+    officePhone: "(732) 677-6674",
+    autoSmsTemplate: "Hi {Name}, thank you for contacting KV Property Inc.! We will contact you during the {Time} to discuss your {Type} project.",
     sendAutoEmail: true,
     sendAutoSms: true,
-    hoursWeekday: "8:00 AM - 5:00 PM",
-    hoursSaturday: "8:00 AM - 5:00 PM",
+    hoursWeekday: "8:00 AM - 6:00 PM",
+    hoursSaturday: "8:00 AM - 6:00 PM",
     hoursSunday: "Closed (Emergency 24/7)"
   });
 
@@ -1018,19 +1018,19 @@ function DashboardPage() {
       <header className="bg-[#1c140d] text-white py-4 px-6 md:px-12 flex items-center justify-between shadow-md shrink-0 border-b border-neutral-800">
         <div className="flex items-center gap-3">
           <Link to="/" className="hover:opacity-85 transition-opacity">
-            <img src={logo} alt="Right Lane" className="h-10 w-auto object-contain brightness-110" />
+            <img src={logo} alt="KV Property Inc." className="h-10 w-auto object-contain brightness-110" />
           </Link>
           <div className="hidden sm:block h-5 w-[1px] bg-neutral-700 mx-2" />
           <div className="hidden sm:block">
             <h2 className="text-sm font-semibold tracking-wider text-[#ffa326] uppercase">Admin Portal</h2>
-            <p className="text-[10px] text-neutral-400 font-light">Ronnie's Office v1.2</p>
+            <p className="text-[10px] text-neutral-400 font-light">KV Property Office v1.2</p>
           </div>
         </div>
 
         <div className="flex items-center gap-4">
           <div className="text-right hidden md:block">
             <p className="text-xs font-semibold text-neutral-200 capitalize">
-              {currentUser?.username || "Right Lane Handyman"}
+              {currentUser?.username || "KV Property Admin"}
             </p>
             <p className="text-[10px] text-neutral-400 capitalize">
               {currentUser?.role ? `${currentUser.role} Account` : "Owner & Administrator"}
@@ -1181,7 +1181,7 @@ function DashboardPage() {
                 Log leads, check performance logs, moderate public review widgets, and track conversion values in real time.
               </p>
               <a
-                href="tel:7276420201"
+                href="tel:7326776674"
                 className="block text-center text-[10px] font-bold text-[#cc7e14] border border-[#ffa326]/30 hover:bg-[#ffa326]/5 py-1.5 rounded-lg mt-2 transition-all"
               >
                 Call Support
@@ -1725,7 +1725,7 @@ function DashboardPage() {
                             <div className="absolute left-0 top-0 bottom-0 w-[3px] bg-[#ffa326] rounded-full" />
                             <div className="flex items-center gap-1.5 text-[#cc7e14] font-bold text-[10px] uppercase tracking-wider">
                               <Building className="h-3 w-3" />
-                              <span>Owner Reply (Right Lane Handyman)</span>
+                              <span>Owner Reply (KV Property Inc.)</span>
                             </div>
                             <p className="text-xs text-neutral-600 leading-relaxed font-light font-sans">
                               "{review.replyText}"
@@ -2514,7 +2514,7 @@ function DashboardPage() {
                           <input
                             type="text"
                             required
-                            placeholder="e.g. Right Lane Assistant"
+                            placeholder="e.g. KV Property Assistant"
                             value={addUsername}
                             onChange={(e) => setAddUsername(e.target.value)}
                             className="w-full bg-[#fbfaf7] rounded-lg border border-neutral-200 px-3.5 py-2 text-xs text-neutral-800 focus:outline-none focus:ring-1 focus:ring-[#ffa326]"

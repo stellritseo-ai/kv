@@ -22,7 +22,7 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Transforming homes and commercial spaces with professional remodeling, construction, handyman, and property improvement services in Neptune, NJ and surrounding 25-mile area. 20+ Years Experience. Call (732) 877-8614.",
+          "Transforming homes and commercial spaces with professional remodeling, construction, handyman, and property improvement services in Neptune, NJ and surrounding 25-mile area. 20+ Years Experience. Call (732) 677-6674.",
       },
       { property: "og:title", content: "KV Property Inc | Built With Purpose. Crafted To Last." },
       {
@@ -32,6 +32,14 @@ export const Route = createFileRoute("/")({
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://www.kvpropertyinc.com/" },
+      { property: "og:site_name", content: "KV Property Inc." },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "KV Property Inc. | Built With Purpose. Crafted To Last." },
+      {
+        name: "twitter:description",
+        content:
+          "Transforming homes and commercial spaces with professional remodeling, construction, handyman, and property improvement services in Neptune, NJ. Call (732) 677-6674.",
+      },
     ],
     links: [
       {
@@ -78,7 +86,7 @@ const HOMEPAGE_FAQS = [
   },
   {
     question: "How do I get started?",
-    answer: "Call (732) 877-8614 or complete our free estimate form to discuss your project and request an estimate.",
+    answer: "Call (732) 677-6674 or complete our free estimate form to discuss your project and request an estimate.",
   },
 ];
 

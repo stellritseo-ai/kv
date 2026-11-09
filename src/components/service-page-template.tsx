@@ -120,7 +120,7 @@ export function ServicePageTemplate({ data }: { data: ServicePageData }) {
         provider: {
           "@type": "GeneralContractor",
           name: "KV Property Inc.",
-          telephone: "+1-732-877-8614",
+          telephone: "+1-732-677-6674",
           email: "kvpropertyinc@gmail.com",
           address: {
             "@type": "PostalAddress",
@@ -260,11 +260,11 @@ export function ServicePageTemplate({ data }: { data: ServicePageData }) {
                 <ArrowRight className="w-4 h-4 shrink-0" />
               </Link>
               <a
-                href="tel:7328778614"
+                href="tel:7326776674"
                 className="inline-flex items-center justify-center gap-2 rounded-full border border-white/25 bg-white/10 backdrop-blur-md hover:bg-white hover:text-neutral-950 px-7 sm:px-9 py-3.5 sm:py-4 text-white text-xs sm:text-sm font-bold uppercase tracking-wider hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 shadow-md cursor-pointer text-center"
               >
                 <Phone className="w-4 h-4 shrink-0 fill-current text-[#ffa326]" />
-                <span>Call (732) 877-8614</span>
+                <span>Call (732) 677-6674</span>
               </a>
             </motion.div>
           </div>
@@ -701,7 +701,7 @@ export function ServicePageTemplate({ data }: { data: ServicePageData }) {
 
               <div className="grid sm:grid-cols-2 gap-4 sm:gap-5 text-sm sm:text-[15px] font-light">
                 <a
-                  href="tel:7328778614"
+                  href="tel:7326776674"
                   className="flex items-center gap-3 text-neutral-200 hover:text-[#ffa326] transition-colors p-2.5 rounded-xl hover:bg-white/5 border border-transparent hover:border-white/10"
                 >
                   <div className="w-9 h-9 rounded-full bg-[#ffa326]/20 flex items-center justify-center shrink-0">
@@ -709,7 +709,7 @@ export function ServicePageTemplate({ data }: { data: ServicePageData }) {
                   </div>
                   <div>
                     <div className="text-[10px] uppercase tracking-wider text-neutral-400 font-bold">Phone</div>
-                    <div className="font-semibold text-white">(732) 877-8614</div>
+                    <div className="font-semibold text-white">(732) 677-6674</div>
                   </div>
                 </a>
 
@@ -748,11 +748,11 @@ export function ServicePageTemplate({ data }: { data: ServicePageData }) {
                 <ArrowRight className="w-4 h-4" />
               </Link>
               <a
-                href="tel:7328778614"
+                href="tel:7326776674"
                 className="inline-flex items-center justify-center gap-2 rounded-full border border-white/30 bg-white/10 hover:bg-white hover:text-neutral-900 px-8 py-4 text-white text-xs sm:text-sm font-bold tracking-wider uppercase transition-all duration-300 shadow-md hover:scale-[1.03] active:scale-[0.98] cursor-pointer"
               >
                 <Phone className="w-4 h-4 fill-current text-[#ffa326]" />
-                <span>Call Now: (732) 877-8614</span>
+                <span>Call Now: (732) 677-6674</span>
               </a>
             </div>
           </motion.div>

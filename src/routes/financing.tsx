@@ -50,7 +50,7 @@ export const Route = createFileRoute("/financing")({
       {
         name: "description",
         content:
-          "Don't let budget hold you back. Finance your kitchen, bath, addition, or commercial project with KV Property Inc. Flexible terms, competitive rates, and fast pre-qualification in Neptune, NJ. Call (732) 877-8614.",
+          "Don't let budget hold you back. Finance your kitchen, bath, addition, or commercial project with KV Property Inc. Flexible terms, competitive rates, and fast pre-qualification in Neptune, NJ. Call (732) 677-6674.",
       },
       {
         property: "og:title",
@@ -64,6 +64,17 @@ export const Route = createFileRoute("/financing")({
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://www.kvpropertyinc.com/financing" },
+      { property: "og:site_name", content: "KV Property Inc." },
+      { name: "twitter:card", content: "summary_large_image" },
+      {
+        name: "twitter:title",
+        content: "Financing: Flexible Options for Your Dream Renovation | KV Property Inc",
+      },
+      {
+        name: "twitter:description",
+        content:
+          "Finance your kitchen, bath, addition, or commercial project with KV Property Inc. Flexible terms, competitive rates in Neptune, NJ. Call (732) 677-6674.",
+      },
     ],
     links: [
       {
@@ -259,7 +270,7 @@ export function FinancingPage() {
         provider: {
           "@type": "GeneralContractor",
           name: "KV Property Inc.",
-          telephone: "+1-732-877-8614",
+          telephone: "+1-732-677-6674",
           email: "kvpropertyinc@gmail.com",
           address: {
             "@type": "PostalAddress",
@@ -958,7 +969,7 @@ export function FinancingPage() {
 
               <div className="grid sm:grid-cols-2 gap-4 sm:gap-5 text-sm sm:text-[15px] font-light">
                 <a
-                  href="tel:7328778614"
+                  href="tel:7326776674"
                   className="flex items-center gap-3 text-neutral-200 hover:text-[#ffa326] transition-colors p-2.5 rounded-xl hover:bg-white/5 border border-transparent hover:border-white/10"
                 >
                   <div className="w-9 h-9 rounded-full bg-[#ffa326]/20 flex items-center justify-center shrink-0">
@@ -966,7 +977,7 @@ export function FinancingPage() {
                   </div>
                   <div>
                     <div className="text-[10px] uppercase tracking-wider text-neutral-400 font-bold">Phone</div>
-                    <div className="font-semibold text-white">(732) 877-8614</div>
+                    <div className="font-semibold text-white">(732) 677-6674</div>
                   </div>
                 </a>
 

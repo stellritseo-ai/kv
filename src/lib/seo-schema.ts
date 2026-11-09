@@ -1,62 +1,61 @@
 /**
  * Production-ready Schema.org JSON-LD Structured Data Generators
- * For Right Lane Handyman Services LLC
- * https://www.rightlanehandymanservicellc.com/
+ * For KV Property Inc.
+ * https://www.kvpropertyinc.com/
  */
 
 export const BUSINESS_INFO = {
-  name: "Right Lane Handyman Services LLC",
-  legalName: "Right Lane Handyman Services, LLC",
-  url: "https://www.rightlanehandymanservicellc.com/",
-  domain: "https://www.rightlanehandymanservicellc.com",
-  phone: "(727) 642-0201",
-  telephone: "+1-727-642-0201",
-  email: "rightlanehandymanservice@yahoo.com",
-  owner: "Ronnie Lane",
-  streetAddress: "Clearwater Service Hub",
-  addressLocality: "Clearwater",
-  addressRegion: "FL",
-  postalCode: "33756",
+  name: "KV Property Inc.",
+  legalName: "KV Property Inc.",
+  url: "https://www.kvpropertyinc.com/",
+  domain: "https://www.kvpropertyinc.com",
+  phone: "(732) 677-6674",
+  telephone: "+1-732-677-6674",
+  email: "kvpropertyinc@gmail.com",
+  owner: "KV Property Inc.",
+  streetAddress: "Neptune",
+  addressLocality: "Neptune",
+  addressRegion: "NJ",
+  postalCode: "07753",
   addressCountry: "US",
-  latitude: 27.9659,
-  longitude: -82.8001,
+  latitude: 40.2204,
+  longitude: -74.0329,
   priceRange: "$$",
   openingHours: [
     {
       dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-      opens: "07:00",
-      closes: "19:00",
+      opens: "08:00",
+      closes: "18:00",
     },
   ],
   areaServed: [
-    { "@type": "City", name: "Tampa", sameAs: "https://en.wikipedia.org/wiki/Tampa,_Florida" },
-    { "@type": "AdministrativeArea", name: "Hillsborough County", sameAs: "https://en.wikipedia.org/wiki/Hillsborough_County,_Florida" },
-    { "@type": "AdministrativeArea", name: "Pinellas County", sameAs: "https://en.wikipedia.org/wiki/Pinellas_County,_Florida" },
-    { "@type": "AdministrativeArea", name: "Tampa Bay Area", sameAs: "https://en.wikipedia.org/wiki/Tampa_Bay_area" },
-    { "@type": "City", name: "Clearwater" },
-    { "@type": "City", name: "St. Petersburg" },
-    { "@type": "City", name: "Brandon" },
-    { "@type": "City", name: "Riverview" },
-    { "@type": "City", name: "Largo" },
-    { "@type": "City", name: "Palm Harbor" },
-    { "@type": "City", name: "Tarpon Springs" },
-    { "@type": "City", name: "Dunedin" },
-    { "@type": "City", name: "Pinellas Park" },
+    { "@type": "City", name: "Neptune", sameAs: "https://en.wikipedia.org/wiki/Neptune_Township,_New_Jersey" },
+    { "@type": "City", name: "Neptune City" },
+    { "@type": "City", name: "Asbury Park" },
+    { "@type": "City", name: "Ocean Grove" },
+    { "@type": "City", name: "Bradley Beach" },
+    { "@type": "City", name: "Belmar" },
+    { "@type": "City", name: "Wall Township" },
+    { "@type": "City", name: "Tinton Falls" },
+    { "@type": "City", name: "Freehold" },
+    { "@type": "City", name: "Howell" },
+    { "@type": "AdministrativeArea", name: "Monmouth County", sameAs: "https://en.wikipedia.org/wiki/Monmouth_County,_New_Jersey" },
+    { "@type": "AdministrativeArea", name: "Ocean County", sameAs: "https://en.wikipedia.org/wiki/Ocean_County,_New_Jersey" },
+    { "@type": "AdministrativeArea", name: "Jersey Shore" },
   ],
   sameAs: [
     "https://facebook.com",
     "https://instagram.com",
-    "https://youtube.com",
   ],
 };
 
 /**
- * Generates LocalBusiness & Handyman Organization JSON-LD Schema
+ * Generates LocalBusiness & GeneralContractor JSON-LD Schema
  */
 export function getLocalBusinessSchema() {
   return {
     "@context": "https://schema.org",
-    "@type": ["LocalBusiness", "HomeAndConstructionBusiness", "Handyman"],
+    "@type": ["HomeAndConstructionBusiness", "GeneralContractor", "LocalBusiness"],
     "@id": `${BUSINESS_INFO.domain}/#business`,
     name: BUSINESS_INFO.name,
     legalName: BUSINESS_INFO.legalName,
@@ -67,15 +66,9 @@ export function getLocalBusinessSchema() {
     image: `${BUSINESS_INFO.domain}/assets/wel-bg.png`,
     logo: `${BUSINESS_INFO.domain}/assets/logo.png`,
     description:
-      "Right Lane Handyman Services LLC provides top-rated handyman services, residential home repair, property maintenance, demolition, pressure washing, junk removal, and post-construction cleaning throughout Tampa, Hillsborough County, Pinellas County, and the Tampa Bay Area.",
-    founder: {
-      "@type": "Person",
-      name: BUSINESS_INFO.owner,
-      jobTitle: "Founder & Master Craftsman",
-    },
+      "KV Property Inc. delivers premier residential and commercial remodeling, general contracting, kitchen & bathroom renovations, custom home additions, deck construction, and property improvements in Neptune, NJ and surrounding 25-mile communities across Monmouth and Ocean counties. 20+ years of craftsmanship. Licensed and insured.",
     address: {
       "@type": "PostalAddress",
-      streetAddress: BUSINESS_INFO.streetAddress,
       addressLocality: BUSINESS_INFO.addressLocality,
       addressRegion: BUSINESS_INFO.addressRegion,
       postalCode: BUSINESS_INFO.postalCode,
@@ -86,13 +79,21 @@ export function getLocalBusinessSchema() {
       latitude: BUSINESS_INFO.latitude,
       longitude: BUSINESS_INFO.longitude,
     },
-    areaServed: BUSINESS_INFO.areaServed,
+    areaServed: {
+      "@type": "GeoCircle",
+      geoMidpoint: {
+        "@type": "GeoCoordinates",
+        latitude: BUSINESS_INFO.latitude,
+        longitude: BUSINESS_INFO.longitude,
+      },
+      geoRadius: "40000",
+    },
     openingHoursSpecification: [
       {
         "@type": "OpeningHoursSpecification",
         dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-        opens: "07:00",
-        closes: "19:00",
+        opens: "08:00",
+        closes: "18:00",
       },
     ],
     sameAs: BUSINESS_INFO.sameAs,
@@ -109,7 +110,8 @@ export function getWebSiteSchema() {
     "@id": `${BUSINESS_INFO.domain}/#website`,
     url: BUSINESS_INFO.url,
     name: BUSINESS_INFO.name,
-    description: "Clearwater & Tampa's Premier Licensed, Insured & Bonded Handyman and Home Repair Specialist.",
+    description:
+      "Neptune, NJ's Premier Licensed & Insured Remodeling, General Contracting and Property Improvement Contractor.",
     publisher: {
       "@id": `${BUSINESS_INFO.domain}/#business`,
     },
@@ -144,7 +146,7 @@ export function getServiceSchema({
     url: `${BUSINESS_INFO.domain}${url}`,
     image: image ? `${BUSINESS_INFO.domain}${image}` : `${BUSINESS_INFO.domain}/assets/wel-bg.png`,
     provider: {
-      "@type": ["LocalBusiness", "Handyman"],
+      "@type": ["HomeAndConstructionBusiness", "GeneralContractor", "LocalBusiness"],
       "@id": `${BUSINESS_INFO.domain}/#business`,
       name: BUSINESS_INFO.name,
       telephone: BUSINESS_INFO.telephone,

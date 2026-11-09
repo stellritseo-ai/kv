@@ -60,6 +60,14 @@ export const Route = createFileRoute("/services")({
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://www.kvpropertyinc.com/services" },
+      { property: "og:site_name", content: "KV Property Inc." },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Our Services | Remodeling & Construction | KV Property Inc." },
+      {
+        name: "twitter:description",
+        content:
+          "Explore residential and commercial remodeling, construction, and property maintenance services from KV Property Inc. in Neptune, NJ.",
+      },
     ],
     links: [
       {
@@ -350,11 +358,11 @@ export function ServicesPage() {
                 <ArrowRight className="w-4 h-4" />
               </Link>
               <a
-                href="tel:7328778614"
+                href="tel:7326776674"
                 className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 hover:bg-white/10 px-7 py-3.5 text-white text-xs sm:text-sm font-bold tracking-wider uppercase transition-all duration-300 backdrop-blur-xs cursor-pointer"
               >
                 <Phone className="w-4 h-4 text-[#ffa326]" />
-                <span>Call (732) 877-8614</span>
+                <span>Call (732) 677-6674</span>
               </a>
             </div>
           </motion.div>
@@ -590,7 +598,7 @@ export function ServicesPage() {
 
               <div className="grid sm:grid-cols-2 gap-4 text-sm sm:text-[15px] font-light">
                 <a
-                  href="tel:7328778614"
+                  href="tel:7326776674"
                   className="flex items-center gap-3 text-neutral-200 hover:text-[#ffa326] transition-colors p-2.5 rounded-xl hover:bg-white/5 border border-transparent hover:border-white/10"
                 >
                   <div className="w-9 h-9 rounded-full bg-[#ffa326]/20 flex items-center justify-center shrink-0">
@@ -598,7 +606,7 @@ export function ServicesPage() {
                   </div>
                   <div>
                     <div className="text-[10px] uppercase tracking-wider text-neutral-400 font-bold">Phone</div>
-                    <div className="font-semibold text-white">(732) 877-8614</div>
+                    <div className="font-semibold text-white">(732) 677-6674</div>
                   </div>
                 </a>
 
@@ -636,11 +644,11 @@ export function ServicesPage() {
                 <ArrowRight className="w-4 h-4" />
               </Link>
               <a
-                href="tel:7328778614"
+                href="tel:7326776674"
                 className="inline-flex items-center justify-center gap-2 rounded-full border border-white/30 bg-white/10 hover:bg-white hover:text-neutral-900 px-8 py-4 text-white text-xs sm:text-sm font-bold tracking-wider uppercase transition-all duration-300 shadow-md hover:scale-[1.03] active:scale-[0.98] cursor-pointer"
               >
                 <Phone className="w-4 h-4 fill-current text-[#ffa326]" />
-                <span>Call Now: (732) 877-8614</span>
+                <span>Call Now: (732) 677-6674</span>
               </a>
             </div>
           </motion.div>

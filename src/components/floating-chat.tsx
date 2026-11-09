@@ -73,7 +73,7 @@ export function FloatingChat() {
   useEffect(() => {
     if (typeof window === "undefined") return;
 
-    const sessionId = localStorage.getItem("rightlane-client-chat-session-id");
+    const sessionId = localStorage.getItem("kvproperty-client-chat-session-id");
     
     const initializeChat = async () => {
       const currentSession = sessionId ? await getChatSessionById(sessionId) : null;
@@ -96,7 +96,7 @@ export function FloatingChat() {
     try {
       const newSession = await createChatSession(
         preChatData.name,
-        "Clearwater",
+        "Neptune",
         preChatData.email,
         preChatData.phone || "N/A"
       );
@@ -105,10 +105,10 @@ export function FloatingChat() {
       const welcomed = await sendChatMessage(
         newSession.id,
         "admin",
-        "Hi there! Welcome to Right Lane Emergency Cleanup & Hauling. How can we help you with your cleanup, hauling, or pressure washing project today?"
+        "Hi there! Welcome to KV Property Inc. How can we help you with your remodeling, construction, or property improvement project today?"
       );
 
-      localStorage.setItem("rightlane-client-chat-session-id", newSession.id);
+      localStorage.setItem("kvproperty-client-chat-session-id", newSession.id);
       setChatSession(welcomed || newSession);
       setShowPreChatForm(false);
     } catch (error) {
@@ -225,14 +225,14 @@ export function FloatingChat() {
     }
   };
 
-  const whatsappNumber = "17276420201";
-  const defaultMessage = "Hi, I'm interested in your handyman and remodeling services.";
+  const whatsappNumber = "17326776674";
+  const defaultMessage = "Hi, I'm interested in your remodeling and property improvement services.";
   const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(defaultMessage)}`;
 
   // Translations
   const t = {
-    title: "Right Lane Assistant",
-    subtitle: "Online · Right Lane Support",
+    title: "KV Property Assistant",
+    subtitle: "Online · KV Property Support",
     inputPlaceholder: "Type a message...",
     tooltip: "Have questions? Chat with us!",
     whatsappBtn: "Chat on WhatsApp",
@@ -267,7 +267,7 @@ export function FloatingChat() {
             <div className="relative">
               <img 
                 src={logo} 
-                alt="Right Lane Handyman Services" 
+                alt="KV Property Inc." 
                 className="h-10 w-10 rounded-full object-cover bg-white border-2 border-white/20" 
               />
               <span className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 rounded-full border-2 border-[#2c241d]"></span>
@@ -357,7 +357,7 @@ export function FloatingChat() {
                     </span>
 
                     {/* Show Quick Action Buttons under specific Bot messages */}
-                    {msg.sender === "admin" && msg.text.includes("Welcome to Right Lane") && (
+                    {msg.sender === "admin" && msg.text.includes("Welcome to KV Property Inc") && (
                       <div className="mt-3 space-y-2 w-[85%]">
                         {/* WhatsApp */}
                         <a 

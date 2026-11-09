@@ -27,7 +27,7 @@ function NotFoundComponent() {
           Page Not Found
         </h1>
         <p className="mt-3 text-sm md:text-base text-neutral-600 leading-relaxed">
-          Sorry, the page you're looking for doesn't exist or has moved. Let's get you back in the right lane!
+          Sorry, the page you're looking for doesn't exist or has moved. Let's get you back to KV Property Inc!
         </p>
 
         {/* Helpful Navigation Links */}
@@ -66,11 +66,11 @@ function NotFoundComponent() {
         <div className="mt-8 pt-6 border-t border-neutral-100 flex flex-col sm:flex-row items-center justify-between gap-4">
           <span className="text-xs text-neutral-500 font-medium">Need immediate assistance?</span>
           <a
-            href="tel:7276420201"
+            href="tel:7326776674"
             className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#ffa326] hover:bg-[#cc7e14] text-white font-bold text-xs uppercase tracking-wider transition-all shadow-md"
           >
             <Phone className="w-3.5 h-3.5 fill-current" />
-            <span>Call (727) 642-0201</span>
+            <span>Call (732) 677-6674</span>
           </a>
         </div>
       </div>
@@ -129,33 +129,34 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       {
         name: "google-site-verification",
-        content: "i8ZhaCS21R9Qi6xirV560hMXtBSHj3nQG7uquvZ8DdA",
+        content: "e1QAjye8TBtnqDDhUqwuXPnCqszQPj9R-5GSBlUVftI",
       },
-      { title: "Handyman in Tampa, FL | Right Lane Handyman Services" },
+      { title: "Remodeling & Construction in Neptune, NJ | KV Property Inc." },
       {
         name: "description",
         content:
-          "Professional handyman, home repair & property maintenance in Tampa, FL & Tampa Bay Area. 25+ years experience. Licensed, insured & bonded. Call (727) 642-0201.",
+          "Professional residential & commercial remodeling, construction, handyman services, and property maintenance in Neptune, NJ & surrounding 25-mile area. 20+ years experience. Licensed & insured. Call (732) 677-6674.",
       },
-      { name: "author", content: "Right Lane Handyman Services LLC" },
-      { name: "geo.region", content: "US-FL" },
-      { name: "geo.placename", content: "Tampa, Clearwater, St. Petersburg" },
-      { name: "geo.position", content: "27.9659;-82.8001" },
-      { name: "ICBM", content: "27.9659, -82.8001" },
-      { property: "og:title", content: "Right Lane Handyman Services LLC | Handyman Services Tampa, FL" },
+      { name: "author", content: "KV Property Inc." },
+      { name: "geo.region", content: "US-NJ" },
+      { name: "geo.placename", content: "Neptune, Monmouth County, New Jersey" },
+      { name: "geo.position", content: "40.2204;-74.0329" },
+      { name: "ICBM", content: "40.2204, -74.0329" },
+      { property: "og:title", content: "KV Property Inc. | Built With Purpose. Crafted To Last." },
       {
         property: "og:description",
         content:
-          "Clearwater & Tampa's premier licensed, insured & bonded handyman and property maintenance company. 25+ years experience. Call (727) 642-0201.",
+          "Premier residential & commercial remodeling, general contracting, and property improvements in Neptune, NJ and surrounding communities. Call (732) 677-6674.",
       },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: "https://www.rightlanehandymanservicellc.com/" },
-      { property: "og:site_name", content: "Right Lane Handyman Services LLC" },
+      { property: "og:url", content: "https://www.kvpropertyinc.com/" },
+      { property: "og:site_name", content: "KV Property Inc." },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "Right Lane Handyman Services LLC | Tampa, FL" },
+      { name: "twitter:title", content: "KV Property Inc. | Neptune, NJ Remodeling & Construction" },
       {
         name: "twitter:description",
-        content: "25+ years of trusted handyman services & home repairs in Tampa Bay. Licensed, insured & bonded. Call (727) 642-0201.",
+        content:
+          "20+ years of trusted remodeling, home additions, general contracting, and property improvements in Neptune, NJ. Call (732) 677-6674.",
       },
     ],
     links: [
@@ -166,7 +167,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
       {
         rel: "canonical",
-        href: "https://www.rightlanehandymanservicellc.com/",
+        href: "https://www.kvpropertyinc.com/",
       },
       {
         rel: "preconnect",

@@ -278,10 +278,10 @@ export function SiteHeader() {
                               </span>
                               <span className="font-medium">24/7 Emergency Service:</span>
                               <a
-                                href="tel:7328778614"
+                                href="tel:7326776674"
                                 className="font-bold text-white hover:text-[#ffa326] transition-colors select-none cursor-pointer"
                               >
-                                (732) 877-8614
+                                (732) 677-6674
                               </a>
                             </div>
                             <Link
@@ -331,7 +331,7 @@ export function SiteHeader() {
 
               {/* Direct Call Button with Live Dot */}
               <a
-                href="tel:7328778614"
+                href="tel:7326776674"
                 className="group flex items-center gap-2 rounded-full bg-neutral-900 hover:bg-neutral-800 border border-neutral-700/80 text-white px-4 xl:px-5 py-2.5 text-xs sm:text-[13px] font-bold tracking-wide shadow-[0_3px_12px_rgba(0,0,0,0.10)] hover:shadow-[0_6px_18px_rgba(0,0,0,0.18)] hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 select-none cursor-pointer"
               >
                 <span className="relative flex h-2 w-2 mr-0.5">
@@ -339,14 +339,14 @@ export function SiteHeader() {
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-[#ffa326]"></span>
                 </span>
                 <Phone className="h-3.5 w-3.5 text-[#ffa326] fill-[#ffa326]/20 transition-transform duration-300 group-hover:scale-110" />
-                <span>(732) 877-8614</span>
+                <span>(732) 677-6674</span>
               </a>
             </div>
 
             {/* Mobile Controls */}
             <div className="lg:hidden flex items-center gap-2 sm:gap-2.5">
               <a
-                href="tel:7328778614"
+                href="tel:7326776674"
                 className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-r from-[#ffa326] to-[#cc7e14] text-white shadow-md transition-all duration-200 hover:scale-105 active:scale-95 cursor-pointer"
                 aria-label="Call KV Property Inc"
               >
@@ -551,12 +551,12 @@ export function SiteHeader() {
                   <ArrowRight className="h-3.5 w-3.5" />
                 </Link>
                 <a
-                  href="tel:7328778614"
+                  href="tel:7326776674"
                   onClick={closeMenu}
                   className="flex items-center justify-center gap-2.5 w-full rounded-xl bg-neutral-900 hover:bg-neutral-800 py-3.5 text-white text-[13px] font-bold tracking-wide shadow-sm hover:shadow-md active:scale-[0.98] transition-all duration-200 cursor-pointer"
                 >
                   <Phone className="h-3.5 w-3.5 text-[#ffa326] fill-[#ffa326]/30" />
-                  <span>Call (732) 877-8614</span>
+                  <span>Call (732) 677-6674</span>
                 </a>
               </div>
             </motion.div>
