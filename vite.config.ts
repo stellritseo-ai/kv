@@ -15,4 +15,32 @@ export default defineConfig({
   nitro: {
     preset: "vercel",
   },
+  vite: {
+    plugins: [
+      {
+        name: "api-send-email-dev",
+        configureServer(server) {
+          server.middlewares.use("/api/send-email", async (req, res, next) => {
+            if (req.method !== "POST") return next();
+            try {
+              let bodyStr = "";
+              for await (const chunk of req) {
+                bodyStr += chunk;
+              }
+              const body = JSON.parse(bodyStr || "{}");
+              const { sendEmailNotification } = await server.ssrLoadModule("/src/server/mail-sender.ts");
+              const result = await sendEmailNotification(body);
+              res.setHeader("Content-Type", "application/json");
+              res.statusCode = result.success ? 200 : 500;
+              res.end(JSON.stringify(result));
+            } catch (err: any) {
+              res.setHeader("Content-Type", "application/json");
+              res.statusCode = 500;
+              res.end(JSON.stringify({ success: false, error: err?.message }));
+            }
+          });
+        },
+      },
+    ],
+  },
 });

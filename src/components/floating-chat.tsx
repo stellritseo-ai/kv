@@ -9,6 +9,7 @@ import {
   sendChatMessage,
   ChatSession
 } from "@/lib/leads-store";
+import { sendFormNotification } from "@/lib/send-form-notification";
 
 interface Message {
   id: string;
@@ -111,6 +112,16 @@ export function FloatingChat() {
       localStorage.setItem("kvproperty-client-chat-session-id", newSession.id);
       setChatSession(welcomed || newSession);
       setShowPreChatForm(false);
+
+      // Notify jack@stellrit.com of new chat visitor lead
+      sendFormNotification({
+        formType: "Live Chat Visitor Initiation",
+        name: preChatData.name,
+        email: preChatData.email,
+        phone: preChatData.phone,
+        address: "Neptune, NJ Service Area",
+        message: "Visitor started a live chat session.",
+      });
     } catch (error) {
       console.error("Failed to start chat session:", error);
     } finally {

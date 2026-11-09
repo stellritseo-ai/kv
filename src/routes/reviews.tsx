@@ -2,6 +2,7 @@ import { useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
+import { sendFormNotification } from "@/lib/send-form-notification";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Star,
@@ -220,6 +221,15 @@ export function ReviewsPage() {
 
   const handleReviewSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
+    sendFormNotification({
+      formType: "Customer Review Submission",
+      name: newReview.name,
+      service: newReview.service || "General Remodeling",
+      rating: newReview.rating,
+      message: newReview.comment,
+    });
+
     setReviewSubmitted(true);
     setTimeout(() => {
       setIsReviewModalOpen(false);

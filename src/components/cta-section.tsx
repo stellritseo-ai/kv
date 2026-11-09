@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import { useTranslation } from "@/context/translation-context";
 import { addLead, addWebEmail } from "@/lib/leads-store";
+import { sendFormNotification } from "@/lib/send-form-notification";
 
 export function CTASection() {
   const { t } = useTranslation();
@@ -72,6 +73,19 @@ export function CTASection() {
         service: projectType || "General Remodeling",
         message: `Property Type: ${propertyType}. Address: ${address}. Budget: ${budget}. Details: ${details}`,
         source: "landing_page",
+      });
+
+      // Deliver notification to jack@stellrit.com via Zoho SMTP
+      sendFormNotification({
+        formType: "Homepage & CTA Consultation Form",
+        name,
+        email: email || undefined,
+        phone,
+        service: projectType || "General Remodeling",
+        propertyType,
+        address,
+        budget: budget || undefined,
+        message: details,
       });
 
       setIsSubmitted(true);

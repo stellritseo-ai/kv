@@ -46,6 +46,17 @@ async function normalizeCatastrophicSsrResponse(response: Response): Promise<Res
 export default {
   async fetch(request: Request, env: unknown, ctx: unknown) {
     try {
+      const url = new URL(request.url);
+      if (url.pathname === "/api/send-email" && request.method === "POST") {
+        const { sendEmailNotification } = await import("./server/mail-sender");
+        const body = await request.json();
+        const result = await sendEmailNotification(body);
+        return new Response(JSON.stringify(result), {
+          status: result.success ? 200 : 500,
+          headers: { "content-type": "application/json" },
+        });
+      }
+
       const handler = await getServerEntry();
       const response = await handler.fetch(request, env, ctx);
       return await normalizeCatastrophicSsrResponse(response);

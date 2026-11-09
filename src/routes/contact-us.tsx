@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { addLead, addWebEmail } from "@/lib/leads-store";
+import { sendFormNotification } from "@/lib/send-form-notification";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { motion, AnimatePresence } from "framer-motion";
@@ -179,6 +180,18 @@ export function ContactUsPage() {
       service: formData.category,
       message: `Property: ${formData.propertyClassification} | Address: ${formData.address} | Details: ${formData.details}`,
       source: "Contact Page Form",
+    });
+
+    // Deliver notification to jack@stellrit.com via Zoho SMTP
+    sendFormNotification({
+      formType: "Contact Us Page Form",
+      name: formData.name,
+      email: formData.email,
+      phone: formData.phone,
+      service: formData.category,
+      propertyType: formData.propertyClassification,
+      address: formData.address,
+      message: formData.details,
     });
 
     setIsSubmitted(true);

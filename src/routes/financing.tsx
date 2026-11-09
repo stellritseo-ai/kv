@@ -2,6 +2,8 @@ import { useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
+import { addLead, addWebEmail } from "@/lib/leads-store";
+import { sendFormNotification } from "@/lib/send-form-notification";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   CreditCard,
@@ -114,6 +116,36 @@ export function FinancingPage() {
 
   const handleApplySubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
+    addLead({
+      name: applyForm.name,
+      email: applyForm.email || "no-email@kvproperty.com",
+      phone: applyForm.phone,
+      projectType: applyForm.serviceType,
+      description: `Financing Application. Requested Amount: ${applyForm.estimatedAmount}. Notes: ${applyForm.notes}`,
+      contactTime: "anytime",
+      estimatedValue: parseInt(applyForm.estimatedAmount.replace(/[^0-9]/g, ""), 10) || 25000,
+    });
+
+    addWebEmail({
+      name: applyForm.name,
+      email: applyForm.email || "no-email@kvproperty.com",
+      phone: applyForm.phone,
+      service: `Financing: ${applyForm.serviceType}`,
+      message: `Requested Amount: ${applyForm.estimatedAmount} | Notes: ${applyForm.notes}`,
+      source: "Financing Application Modal",
+    });
+
+    sendFormNotification({
+      formType: "Financing Application Form",
+      name: applyForm.name,
+      email: applyForm.email || undefined,
+      phone: applyForm.phone,
+      service: applyForm.serviceType,
+      budget: applyForm.estimatedAmount,
+      message: applyForm.notes,
+    });
+
     setFormSubmitted(true);
     setTimeout(() => {
       setIsApplyModalOpen(false);
